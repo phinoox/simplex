@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>Simplex.Core</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="glTF2Loader" Version="1.0.0" />
+    <PackageReference Include="ObjectTK.NetStandard" Version="1.0.0" />
+    <PackageReference Include="ObjectTK.NetStandard.Tools" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="NanoVGDotNet">
+      <HintPath>..\dependencies\NanoVGDotNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
