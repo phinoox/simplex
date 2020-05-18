@@ -23,11 +23,18 @@ namespace Simplex.Core
         float frameTime=0;
         ApplicationWindow mainWindow;
 
+        static ApplicationBase instance;
+
         public ApplicationWindow MainWindow { get => mainWindow;  }
         public bool ShouldClose { get => shouldClose; set => shouldClose = value; }
+        public static ApplicationBase Instance { get => instance; }
 
         public event EventHandler TickHandler;
 
+        public ApplicationBase()
+        {
+            instance = this;
+        }
         
         private void LoadConfigs() {
             appConfig = new ApplicationConfig();  
@@ -40,6 +47,8 @@ namespace Simplex.Core
             LoadConfigs();
             if(appConfig.Fps!=0)
               frameTime = 1000.0f / appConfig.Fps;
+            mainWindow = new ApplicationWindow(800, 600, "Simplex app");
+            mainWindow.Closed += MainWindow_Closed;
             onInit(args);
             return true;
 
@@ -54,23 +63,24 @@ namespace Simplex.Core
          * starts the main loop
          */
         public void Run() {
-            mainWindow = new ApplicationWindow(800,600,"Simplex app");
-            mainWindow.Closed += MainWindow_Closed;
+           
             startTime = DateTime.Now;
             DateTime lastframe = DateTime.Now;
             
 
-            while (!shouldClose)
+            while (!shouldClose&&mainWindow.Exists)
             {
-                mainWindow.SwapBuffers();
-                mainWindow.ProcessEvents();
                 DateTime tmp = DateTime.Now;
                 float delta = (float)tmp.Subtract(lastframe).TotalMilliseconds;
                 if (frameTime != 0 && delta < frameTime)
                     Thread.Sleep((int)(frameTime - delta));
                 onTick(delta);
+                mainWindow.RenderScene(delta);
+                mainWindow.RenderGui(delta);
+                mainWindow.SwapBuffers();
                 EventHandler handler = TickHandler;
                 handler?.Invoke(this, new FrameEventArgs() {deltaTime=delta });
+                mainWindow.ProcessEvents();
                 
             }
         }

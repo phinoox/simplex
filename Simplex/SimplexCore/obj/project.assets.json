@@ -239,6 +239,15 @@
           "lib/netstandard2.0/OpenTK.dll": {}
         }
       },
+      "PresentationFramework/4.6.0": {
+        "type": "package",
+        "compile": {
+          "lib/PresentationFramework.dll": {}
+        },
+        "runtime": {
+          "lib/PresentationFramework.dll": {}
+        }
+      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
         "type": "package",
         "runtimeTargets": {
@@ -2156,6 +2165,18 @@
         "lib/netstandard2.0/OpenTK.xml",
         "opentk.netstandard.1.0.4.nupkg.sha512",
         "opentk.netstandard.nuspec"
+      ]
+    },
+    "PresentationFramework/4.6.0": {
+      "sha512": "37FpU6XcB1Hgr5X03MgUOxvzWLJYKJP72J3g5hnZHi/DXsTxpJEu4brCGW+TmplVWfntuysO/uRcZcPS9YK0Bw==",
+      "type": "package",
+      "path": "presentationframework/4.6.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/PresentationFramework.dll",
+        "presentationframework.4.6.0.nupkg.sha512",
+        "presentationframework.nuspec"
       ]
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
@@ -6438,6 +6459,7 @@
     ".NETStandard,Version=v2.1": [
       "ObjectTK.NetStandard >= 1.0.0",
       "ObjectTK.NetStandard.Tools >= 1.0.0",
+      "PresentationFramework >= 4.6.0",
       "glTF2Loader >= 1.0.0"
     ]
   },
@@ -6490,6 +6512,10 @@
             "target": "Package",
             "version": "[1.0.0, )"
           },
+          "PresentationFramework": {
+            "target": "Package",
+            "version": "[4.6.0, )"
+          },
           "glTF2Loader": {
             "target": "Package",
             "version": "[1.0.0, )"
@@ -6513,5 +6539,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'PresentationFramework 4.6.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETStandard,Version=v2.1'. This package may not be fully compatible with your project.",
+      "libraryId": "PresentationFramework",
+      "targetGraphs": [
+        ".NETStandard,Version=v2.1"
+      ]
+    }
+  ]
 }

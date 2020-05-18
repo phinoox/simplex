@@ -8,7 +8,12 @@ namespace Simplex.Core.Scene
     public class Scene3D
     {
         SceneNode rootNode = new SceneNode();
-        Camera currentCamera;
-        Renderer sceneRenderer;
+        Camera currentCamera= new Camera();
+        Renderer sceneRenderer = new Renderer();
+
+        public void Render(float delta)
+        {
+            sceneRenderer.Render(currentCamera,delta);
+        }
     }
 }

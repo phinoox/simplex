@@ -9,3 +9,5 @@ C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexCore\bin\De
 C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexCore\obj\Debug\netstandard2.1\SimplexCore.csproj.CopyComplete
 C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexCore\obj\Debug\netstandard2.1\SimplexCore.dll
 C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexCore\obj\Debug\netstandard2.1\SimplexCore.pdb
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexCore\obj\Debug\netstandard2.1\Simplex.Core.CommonRes.resources
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexCore\obj\Debug\netstandard2.1\SimplexCore.csproj.GenerateResource.cache

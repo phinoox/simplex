@@ -9,12 +9,29 @@
     <PackageReference Include="glTF2Loader" Version="1.0.0" />
     <PackageReference Include="ObjectTK.NetStandard" Version="1.0.0" />
     <PackageReference Include="ObjectTK.NetStandard.Tools" Version="1.0.0" />
+    <PackageReference Include="PresentationFramework" Version="4.6.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="NanoVGDotNet">
       <HintPath>..\dependencies\NanoVGDotNet.dll</HintPath>
+      <Private>true</Private>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="CommonRes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CommonRes.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="CommonRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CommonRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="ObjectTK.NetStandard" Version="1.0.0" />
+    <PackageReference Include="OpenTK.NetStandard" Version="1.0.5.12" />
   </ItemGroup>
 
   <ItemGroup>
