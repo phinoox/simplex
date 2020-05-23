@@ -25,4 +25,5 @@ C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexEditor\obj\
 C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexEditor\obj\Debug\netcoreapp3.1\SimplexEditor.pdb
 C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexEditor\bin\Debug\netcoreapp3.1\NanoVGDotNet.dll
 C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexEditor\bin\Debug\netcoreapp3.1\NanoVGDotNet.pdb
-C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexEditor\bin\Debug\netcoreapp3.1\PresentationFramework.dll
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexEditor\bin\Debug\netcoreapp3.1\Portable.Xaml.dll
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexEditor\bin\Debug\netcoreapp3.1\SimplexCore.xml

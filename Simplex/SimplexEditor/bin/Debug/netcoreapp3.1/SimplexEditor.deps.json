@@ -219,11 +219,11 @@
           }
         }
       },
-      "PresentationFramework/4.6.0": {
+      "Portable.Xaml/0.25.0": {
         "runtime": {
-          "lib/PresentationFramework.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.6.81.0"
+          "lib/netstandard2.0/Portable.Xaml.dll": {
+            "assemblyVersion": "0.25.0.0",
+            "fileVersion": "0.25.7418.24621"
           }
         }
       },
@@ -1133,7 +1133,7 @@
         "dependencies": {
           "ObjectTK.NetStandard": "1.0.0",
           "ObjectTK.NetStandard.Tools": "1.0.0",
-          "PresentationFramework": "4.6.0",
+          "Portable.Xaml": "0.25.0",
           "glTF2Loader": "1.0.0"
         },
         "runtime": {
@@ -1247,12 +1247,12 @@
       "path": "opentk.netstandard/1.0.5.12",
       "hashPath": "opentk.netstandard.1.0.5.12.nupkg.sha512"
     },
-    "PresentationFramework/4.6.0": {
+    "Portable.Xaml/0.25.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-37FpU6XcB1Hgr5X03MgUOxvzWLJYKJP72J3g5hnZHi/DXsTxpJEu4brCGW+TmplVWfntuysO/uRcZcPS9YK0Bw==",
-      "path": "presentationframework/4.6.0",
-      "hashPath": "presentationframework.4.6.0.nupkg.sha512"
+      "sha512": "sha512-irHuVNfISvBLHC3meUAyEkWhvIgoGNSfu3ELWIcB4zvrYom4+Cn5TmC63nJWhD6yALjXe5dk/fvjyktD/JiaYA==",
+      "path": "portable.xaml/0.25.0",
+      "hashPath": "portable.xaml.0.25.0.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
       "type": "package",
