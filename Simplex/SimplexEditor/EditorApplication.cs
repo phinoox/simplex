@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Simplex.Core;
+﻿using Simplex.Core;
 using Simplex.Core.Gui;
 using Simplex.Core.Loaders;
 using Simplex.Core.Rendering;
+using System.IO;
 
 namespace Simplex.Editor
 {
-    class EditorApplication : ApplicationBase
+    internal class EditorApplication : ApplicationBase
     {
-        Control ctrl;
-        string scenePath;
-        string guiPath;
-        protected override void onInit(string[] args)
+        #region Private Fields
+
+        private Control ctrl;
+        private string guiPath;
+        private string scenePath;
+
+        #endregion Private Fields
+
+        #region Private Methods
+
+        private void drawGui()
         {
-            base.onInit(args);
-            string sponza = "Data\\sponza\\Sponza.gltf";
-            
-            //ctrl = new Control();
-            MainWindow.FileDrop += MainWindow_FileDrop;
         }
 
         private void MainWindow_FileDrop(object sender, OpenTK.Input.FileDropEventArgs e)
@@ -43,9 +42,17 @@ namespace Simplex.Editor
             }
         }
 
-        private void drawGui()
+        #endregion Private Methods
+
+        #region Protected Methods
+
+        protected override void onInit(string[] args)
         {
-           
+            base.onInit(args);
+            string sponza = "Data\\sponza\\Sponza.gltf";
+
+            //ctrl = new Control();
+            MainWindow.FileDrop += MainWindow_FileDrop;
         }
 
         protected override void onTick(float delta)
@@ -55,5 +62,7 @@ namespace Simplex.Editor
                 this.ShouldClose = true;
             //ctrl.Draw();
         }
+
+        #endregion Protected Methods
     }
 }

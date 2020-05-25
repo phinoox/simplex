@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Simplex.Core.BVT
+﻿namespace Simplex.Core.BVT
 {
-    enum NodeStatus
+    internal enum NodeStatus
     {
         INITIAL,
         RUNNING,

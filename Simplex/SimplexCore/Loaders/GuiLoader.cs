@@ -1,36 +1,35 @@
-﻿using Simplex.Core.Gui;
-using System;
-using System.Collections.Generic;
+﻿using Portable.Xaml;
+using Simplex.Core.Gui;
 using System.IO;
-using System.Text;
-
-using System.Windows.Markup;
 using System.Xml;
 
 namespace Simplex.Core.Loaders
 {
+    /// <summary>
+    /// class for loading gui from xaml files
+    /// </summary>
     public class GuiLoader
     {
+        #region Public Methods
 
+        /// <summary>
+        /// loads a guiwindow from a xaml file
+        /// </summary>
+        /// <param name="filePath">the path to the file</param>
         public void LoadGui(string filePath)
         {
-            Control ctrl = new Control()
-            {
-                Left = 100.0f,
-                Top = 100.0f,
-                Width=200,
-                Height=40,
+            GuiRenderer.DefaultRenderer.Windows.Clear();
+            GuiWindow gwin = new GuiWindow();
 
-            };
-            using (StreamWriter writer = new StreamWriter(filePath))
-            {
-                string savedButton = XamlWriter.Save(ctrl);
-                writer.Write(savedButton);
-            }
-            // Load the button
+            // Load the window
             StringReader stringReader = new StringReader(filePath);
             XmlReader xmlReader = XmlReader.Create(stringReader);
-            Control readerLoadButton = (Control)XamlReader.Load(xmlReader);
+            XamlObjectWriterSettings writerSettings = new XamlObjectWriterSettings();
+
+            GuiWindow readerLoadButton = (GuiWindow)XamlServices.Load(filePath);
+            GuiRenderer.DefaultRenderer.Windows.Add(readerLoadButton);
         }
+
+        #endregion Public Methods
     }
 }

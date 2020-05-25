@@ -1,17 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Simplex.Core.Configs
+﻿namespace Simplex.Core.Configs
 {
+    /// <summary>
+    /// Base configuration for the application
+    /// </summary>
     public sealed class ApplicationConfig
     {
-        string DataDirectory = "Data";
-        string title = "Simplex Application";
-        float fps = 60;
+        #region Private Fields
 
+        private string DataDirectory = "Data";
+        private float fps = 30;
+        private string title = "Simplex Application";
+
+        #endregion Private Fields
+
+        #region Public Properties
+
+        /// <summary>
+        /// the path to the data/assets
+        /// </summary>
         public string DataDirectory1 { get => DataDirectory; set => DataDirectory = value; }
-        public string Title { get => title; set => title = value; }
+
+        /// <summary>
+        /// the fps limit
+        /// </summary>
         public float Fps { get => fps; set => fps = value; }
+
+        /// <summary>
+        /// the title of the application
+        /// </summary>
+        public string Title { get => title; set => title = value; }
+
+        #endregion Public Properties
     }
 }

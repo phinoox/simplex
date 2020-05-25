@@ -1,16 +1,24 @@
 ﻿using NanoVGDotNet.NanoVG;
-using System;
-using System.Resources;
 using System.Collections.Generic;
-using System.Text;
-using System.Reflection;
 
 namespace Simplex.Core.Loaders
 {
+    /// <summary>
+    /// Loader class for loading ttf fonts to be used with nanovg
+    /// </summary>
     public class FontLoader
     {
-        Dictionary<int, string> fonts = new Dictionary<int, string>();
+        #region Private Fields
 
+        private Dictionary<int, string> fonts = new Dictionary<int, string>();
+
+        #endregion Private Fields
+
+        #region Public Methods
+
+        /// <summary>
+        /// loads the defaultfont
+        /// </summary>
         public void LoadDefaults()
         {
             NanoVGDotNet.NanoVG.NvgContext vg = ApplicationBase.Instance.MainWindow.Vg;
@@ -19,5 +27,6 @@ namespace Simplex.Core.Loaders
             int fontId = NanoVg.CreateFont(vg, "sans", "Fonts/OpenSans-Regular.ttf");
         }
 
+        #endregion Public Methods
     }
 }

@@ -1,0 +1,11 @@
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexTestApp\bin\Debug\netcoreapp3.1\SimplexTestApp.exe
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexTestApp\bin\Debug\netcoreapp3.1\SimplexTestApp.deps.json
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexTestApp\bin\Debug\netcoreapp3.1\SimplexTestApp.runtimeconfig.json
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexTestApp\bin\Debug\netcoreapp3.1\SimplexTestApp.runtimeconfig.dev.json
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexTestApp\bin\Debug\netcoreapp3.1\SimplexTestApp.dll
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexTestApp\bin\Debug\netcoreapp3.1\SimplexTestApp.pdb
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexTestApp\obj\Debug\netcoreapp3.1\SimplexTestApp.csprojAssemblyReference.cache
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexTestApp\obj\Debug\netcoreapp3.1\SimplexTestApp.AssemblyInfoInputs.cache
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexTestApp\obj\Debug\netcoreapp3.1\SimplexTestApp.AssemblyInfo.cs
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexTestApp\obj\Debug\netcoreapp3.1\SimplexTestApp.dll
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexTestApp\obj\Debug\netcoreapp3.1\SimplexTestApp.pdb

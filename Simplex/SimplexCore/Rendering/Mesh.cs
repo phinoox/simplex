@@ -1,17 +1,42 @@
-﻿using System;
+﻿using ObjectTK.Buffers;
+using OpenTK;
 using System.Collections.Generic;
-using System.Text;
-using ObjectTK;
-using ObjectTK.Buffers;
 
 namespace Simplex.Core.Rendering
 {
+    /// <summary>
+    /// base class for mesh information
+    /// </summary>
     public class Mesh
     {
-        ObjectTK.Buffers.VertexArray vbo;
-        List<PbrMaterial> materials = new List<PbrMaterial>();
+        #region Private Fields
 
-        public VertexArray Vbo { get => vbo; set => vbo = value; }
+        private List<PbrMaterial> materials = new List<PbrMaterial>();
+        private ObjectTK.Buffers.VertexArray vbo;
+
+        #endregion Private Fields
+
+        #region Public Properties
+
+        /// <summary>
+        /// the materials to be used,
+        /// didn't think this through yet
+        /// </summary>
         public List<PbrMaterial> Materials { get => materials; set => materials = value; }
+
+        /// <summary>
+        /// the vertexbuffer object for the vertices
+        /// </summary>
+        public VertexArray Vbo { get => vbo; set => vbo = value; }
+
+        #endregion Public Properties
+
+        #region Public Methods
+
+        public void Render(Matrix4 mvp)
+        {
+        }
+
+        #endregion Public Methods
     }
 }

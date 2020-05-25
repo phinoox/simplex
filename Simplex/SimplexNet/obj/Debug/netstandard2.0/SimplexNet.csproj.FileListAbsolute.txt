@@ -1,0 +1,8 @@
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexNet\bin\Debug\netstandard2.0\SimplexNet.deps.json
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexNet\bin\Debug\netstandard2.0\SimplexNet.dll
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexNet\bin\Debug\netstandard2.0\SimplexNet.pdb
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexNet\obj\Debug\netstandard2.0\SimplexNet.csprojAssemblyReference.cache
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexNet\obj\Debug\netstandard2.0\SimplexNet.AssemblyInfoInputs.cache
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexNet\obj\Debug\netstandard2.0\SimplexNet.AssemblyInfo.cs
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexNet\obj\Debug\netstandard2.0\SimplexNet.dll
+C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexNet\obj\Debug\netstandard2.0\SimplexNet.pdb

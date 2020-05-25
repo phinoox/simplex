@@ -1,15 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Simplex.Core</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\oemich\Documents\development\private\simplex\Simplex\SimplexCore\SimplexCore.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="glTF2Loader" Version="1.0.0" />
     <PackageReference Include="ObjectTK.NetStandard" Version="1.0.0" />
     <PackageReference Include="ObjectTK.NetStandard.Tools" Version="1.0.0" />
-    <PackageReference Include="PresentationFramework" Version="4.6.0" />
+    <PackageReference Include="Portable.Xaml" Version="0.25.0" />
   </ItemGroup>
 
   <ItemGroup>

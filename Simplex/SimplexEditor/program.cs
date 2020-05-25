@@ -1,15 +1,18 @@
 ﻿using Simplex.Editor;
-using System;
 
 namespace SimplexTestApp
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        #region Private Methods
+
+        private static void Main(string[] args)
         {
             EditorApplication app = new EditorApplication();
             app.Init(args);
             app.Run();
         }
+
+        #endregion Private Methods
     }
 }

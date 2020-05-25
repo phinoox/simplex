@@ -1,21 +1,39 @@
-﻿using System;
+﻿using ObjectTK.Textures;
 using System.Collections.Generic;
-using System.IO;
 using System.Drawing;
-using System.Text;
-using ObjectTK;
-using ObjectTK.Textures;
+using System.IO;
 
 namespace Simplex.Core.Loaders
 {
+    /// <summary>
+    /// class for loading textures via opentk
+    /// </summary>
     public class TextureLoader
     {
-        Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
+        #region Private Fields
 
         private static TextureLoader instance = new TextureLoader();
+        private Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
 
+        #endregion Private Fields
+
+        #region Public Properties
+
+        /// <summary>
+        /// the instance of the textureloader
+        /// ToDo: move to ResourceLoader
+        /// </summary>
         public static TextureLoader Instance { get => instance; }
 
+        #endregion Public Properties
+
+        #region Public Methods
+
+        /// <summary>
+        /// loads a texture from a given filepath
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public Texture2D LoadTexture2D(string path)
         {
             if (textures.ContainsKey(path))
@@ -33,6 +51,6 @@ namespace Simplex.Core.Loaders
             return tex;
         }
 
-
+        #endregion Public Methods
     }
 }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Simplex.Core.Managers
+﻿namespace Simplex.Core.Managers
 {
-    class ModuleManager
+    internal class ModuleManager
     {
     }
 }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Simplex.Core
+﻿namespace Simplex.Core
 {
-    class Config
+    internal class Config
     {
     }
 }
