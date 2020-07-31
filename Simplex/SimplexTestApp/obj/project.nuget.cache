@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "AbkAWF6UwJZgs17yff0rb/zE4iSUDz7ZtT+TVr0dN0kWnCRYwfAY0Cbm7wNVNcyNMFp0DyOgxXos0EsXLa1fgw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\oemich\\Documents\\development\\private\\simplex\\Simplex\\SimplexTestApp\\SimplexTestApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\oemich\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}

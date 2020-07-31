@@ -27,7 +27,7 @@ namespace Simplex.Core.Loaders
         public Mesh LoadMesh(string path)
         {
             Mesh mesh = new Mesh();
-
+            string dirName = Path.GetDirectoryName(path) + "\\";
             if (!File.Exists(path))
                 return mesh;
             glTFLoader.Schema.Gltf gltf = Interface.LoadModel(path);
@@ -41,7 +41,7 @@ namespace Simplex.Core.Loaders
                 int? source = tex.Source;
                 if (!source.HasValue)
                     continue;
-                string fileName = Path.GetDirectoryName(path) + gltf.Images[source.Value].Uri;
+                string fileName = dirName + gltf.Images[source.Value].Uri;
                 textures[textureCount] = TextureLoader.Instance.LoadTexture2D(fileName);
                 textureCount++;
             }
@@ -71,11 +71,33 @@ namespace Simplex.Core.Loaders
             List<Byte[]> buffers = new List<byte[]>();
             foreach (glTFLoader.Schema.Buffer buffer in gltf.Buffers)
             {
-                if (!File.Exists(buffer.Uri))
+                string bufferPath = dirName + buffer.Uri;
+                if (!File.Exists(bufferPath))
                     continue;
-                Byte[] bytes = File.ReadAllBytes(buffer.Uri);
+                Byte[] bytes = File.ReadAllBytes(bufferPath);
                 buffers.Add(bytes);
             }
+
+            List<byte[]> bufferViews = new List<byte[]>();
+
+            foreach(glTFLoader.Schema.BufferView bv in gltf.BufferViews)
+            {
+                byte[] bva = new byte[bv.ByteLength];
+                Array.Copy(buffers[bv.Buffer], bv.ByteOffset, bva, 0, bv.ByteLength);
+                bufferViews.Add(bva);
+            }
+
+            List<object> accessors = new List<object>();
+
+            foreach(glTFLoader.Schema.Accessor acci in gltf.Accessors)
+            {
+                switch (acci.Type)
+                {
+                    case glTFLoader.Schema.Accessor.TypeEnum.VEC3:break;
+                }
+            }
+
+
 
             return mesh;
         }

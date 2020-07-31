@@ -4,35 +4,10 @@
         <name>SimplexCore</name>
     </assembly>
     <members>
-        <member name="T:Simplex.Core.FrameEventArgs">
-            <summary>
-            Eventargs for the applications tick event
-            </summary>
-        </member>
-        <member name="F:Simplex.Core.FrameEventArgs.deltaTime">
-            <summary>
-            time in milliseconds since the last frame
-            </summary>
-        </member>
         <member name="T:Simplex.Core.ApplicationBase">
             <summary>
             This class is the main entry class for an application based on this library
             For more convinient usage you can inherit it or simply use the events
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.ApplicationBase.MainWindow">
-            <summary>
-            returns the initially created window
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.ApplicationBase.ShouldClose">
-            <summary>
-            for safe closing of the application set this to true
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.ApplicationBase.Instance">
-            <summary>
-            the instance of the application
             </summary>
         </member>
         <member name="E:Simplex.Core.ApplicationBase.TickHandler">
@@ -46,12 +21,20 @@
             ToDo : change to singleton pattern
             </summary>
         </member>
-        <member name="M:Simplex.Core.ApplicationBase.Init(System.String[])">
-             <summary>
-            Initializes the application and loads the configurations 
-             </summary>
-             <param name="args"> command line arguments</param>
-             <returns></returns>
+        <member name="P:Simplex.Core.ApplicationBase.Instance">
+            <summary>
+            the instance of the application
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.ApplicationBase.MainWindow">
+            <summary>
+            returns the initially created window
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.ApplicationBase.ShouldClose">
+            <summary>
+            for safe closing of the application set this to true
+            </summary>
         </member>
         <member name="M:Simplex.Core.ApplicationBase.onInit(System.String[])">
             <summary>
@@ -59,16 +42,33 @@
             </summary>
             <param name="args"></param>
         </member>
-        <member name="M:Simplex.Core.ApplicationBase.Run">
-            <summary>
-            starts the main loop
-            </summary>
-        </member>
         <member name="M:Simplex.Core.ApplicationBase.onTick(System.Single)">
             <summary>
             gets called from the mainloop before rendering
             </summary>
             <param name="delta"></param>
+        </member>
+        <member name="M:Simplex.Core.ApplicationBase.Init(System.String[])">
+             <summary>
+            Initializes the application and loads the configurations
+             </summary>
+             <param name="args"> command line arguments</param>
+             <returns></returns>
+        </member>
+        <member name="M:Simplex.Core.ApplicationBase.Run">
+            <summary>
+            starts the main loop
+            </summary>
+        </member>
+        <member name="T:Simplex.Core.FrameEventArgs">
+            <summary>
+            Eventargs for the applications tick event
+            </summary>
+        </member>
+        <member name="F:Simplex.Core.FrameEventArgs.deltaTime">
+            <summary>
+            time in milliseconds since the last frame
+            </summary>
         </member>
         <member name="T:Simplex.Core.CommonRes">
             <summary>
@@ -101,19 +101,45 @@
             the path to the data/assets
             </summary>
         </member>
-        <member name="P:Simplex.Core.Configs.ApplicationConfig.Title">
-            <summary>
-            the title of the application
-            </summary>
-        </member>
         <member name="P:Simplex.Core.Configs.ApplicationConfig.Fps">
             <summary>
             the fps limit
             </summary>
         </member>
+        <member name="P:Simplex.Core.Configs.ApplicationConfig.Title">
+            <summary>
+            the title of the application
+            </summary>
+        </member>
         <member name="T:Simplex.Core.Gui.Control">
             <summary>
             base class for a gui element
+            </summary>
+        </member>
+        <member name="F:Simplex.Core.Gui.Control.children">
+            <summary>
+            the childelements of the control
+            when compositing in an inherited class, nested controls should not be put here
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Gui.Control.#ctor">
+            <summary>
+            default constructor
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Gui.Control.BackgroundColor">
+            <summary>
+            the backgroundcolor
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Gui.Control.BorderRadius">
+            <summary>
+            the borderradius
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Gui.Control.Bounds">
+            <summary>
+            the boundaries relative to the parent control
             </summary>
         </member>
         <member name="P:Simplex.Core.Gui.Control.CanDrag">
@@ -126,15 +152,45 @@
             returns if the control can be focused
             </summary>
         </member>
-        <member name="F:Simplex.Core.Gui.Control.children">
+        <member name="P:Simplex.Core.Gui.Control.Children">
             <summary>
-            the childelements of the control
-            when compositing in an inherited class, nested controls should not be put here
+            the child controls
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Gui.Control.Enabled">
+            <summary>
+            gets or sets if the control is enabled
+            a disabled control will not receive any events
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Gui.Control.Focused">
+            <summary>
+            gets or sets if the control is focused
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Gui.Control.Height">
+            <summary>
+            the height of the control
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Gui.Control.Hovered">
+            <summary>
+            gets or sets if the control is hovered
             </summary>
         </member>
         <member name="P:Simplex.Core.Gui.Control.Left">
             <summary>
             the x coordinate relative to the parent control
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Gui.Control.Name">
+            <summary>
+            the name for easier finding
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Gui.Control.ScissorContents">
+            <summary>
+            gets or sets if this control scissors its content to its own bounds
             </summary>
         </member>
         <member name="P:Simplex.Core.Gui.Control.Top">
@@ -147,68 +203,24 @@
             the width of the control
             </summary>
         </member>
-        <member name="P:Simplex.Core.Gui.Control.Height">
+        <member name="M:Simplex.Core.Gui.Control.OnDrag(System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
-            the height of the control
+            gets called when the control gets dragged
+            </summary>
+            <param name="x">the absolute mouse x coord</param>
+            <param name="y">the absolute mouse y coord</param>
+            <param name="deltaX">the incremental amount of movement in X</param>
+            <param name="deltaY">the incremental amount of movement in Y</param>
+        </member>
+        <member name="M:Simplex.Core.Gui.Control.OnDragEnd">
+            <summary>
+            gets called when the dragging of the control ended
             </summary>
         </member>
-        <member name="P:Simplex.Core.Gui.Control.Enabled">
+        <member name="M:Simplex.Core.Gui.Control.OnDragStart">
             <summary>
-            gets or sets if the control is enabled
-            a disabled control will not receive any events
+            gets called when the control starts to be dragged
             </summary>
-        </member>
-        <member name="P:Simplex.Core.Gui.Control.Children">
-            <summary>
-            the child controls
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Gui.Control.BackgroundColor">
-            <summary>
-            the backgroundcolor 
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Gui.Control.BorderRadius">
-            <summary>
-            the borderradius
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Gui.Control.ScissorContents">
-            <summary>
-            gets or sets if this control scissors its content to its own bounds
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Gui.Control.Bounds">
-            <summary>
-            the boundaries relative to the parent control
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Gui.Control.Name">
-            <summary>
-            the name for easier finding
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Gui.Control.Hovered">
-            <summary>
-            gets or sets if the control is hovered
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Gui.Control.Focused">
-            <summary>
-            gets or sets if the control is focused
-            </summary>
-        </member>
-        <member name="M:Simplex.Core.Gui.Control.#ctor">
-            <summary>
-            default constructor
-            </summary>
-        </member>
-        <member name="M:Simplex.Core.Gui.Control.Draw(Simplex.Core.Gui.Control,NanoVGDotNet.NanoVG.NvgContext)">
-            <summary>
-            draws the control
-            </summary>
-            <param name="parent">the parent control</param>
-            <param name="vg">the nanovg context to draw to</param>
         </member>
         <member name="M:Simplex.Core.Gui.Control.OnDraw(Simplex.Core.Gui.Control,NanoVGDotNet.NanoVG.NvgContext)">
             <summary>
@@ -218,63 +230,29 @@
             <param name="parent"></param>
             <param name="vg"></param>
         </member>
-        <member name="M:Simplex.Core.Gui.Control.ContainsPoint(System.Int32,System.Int32)">
+        <member name="M:Simplex.Core.Gui.Control.OnDrop(Simplex.Core.Gui.Control)">
             <summary>
-            
+            gets called when another control gets dropped on this
+            only gets called when candrop returns true
             </summary>
-            <param name="x"></param>
-            <param name="y"></param>
-            <returns></returns>
+            <param name="ctrl">the control that gets dropped</param>
         </member>
-        <member name="M:Simplex.Core.Gui.Control.OnPositionChanged">
+        <member name="M:Simplex.Core.Gui.Control.OnFocusGained">
             <summary>
-            gets called when the position has changed
-            </summary>
-        </member>
-        <member name="M:Simplex.Core.Gui.Control.OnResized">
-            <summary>
-            gets called when the size has changed
+            gets called when the control gets focus
             </summary>
         </member>
-        <member name="M:Simplex.Core.Gui.Control.MouseMove(System.Int32,System.Int32)">
+        <member name="M:Simplex.Core.Gui.Control.OnFocusLost">
             <summary>
-            gets called when the mouse gets moved from the parent
+            gets called when the control lost focus
             </summary>
-            <param name="x">the x coord relative to the parent</param>
-            <param name="y">the y coord relative to the parent</param>
         </member>
-        <member name="M:Simplex.Core.Gui.Control.OnMouseMove(System.Int32,System.Int32)">
+        <member name="M:Simplex.Core.Gui.Control.OnHovered">
             <summary>
-            gets called when the mouse gets moved
+            gets called when the control gets hovered
             </summary>
-            <param name="x">the x coord relative to the parent</param>
-            <param name="y">the y coord relative to the parent</param>
-        </member>
-        <member name="M:Simplex.Core.Gui.Control.MouseDown">
-            <summary>
-            MouseDown call,gets called from the guirenderer usually
-            </summary>
-            <returns>true if this control handles the event</returns>
-        </member>
-        <member name="M:Simplex.Core.Gui.Control.MouseUp">
-            <summary>
-            MouseUp call,gets called from the guirenderer usually
-            </summary>
-            <returns>true if the event is handled</returns>
-        </member>
-        <member name="M:Simplex.Core.Gui.Control.MouseClick">
-            <summary>
-            Click event , gets called from the guirenderer usually
-            </summary>
-            <returns>true if the click is handled  by the control</returns>
         </member>
         <member name="M:Simplex.Core.Gui.Control.OnMouseClick">
-            <summary>
-            Click event , gets called from the guirenderer usually
-            </summary>
-            <returns>true if the click is handled  by the control</returns>
-        </member>
-        <member name="M:Simplex.Core.Gui.Control.OnMouseUp">
             <summary>
             Click event , gets called from the guirenderer usually
             </summary>
@@ -286,45 +264,9 @@
             </summary>
             <returns>true if the click is handled  by the control</returns>
         </member>
-        <member name="M:Simplex.Core.Gui.Control.Hover">
-            <summary>
-            tell the control it's hovered
-            </summary>
-        </member>
-        <member name="M:Simplex.Core.Gui.Control.OnHovered">
-            <summary>
-            gets called when the control gets hovered
-            </summary>
-        </member>
-        <member name="M:Simplex.Core.Gui.Control.FindChildByName(System.String,System.Boolean)">
-            <summary>
-            tries to find a child control recursive by it's name
-            </summary>
-            <param name="name">the name of the child control</param>
-            <param name="recursive">if the search should be recursive </param>
-            <returns>the first control with a matching name,null if none found</returns>
-        </member>
-        <member name="M:Simplex.Core.Gui.Control.FindChildAtPosition(System.Int32,System.Int32)">
-            <summary>
-            tries to find a child control at the given position
-            </summary>
-            <param name="x">the x coord relative to the parent</param>
-            <param name="y">the y coord relative to the parent</param>
-            <returns>the control at the position,null if none found</returns>
-        </member>
-        <member name="M:Simplex.Core.Gui.Control.MouseEntered">
-            <summary>
-            tell the control the mouse entered
-            </summary>
-        </member>
         <member name="M:Simplex.Core.Gui.Control.OnMouseEntered">
             <summary>
             gets called when the mouse entered the controls bounds
-            </summary>
-        </member>
-        <member name="M:Simplex.Core.Gui.Control.MouseLeft">
-            <summary>
-            tell the control the mouse left its bounds
             </summary>
         </member>
         <member name="M:Simplex.Core.Gui.Control.OnMouseLeft">
@@ -332,42 +274,27 @@
             gets called when the mouse left the controls bounds
             </summary>
         </member>
-        <member name="M:Simplex.Core.Gui.Control.DragStart">
+        <member name="M:Simplex.Core.Gui.Control.OnMouseMove(System.Int32,System.Int32)">
             <summary>
-            tells the control the dragging started
+            gets called when the mouse gets moved
+            </summary>
+            <param name="x">the x coord relative to the parent</param>
+            <param name="y">the y coord relative to the parent</param>
+        </member>
+        <member name="M:Simplex.Core.Gui.Control.OnMouseUp">
+            <summary>
+            Click event , gets called from the guirenderer usually
+            </summary>
+            <returns>true if the click is handled  by the control</returns>
+        </member>
+        <member name="M:Simplex.Core.Gui.Control.OnPositionChanged">
+            <summary>
+            gets called when the position has changed
             </summary>
         </member>
-        <member name="M:Simplex.Core.Gui.Control.OnDragStart">
+        <member name="M:Simplex.Core.Gui.Control.OnResized">
             <summary>
-            gets called when the control starts to be dragged
-            </summary>
-        </member>
-        <member name="M:Simplex.Core.Gui.Control.Drag(System.Int32,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Tells the control it currently gets dragged
-            </summary>
-            <param name="x">X coord in absolute Window position</param>
-            <param name="y">Y coord in absolute Window position</param>
-            <param name="deltaX">the incremental amount of movement in X</param>
-            <param name="deltaY">the incremental amount of movement in Y</param>
-        </member>
-        <member name="M:Simplex.Core.Gui.Control.OnDrag(System.Int32,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            gets called when the control gets dragged
-            </summary>
-            <param name="x">the absolute mouse x coord</param>
-            <param name="y">the absolute mouse y coord</param>
-            <param name="deltaX">the incremental amount of movement in X</param>
-            <param name="deltaY">the incremental amount of movement in Y</param>
-        </member>
-        <member name="M:Simplex.Core.Gui.Control.DragEnd">
-            <summary>
-            tells the control the dragging ended
-            </summary>
-        </member>
-        <member name="M:Simplex.Core.Gui.Control.OnDragEnd">
-            <summary>
-            gets called when the dragging of the control ended
+            gets called when the size has changed
             </summary>
         </member>
         <member name="M:Simplex.Core.Gui.Control.RenderDragControl">
@@ -384,57 +311,110 @@
             <param name="ctrl">the control to be dropped</param>
             <returns>true if the control can handle the drop</returns>
         </member>
+        <member name="M:Simplex.Core.Gui.Control.ContainsPoint(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="x"></param>
+             <param name="y"></param>
+             <returns></returns>
+        </member>
+        <member name="M:Simplex.Core.Gui.Control.Drag(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Tells the control it currently gets dragged
+            </summary>
+            <param name="x">X coord in absolute Window position</param>
+            <param name="y">Y coord in absolute Window position</param>
+            <param name="deltaX">the incremental amount of movement in X</param>
+            <param name="deltaY">the incremental amount of movement in Y</param>
+        </member>
+        <member name="M:Simplex.Core.Gui.Control.DragEnd">
+            <summary>
+            tells the control the dragging ended
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Gui.Control.DragStart">
+            <summary>
+            tells the control the dragging started
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Gui.Control.Draw(Simplex.Core.Gui.Control,NanoVGDotNet.NanoVG.NvgContext)">
+            <summary>
+            draws the control
+            </summary>
+            <param name="parent">the parent control</param>
+            <param name="vg">the nanovg context to draw to</param>
+        </member>
         <member name="M:Simplex.Core.Gui.Control.Drop(Simplex.Core.Gui.Control)">
             <summary>
             tells the control another control gets dropped on it
             </summary>
             <param name="ctrl"></param>
         </member>
-        <member name="M:Simplex.Core.Gui.Control.OnDrop(Simplex.Core.Gui.Control)">
+        <member name="M:Simplex.Core.Gui.Control.FindChildAtPosition(System.Int32,System.Int32)">
             <summary>
-            gets called when another control gets dropped on this
-            only gets called when candrop returns true
+            tries to find a child control at the given position
             </summary>
-            <param name="ctrl">the control that gets dropped</param>
+            <param name="x">the x coord relative to the parent</param>
+            <param name="y">the y coord relative to the parent</param>
+            <returns>the control at the position,null if none found</returns>
+        </member>
+        <member name="M:Simplex.Core.Gui.Control.FindChildByName(System.String,System.Boolean)">
+            <summary>
+            tries to find a child control recursive by it's name
+            </summary>
+            <param name="name">the name of the child control</param>
+            <param name="recursive">if the search should be recursive </param>
+            <returns>the first control with a matching name,null if none found</returns>
         </member>
         <member name="M:Simplex.Core.Gui.Control.Focus">
             <summary>
             tells the control it gets focused
             </summary>
         </member>
-        <member name="M:Simplex.Core.Gui.Control.OnFocusGained">
+        <member name="M:Simplex.Core.Gui.Control.Hover">
             <summary>
-            gets called when the control gets focus
+            tell the control it's hovered
             </summary>
+        </member>
+        <member name="M:Simplex.Core.Gui.Control.MouseClick">
+            <summary>
+            Click event , gets called from the guirenderer usually
+            </summary>
+            <returns>true if the click is handled  by the control</returns>
+        </member>
+        <member name="M:Simplex.Core.Gui.Control.MouseDown">
+            <summary>
+            MouseDown call,gets called from the guirenderer usually
+            </summary>
+            <returns>true if this control handles the event</returns>
+        </member>
+        <member name="M:Simplex.Core.Gui.Control.MouseEntered">
+            <summary>
+            tell the control the mouse entered
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Gui.Control.MouseLeft">
+            <summary>
+            tell the control the mouse left its bounds
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Gui.Control.MouseMove(System.Int32,System.Int32)">
+            <summary>
+            gets called when the mouse gets moved from the parent
+            </summary>
+            <param name="x">the x coord relative to the parent</param>
+            <param name="y">the y coord relative to the parent</param>
+        </member>
+        <member name="M:Simplex.Core.Gui.Control.MouseUp">
+            <summary>
+            MouseUp call,gets called from the guirenderer usually
+            </summary>
+            <returns>true if the event is handled</returns>
         </member>
         <member name="M:Simplex.Core.Gui.Control.UnFocus">
             <summary>
             tells the control it lost focused
-            </summary>
-        </member>
-        <member name="M:Simplex.Core.Gui.Control.OnFocusLost">
-            <summary>
-            gets called when the control lost focus
-            </summary>
-        </member>
-        <member name="T:Simplex.Core.Gui.TextAlign">
-            <summary>
-            the horizontal textalignment
-            </summary>
-        </member>
-        <member name="F:Simplex.Core.Gui.TextAlign.Left">
-            <summary>
-            text gets aligned at the left
-            </summary>
-        </member>
-        <member name="F:Simplex.Core.Gui.TextAlign.Center">
-            <summary>
-            text gets aligned at the center
-            </summary>
-        </member>
-        <member name="F:Simplex.Core.Gui.TextAlign.Right">
-            <summary>
-            text gets aligned at the right
             </summary>
         </member>
         <member name="T:Simplex.Core.Gui.HorizontalAlign">
@@ -456,6 +436,26 @@
         <member name="F:Simplex.Core.Gui.HorizontalAlign.Right">
             <summary>
             gets aligned at the right
+            </summary>
+        </member>
+        <member name="T:Simplex.Core.Gui.TextAlign">
+            <summary>
+            the horizontal textalignment
+            </summary>
+        </member>
+        <member name="F:Simplex.Core.Gui.TextAlign.Left">
+            <summary>
+            text gets aligned at the left
+            </summary>
+        </member>
+        <member name="F:Simplex.Core.Gui.TextAlign.Center">
+            <summary>
+            text gets aligned at the center
+            </summary>
+        </member>
+        <member name="F:Simplex.Core.Gui.TextAlign.Right">
+            <summary>
+            text gets aligned at the right
             </summary>
         </member>
         <member name="T:Simplex.Core.Gui.VerticalAlign">
@@ -485,9 +485,9 @@
             also handles basic gui logic like hovering,focus etc
             </summary>
         </member>
-        <member name="P:Simplex.Core.Gui.GuiRenderer.Windows">
+        <member name="M:Simplex.Core.Gui.GuiRenderer.#ctor">
             <summary>
-            the list of guiwindows
+            default constructor
             </summary>
         </member>
         <member name="P:Simplex.Core.Gui.GuiRenderer.DefaultRenderer">
@@ -495,14 +495,9 @@
             returns the default guirenderer instance - so the first created
             </summary>
         </member>
-        <member name="M:Simplex.Core.Gui.GuiRenderer.#ctor">
+        <member name="P:Simplex.Core.Gui.GuiRenderer.Windows">
             <summary>
-            default constructor
-            </summary>
-        </member>
-        <member name="M:Simplex.Core.Gui.GuiRenderer.Render">
-            <summary>
-            renders the gui
+            the list of guiwindows
             </summary>
         </member>
         <member name="M:Simplex.Core.Gui.GuiRenderer.DrawText(System.String,System.Single,System.Single)">
@@ -521,13 +516,15 @@
             <param name="y">the absolute y position of the mouse</param>
             <returns>true if a control handled the event</returns>
         </member>
-        <member name="M:Simplex.Core.Gui.GuiRenderer.MouseUp(System.Int32,System.Int32)">
+        <member name="M:Simplex.Core.Gui.GuiRenderer.MouseEntered">
             <summary>
-            tells the guirenderer about a mouseup event
+            gets called when the mouse entered the window
             </summary>
-            <param name="x">the absolute x position of the mouse</param>
-            <param name="y">the absolute y position of the mouse</param>
-            <returns>true if a control handled the event</returns>
+        </member>
+        <member name="M:Simplex.Core.Gui.GuiRenderer.MouseLeave">
+            <summary>
+            gets called when the mouse left the window
+            </summary>
         </member>
         <member name="M:Simplex.Core.Gui.GuiRenderer.MouseMove(System.Int32,System.Int32)">
             <summary>
@@ -537,14 +534,17 @@
             <param name="y">the absolute y position of the mouse</param>
             <returns>true if a control handled the event</returns>
         </member>
-        <member name="M:Simplex.Core.Gui.GuiRenderer.MouseLeave">
+        <member name="M:Simplex.Core.Gui.GuiRenderer.MouseUp(System.Int32,System.Int32)">
             <summary>
-            gets called when the mouse left the window
+            tells the guirenderer about a mouseup event
             </summary>
+            <param name="x">the absolute x position of the mouse</param>
+            <param name="y">the absolute y position of the mouse</param>
+            <returns>true if a control handled the event</returns>
         </member>
-        <member name="M:Simplex.Core.Gui.GuiRenderer.MouseEntered">
+        <member name="M:Simplex.Core.Gui.GuiRenderer.Render">
             <summary>
-            gets called when the mouse entered the window
+            renders the gui
             </summary>
         </member>
         <member name="T:Simplex.Core.Gui.GuiWindow">
@@ -563,41 +563,35 @@
             abusing draggin for moving the window
             </summary>
         </member>
-        <member name="M:Simplex.Core.Gui.GuiWindow.OnDragStart">
+        <member name="P:Simplex.Core.Gui.GuiWindow.ShowDecorations">
             <summary>
-            
+            determines if the decorations get rendered,meaning the title and the close button
             </summary>
-        </member>
-        <member name="M:Simplex.Core.Gui.GuiWindow.OnDrag(System.Int32,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            
-            </summary>
-            <param name="x"></param>
-            <param name="y"></param>
-            <param name="deltaX"></param>
-            <param name="deltaY"></param>
         </member>
         <member name="P:Simplex.Core.Gui.GuiWindow.Title">
             <summary>
             the title that gets displayed at the top
             </summary>
         </member>
-        <member name="P:Simplex.Core.Gui.GuiWindow.ShowDecorations">
-            <summary>
-            determines if the decorations get rendered,meaning the title and the close button
-            </summary>
+        <member name="M:Simplex.Core.Gui.GuiWindow.OnDrag(System.Int32,System.Int32,System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="x"></param>
+             <param name="y"></param>
+             <param name="deltaX"></param>
+             <param name="deltaY"></param>
+        </member>
+        <member name="M:Simplex.Core.Gui.GuiWindow.OnDragStart">
+             <summary>
+            
+             </summary>
         </member>
         <member name="M:Simplex.Core.Gui.GuiWindow.OnDraw(Simplex.Core.Gui.Control,NanoVGDotNet.NanoVG.NvgContext)">
             <summary>
             draws the guiwindow
             </summary>
             <param name="parent">for guiwindows this should be null</param>
-            <param name="vg">the nanovg context</param>
-        </member>
-        <member name="M:Simplex.Core.Gui.GuiWindow.Render(NanoVGDotNet.NanoVG.NvgContext)">
-            <summary>
-            renders the guiwindow
-            </summary>
             <param name="vg">the nanovg context</param>
         </member>
         <member name="M:Simplex.Core.Gui.GuiWindow.OnPositionChanged">
@@ -609,6 +603,12 @@
             <summary>
             resizing the window and the decorations
             </summary>
+        </member>
+        <member name="M:Simplex.Core.Gui.GuiWindow.Render(NanoVGDotNet.NanoVG.NvgContext)">
+            <summary>
+            renders the guiwindow
+            </summary>
+            <param name="vg">the nanovg context</param>
         </member>
         <member name="T:Simplex.Core.Gui.ImageControl">
             <summary>
@@ -627,9 +627,9 @@
             A Label Control for simple one line text
             </summary>
         </member>
-        <member name="P:Simplex.Core.Gui.Label.Text">
+        <member name="P:Simplex.Core.Gui.Label.Alignment">
             <summary>
-            the text to be shown
+            the alignment of the text
             </summary>
         </member>
         <member name="P:Simplex.Core.Gui.Label.Fontsize">
@@ -637,9 +637,9 @@
             the fontsize of the text
             </summary>
         </member>
-        <member name="P:Simplex.Core.Gui.Label.Alignment">
+        <member name="P:Simplex.Core.Gui.Label.Text">
             <summary>
-            the alignment of the text
+            the text to be shown
             </summary>
         </member>
         <member name="M:Simplex.Core.Gui.Label.OnDraw(Simplex.Core.Gui.Control,NanoVGDotNet.NanoVG.NvgContext)">
@@ -725,59 +725,9 @@
             tries to be compatible with gltf materials
             </summary>
         </member>
-        <member name="P:Simplex.Core.Rendering.PbrMaterial.ShaderProgram">
-            <summary>
-            the shader programm that should be used
-            </summary>
-        </member>
         <member name="P:Simplex.Core.Rendering.PbrMaterial.Albedo">
             <summary>
             the albedo texure
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Rendering.PbrMaterial.MetalTexture">
-            <summary>
-            the metallic texture
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Rendering.PbrMaterial.RoughnessTexture">
-            <summary>
-            the roughness texture
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Rendering.PbrMaterial.EmissiveMap">
-            <summary>
-            the emissive texture
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Rendering.PbrMaterial.NormalMap">
-            <summary>
-            the normalmap texture
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Rendering.PbrMaterial.SsaoMap">
-            <summary>
-            the ssao texture
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Rendering.PbrMaterial.Metalicness">
-            <summary>
-            the metallic factor
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Rendering.PbrMaterial.Roughness">
-            <summary>
-            the roughness factor
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Rendering.PbrMaterial.NormalFactor">
-            <summary>
-            the normal factor
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Rendering.PbrMaterial.EmissiveFactor">
-            <summary>
-            the emissive factor
             </summary>
         </member>
         <member name="P:Simplex.Core.Rendering.PbrMaterial.BasecolorFactor">
@@ -785,20 +735,70 @@
             the basecolor factor
             </summary>
         </member>
+        <member name="P:Simplex.Core.Rendering.PbrMaterial.EmissiveFactor">
+            <summary>
+            the emissive factor
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Rendering.PbrMaterial.EmissiveMap">
+            <summary>
+            the emissive texture
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Rendering.PbrMaterial.Metalicness">
+            <summary>
+            the metallic factor
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Rendering.PbrMaterial.MetalTexture">
+            <summary>
+            the metallic texture
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Rendering.PbrMaterial.NormalFactor">
+            <summary>
+            the normal factor
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Rendering.PbrMaterial.NormalMap">
+            <summary>
+            the normalmap texture
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Rendering.PbrMaterial.Roughness">
+            <summary>
+            the roughness factor
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Rendering.PbrMaterial.RoughnessTexture">
+            <summary>
+            the roughness texture
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Rendering.PbrMaterial.ShaderProgram">
+            <summary>
+            the shader programm that should be used
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Rendering.PbrMaterial.SsaoMap">
+            <summary>
+            the ssao texture
+            </summary>
+        </member>
         <member name="T:Simplex.Core.Rendering.Mesh">
             <summary>
             base class for mesh information
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Rendering.Mesh.Vbo">
-            <summary>
-            the vertexbuffer object for the vertices
             </summary>
         </member>
         <member name="P:Simplex.Core.Rendering.Mesh.Materials">
             <summary>
             the materials to be used,
             didn't think this through yet
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Rendering.Mesh.Vbo">
+            <summary>
+            the vertexbuffer object for the vertices
             </summary>
         </member>
         <member name="T:Simplex.Core.Rendering.Renderer">
@@ -838,11 +838,11 @@
             the type of view
             </summary>
         </member>
-        <member name="M:Simplex.Core.Scene.Camera.LookAt(OpenTK.Vector3)">
+        <member name="M:Simplex.Core.Scene.Camera.onTranslate">
             <summary>
-            lets the camera rotate to look at a specific position
+            called when the postion changed
+            view matrix gets precalculated here
             </summary>
-            <param name="position"></param>
         </member>
         <member name="M:Simplex.Core.Scene.Camera.getProjectionMatrix">
             <summary>
@@ -850,15 +850,15 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Simplex.Core.Scene.Camera.onTranslate">
+        <member name="M:Simplex.Core.Scene.Camera.LookAt(OpenTK.Vector3)">
             <summary>
-            called when the postion changed
-            view matrix gets precalculated here
+            lets the camera rotate to look at a specific position
             </summary>
+            <param name="position"></param>
         </member>
         <member name="T:Simplex.Core.Scene.Scene3D">
             <summary>
-            main class for a 3d scene 
+            main class for a 3d scene
             </summary>
         </member>
         <member name="M:Simplex.Core.Scene.Scene3D.Render(System.Single)">
@@ -882,17 +882,50 @@
             calls the onDestroy method
             </summary>
         </member>
-        <member name="M:Simplex.Core.Scene.SceneNode.AddChild(Simplex.Core.Scene.SceneNode)">
-            <summary>
-            adds a childnode
-            </summary>
-            <param name="child"></param>
-        </member>
         <member name="M:Simplex.Core.Scene.SceneNode.TreeEntered(Simplex.Core.Scene.SceneNode)">
             <summary>
             gets called from the parent node when the node is added
             </summary>
             <param name="parent">the parent scene node</param>
+        </member>
+        <member name="M:Simplex.Core.Scene.SceneNode.onCreate">
+            <summary>
+            gets called from the constructor when the object is created
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Scene.SceneNode.onDestroy">
+            <summary>
+            gets called from the destructor
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Scene.SceneNode.onTick(System.Single)">
+            <summary>
+            gets called every engine tick
+            </summary>
+            <param name="delta">the time in milliseconds since the last frame</param>
+        </member>
+        <member name="M:Simplex.Core.Scene.SceneNode.onTreeEntered">
+            <summary>
+            gets called when the node is added to another node
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Scene.SceneNode.onTreeExited">
+            <summary>
+            gets called when it gets removed from the parent
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Scene.SceneNode.onTreeMoved(Simplex.Core.Scene.SceneNode,Simplex.Core.Scene.SceneNode)">
+            <summary>
+            gets called when the parent node changed
+            </summary>
+            <param name="oldParent"></param>
+            <param name="newParent"></param>
+        </member>
+        <member name="M:Simplex.Core.Scene.SceneNode.AddChild(Simplex.Core.Scene.SceneNode)">
+            <summary>
+            adds a childnode
+            </summary>
+            <param name="child"></param>
         </member>
         <member name="M:Simplex.Core.Scene.SceneNode.FindChild(System.Guid)">
             <summary>
@@ -914,9 +947,9 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Simplex.Core.Scene.SceneNode.onTreeEntered">
+        <member name="M:Simplex.Core.Scene.SceneNode.TreeExited">
             <summary>
-            gets called when the node is added to another node
+            gets called when it gets removed from the parent
             </summary>
         </member>
         <member name="M:Simplex.Core.Scene.SceneNode.TreeMoved(Simplex.Core.Scene.SceneNode)">
@@ -924,39 +957,6 @@
             gets called when the parent node changed
             </summary>
             <param name="newParent"></param>
-        </member>
-        <member name="M:Simplex.Core.Scene.SceneNode.onTreeMoved(Simplex.Core.Scene.SceneNode,Simplex.Core.Scene.SceneNode)">
-            <summary>
-            gets called when the parent node changed
-            </summary>
-            <param name="oldParent"></param>
-            <param name="newParent"></param>
-        </member>
-        <member name="M:Simplex.Core.Scene.SceneNode.TreeExited">
-            <summary>
-            gets called when it gets removed from the parent
-            </summary>
-        </member>
-        <member name="M:Simplex.Core.Scene.SceneNode.onTreeExited">
-            <summary>
-            gets called when it gets removed from the parent
-            </summary>
-        </member>
-        <member name="M:Simplex.Core.Scene.SceneNode.onCreate">
-            <summary>
-            gets called from the constructor when the object is created
-            </summary>
-        </member>
-        <member name="M:Simplex.Core.Scene.SceneNode.onDestroy">
-            <summary>
-            gets called from the destructor
-            </summary>
-        </member>
-        <member name="M:Simplex.Core.Scene.SceneNode.onTick(System.Single)">
-            <summary>
-            gets called every engine tick
-            </summary>
-            <param name="delta">the time in milliseconds since the last frame</param>
         </member>
         <member name="T:Simplex.Core.Scene.Transformation">
             <summary>
@@ -966,26 +966,6 @@
         <member name="T:Simplex.Core.Util.SimplexColor">
             <summary>
             a sadly needed wrapper for easier handling colors in both gui and 3d
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Util.SimplexColor.R">
-            <summary>
-            the red value 0-255
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Util.SimplexColor.G">
-            <summary>
-            the green value 0-255
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Util.SimplexColor.B">
-            <summary>
-            the blue value 0-255
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Util.SimplexColor.A">
-            <summary>
-            the alpha value 0-255
             </summary>
         </member>
         <member name="M:Simplex.Core.Util.SimplexColor.#ctor">
@@ -1008,15 +988,29 @@
             </summary>
             <param name="color"></param>
         </member>
+        <member name="P:Simplex.Core.Util.SimplexColor.A">
+            <summary>
+            the alpha value 0-255
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Util.SimplexColor.B">
+            <summary>
+            the blue value 0-255
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Util.SimplexColor.G">
+            <summary>
+            the green value 0-255
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Util.SimplexColor.R">
+            <summary>
+            the red value 0-255
+            </summary>
+        </member>
         <member name="M:Simplex.Core.Util.SimplexColor.op_Implicit(Simplex.Core.Util.SimplexColor)~OpenTK.Color">
             <summary>
             implicit cast to opentk color
-            </summary>
-            <param name="sc"></param>
-        </member>
-        <member name="M:Simplex.Core.Util.SimplexColor.op_Implicit(Simplex.Core.Util.SimplexColor)~NanoVGDotNet.NanoVG.NvgColor">
-            <summary>
-            imlpicit cast to nvgcolor
             </summary>
             <param name="sc"></param>
         </member>
@@ -1029,6 +1023,12 @@
         <member name="M:Simplex.Core.Util.SimplexColor.op_Implicit(NanoVGDotNet.NanoVG.NvgColor)~Simplex.Core.Util.SimplexColor">
             <summary>
             implicit cast to simplexcolor
+            </summary>
+            <param name="sc"></param>
+        </member>
+        <member name="M:Simplex.Core.Util.SimplexColor.op_Implicit(Simplex.Core.Util.SimplexColor)~NanoVGDotNet.NanoVG.NvgColor">
+            <summary>
+            imlpicit cast to nvgcolor
             </summary>
             <param name="sc"></param>
         </member>
@@ -1089,9 +1089,18 @@
             handles input
             </summary>
         </member>
-        <member name="P:Simplex.Core.Window.ApplicationWindow.Vg">
+        <member name="M:Simplex.Core.Window.ApplicationWindow.#ctor(System.Int32,System.Int32,System.String)">
             <summary>
-            the created nanovg context that can be used for drawing
+            creates window with given parameters
+            defaults to windowed mode
+            </summary>
+            <param name="width">the widht of the window</param>
+            <param name="height">the height of the window</param>
+            <param name="title">the window title</param>
+        </member>
+        <member name="P:Simplex.Core.Window.ApplicationWindow.GuiRender">
+            <summary>
+            the main gui renderer
             </summary>
         </member>
         <member name="P:Simplex.Core.Window.ApplicationWindow.Scene">
@@ -1099,36 +1108,14 @@
             the main scene
             </summary>
         </member>
-        <member name="P:Simplex.Core.Window.ApplicationWindow.GuiRender">
+        <member name="P:Simplex.Core.Window.ApplicationWindow.Vg">
             <summary>
-            the main gui renderer
+            the created nanovg context that can be used for drawing
             </summary>
         </member>
-        <member name="M:Simplex.Core.Window.ApplicationWindow.#ctor(System.Int32,System.Int32,System.String)">
+        <member name="M:Simplex.Core.Window.ApplicationWindow.OnMouseDown(OpenTK.Input.MouseButtonEventArgs)">
             <summary>
-            creates window with given parameters 
-            defaults to windowed mode
-            </summary>
-            <param name="width">the widht of the window</param>
-            <param name="height">the height of the window</param>
-            <param name="title">the window title</param>
-        </member>
-        <member name="M:Simplex.Core.Window.ApplicationWindow.isKeyDown(OpenTK.Input.Key)">
-            <summary>
-            returns true if a specific key is held down
-            </summary>
-            <param name="key"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Simplex.Core.Window.ApplicationWindow.RenderScene(System.Single)">
-            <summary>
-            renders the scene
-            </summary>
-            <param name="delta"></param>
-        </member>
-        <member name="M:Simplex.Core.Window.ApplicationWindow.OnMouseMove(OpenTK.Input.MouseMoveEventArgs)">
-            <summary>
-            base override, forwards to gui
+            base override,forwards to gui
             </summary>
             <param name="e"></param>
         </member>
@@ -1144,9 +1131,9 @@
             </summary>
             <param name="e"></param>
         </member>
-        <member name="M:Simplex.Core.Window.ApplicationWindow.OnMouseDown(OpenTK.Input.MouseButtonEventArgs)">
+        <member name="M:Simplex.Core.Window.ApplicationWindow.OnMouseMove(OpenTK.Input.MouseMoveEventArgs)">
             <summary>
-            base override,forwards to gui
+            base override, forwards to gui
             </summary>
             <param name="e"></param>
         </member>
@@ -1162,9 +1149,28 @@
             </summary>
             <param name="e"></param>
         </member>
+        <member name="M:Simplex.Core.Window.ApplicationWindow.OnResize(System.EventArgs)">
+            <summary>
+            base override,forwards to gui and resizes viewport
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Simplex.Core.Window.ApplicationWindow.isKeyDown(OpenTK.Input.Key)">
+            <summary>
+            returns true if a specific key is held down
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="M:Simplex.Core.Window.ApplicationWindow.RenderGui(System.Single)">
             <summary>
             renders the gui
+            </summary>
+            <param name="delta"></param>
+        </member>
+        <member name="M:Simplex.Core.Window.ApplicationWindow.RenderScene(System.Single)">
+            <summary>
+            renders the scene
             </summary>
             <param name="delta"></param>
         </member>
@@ -1172,12 +1178,6 @@
             <summary>
             swaps the buffers of the opengl context
             </summary>
-        </member>
-        <member name="M:Simplex.Core.Window.ApplicationWindow.OnResize(System.EventArgs)">
-            <summary>
-            base override,forwards to gui and resizes viewport
-            </summary>
-            <param name="e"></param>
         </member>
     </members>
 </doc>
