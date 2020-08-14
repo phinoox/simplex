@@ -1,6 +1,7 @@
 ﻿using Simplex.Core.Configs;
 using Simplex.Core.Window;
 using System;
+using System.IO;
 using System.Threading;
 
 namespace Simplex.Core
@@ -106,6 +107,8 @@ namespace Simplex.Core
         /// <returns></returns>
         public bool Init(string[] args)
         {
+            //Directory.SetCurrentDirectory(Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName));
+            Console.WriteLine($"Initializing Engine in Working Directory {Directory.GetCurrentDirectory()}");
             LoadConfigs();
             if (appConfig.Fps != 0)
                 frameTime = 1000.0f / appConfig.Fps;

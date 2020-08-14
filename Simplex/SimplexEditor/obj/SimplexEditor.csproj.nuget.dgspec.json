@@ -1,30 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\oemich\\Documents\\development\\private\\simplex\\Simplex\\SimplexEditor\\SimplexEditor.csproj": {}
+    "/home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexEditor/SimplexEditor.csproj": {}
   },
   "projects": {
-    "C:\\Users\\oemich\\Documents\\development\\private\\simplex\\Simplex\\SimplexCore\\SimplexCore.csproj": {
+    "/home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexCore/SimplexCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\oemich\\Documents\\development\\private\\simplex\\Simplex\\SimplexCore\\SimplexCore.csproj",
+        "projectUniqueName": "/home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexCore/SimplexCore.csproj",
         "projectName": "SimplexCore",
-        "projectPath": "C:\\Users\\oemich\\Documents\\development\\private\\simplex\\Simplex\\SimplexCore\\SimplexCore.csproj",
-        "packagesPath": "C:\\Users\\oemich\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\oemich\\Documents\\development\\private\\simplex\\Simplex\\SimplexCore\\obj\\",
+        "projectPath": "/home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexCore/SimplexCore.csproj",
+        "packagesPath": "/home/mindcrash/.nuget/packages/",
+        "outputPath": "/home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexCore/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\oemich\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/mindcrash/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -68,49 +63,38 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.103/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\oemich\\Documents\\development\\private\\simplex\\Simplex\\SimplexEditor\\SimplexEditor.csproj": {
+    "/home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexEditor/SimplexEditor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\oemich\\Documents\\development\\private\\simplex\\Simplex\\SimplexEditor\\SimplexEditor.csproj",
+        "projectUniqueName": "/home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexEditor/SimplexEditor.csproj",
         "projectName": "SimplexEditor",
-        "projectPath": "C:\\Users\\oemich\\Documents\\development\\private\\simplex\\Simplex\\SimplexEditor\\SimplexEditor.csproj",
-        "packagesPath": "C:\\Users\\oemich\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\oemich\\Documents\\development\\private\\simplex\\Simplex\\SimplexEditor\\obj\\",
+        "projectPath": "/home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexEditor/SimplexEditor.csproj",
+        "packagesPath": "/home/mindcrash/.nuget/packages/",
+        "outputPath": "/home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexEditor/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\oemich\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/mindcrash/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\oemich\\Documents\\development\\private\\simplex\\Simplex\\SimplexCore\\SimplexCore.csproj": {
-                "projectPath": "C:\\Users\\oemich\\Documents\\development\\private\\simplex\\Simplex\\SimplexCore\\SimplexCore.csproj"
+              "/home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexCore/SimplexCore.csproj": {
+                "projectPath": "/home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexCore/SimplexCore.csproj"
               }
             }
           }
@@ -143,18 +127,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.103/RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -4,6 +4,25 @@ using System.Collections.Generic;
 
 namespace Simplex.Core.Rendering
 {
+
+    public class MeshData
+    {
+
+        private string attributeName;
+
+        public string AttributeName { get => attributeName; set => attributeName = value; }
+
+
+    }
+
+    public class MeshPrimitive{
+
+        private PbrMaterial material;
+        private List<MeshData> meshDatas = new List<MeshData>();
+        public List<MeshData> MeshDatas { get => meshDatas; }
+        public PbrMaterial Material { get => material; set => material = value; }
+    }
+    
     /// <summary>
     /// base class for mesh information
     /// </summary>
@@ -11,23 +30,22 @@ namespace Simplex.Core.Rendering
     {
         #region Private Fields
 
-        private List<PbrMaterial> materials = new List<PbrMaterial>();
+        
         private ObjectTK.Buffers.VertexArray vbo;
+
+        private List<MeshPrimitive> primitives = new List<MeshPrimitive>();
+        
 
         #endregion Private Fields
 
         #region Public Properties
 
         /// <summary>
-        /// the materials to be used,
-        /// didn't think this through yet
-        /// </summary>
-        public List<PbrMaterial> Materials { get => materials; set => materials = value; }
-
-        /// <summary>
         /// the vertexbuffer object for the vertices
         /// </summary>
         public VertexArray Vbo { get => vbo; set => vbo = value; }
+        public List<MeshPrimitive> Primitives { get => primitives; set => primitives = value; }
+
 
         #endregion Public Properties
 

@@ -8,6 +8,7 @@ using Simplex.Core.Scene;
 using Simplex.Core.Util;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Simplex.Core.Window
 {
@@ -46,8 +47,11 @@ namespace Simplex.Core.Window
             vg = GlNanoVg.CreateGl(NvgCreateFlags.AntiAlias |
                  NvgCreateFlags.StencilStrokes |
                  NvgCreateFlags.Debug);
-            NanoVg.CreateFont(vg, "sans", "Fonts/OpenSans-Regular.ttf");
-
+            if(!File.Exists("Fonts/OpenSans-Regular.ttf"))
+               Console.WriteLine("could not finde default font file");
+            int defaultfontLoaded=NanoVg.CreateFont(vg, "sans", "Fonts/OpenSans-Regular.ttf");
+            if(defaultfontLoaded != 0)
+                Console.WriteLine("could not load default font");
             this.Visible = true;
             Logger.Default.Info(sceneContext);
             this.KeyDown += ApplicationWindow_KeyDown;
