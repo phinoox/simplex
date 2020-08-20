@@ -719,6 +719,11 @@
             ToDo: implement
             </summary>
         </member>
+        <member name="T:Simplex.Core.Rendering.Mesh">
+            <summary>
+            base class for mesh information
+            </summary>
+        </member>
         <member name="T:Simplex.Core.Rendering.PbrMaterial">
             <summary>
             basic class for pbr material
@@ -785,20 +790,9 @@
             the ssao texture
             </summary>
         </member>
-        <member name="T:Simplex.Core.Rendering.Mesh">
+        <member name="T:Simplex.Core.Rendering.PbrShaderProgram">
             <summary>
-            base class for mesh information
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Rendering.Mesh.Materials">
-            <summary>
-            the materials to be used,
-            didn't think this through yet
-            </summary>
-        </member>
-        <member name="P:Simplex.Core.Rendering.Mesh.Vbo">
-            <summary>
-            the vertexbuffer object for the vertices
+            Basic ShaderProgram for pbr based rendering 
             </summary>
         </member>
         <member name="T:Simplex.Core.Rendering.Renderer">
@@ -812,6 +806,40 @@
             </summary>
             <param name="cam">the camera to be used</param>
             <param name="delta">the time since the last frame in milliseconds</param>
+        </member>
+        <member name="T:Simplex.Core.Rendering.SXProgramFactory">
+            <summary>
+            Contains methods to automatically initialize program objects.
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Rendering.SXProgramFactory.BasePath">
+            <summary>
+            The base path used when looking for shader files.<br/>
+            Default is: Data/Shaders/
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Rendering.SXProgramFactory.Extension">
+            <summary>
+            Specifies the default extension appended to effect names.<br/>
+            Default is: glsl
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Rendering.SXProgramFactory.Create``1">
+            <summary>
+            Initializes a program object using the shader sources tagged to the type with <see cref="T:ObjectTK.Shaders.Sources.ShaderSourceAttribute"/>.
+            </summary>
+            <typeparam name="T">Specifies the program type to create.</typeparam>
+            <returns>A compiled and linked program.</returns>
+        </member>
+        <member name="M:Simplex.Core.Rendering.SXProgramFactory.GetShaderSource(System.String,System.Collections.Generic.List{ObjectTK.Shaders.Effect.Section},OpenTK.Graphics.OpenGL.ShaderType)">
+            <summary>
+            Load shader source file(s).<br/>
+            Supports multiple source files via "#include xx" directives and corrects the line numbering by using the glsl standard #line directive.
+            </summary>
+            <param name="effectKey">Specifies the effect key to load.</param>
+            <param name="included">Holds the effectKeys of all shaders already loaded to prevent multiple inclusions.</param>
+            <param name="shaderType"></param>
+            <returns>The fully assembled shader source.</returns>
         </member>
         <member name="T:Simplex.Core.Scene.CameraTypes">
             <summary>
@@ -850,11 +878,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Simplex.Core.Scene.Camera.LookAt(OpenTK.Vector3)">
+        <member name="M:Simplex.Core.Scene.Camera.LookAt(OpenTK.Vector3@)">
             <summary>
             lets the camera rotate to look at a specific position
             </summary>
-            <param name="position"></param>
+            <param name="target"></param>
         </member>
         <member name="T:Simplex.Core.Scene.Scene3D">
             <summary>

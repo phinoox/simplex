@@ -1,4 +1,5 @@
-﻿using OpenTK;
+﻿using System;
+using OpenTK;
 
 namespace Simplex.Core.Scene
 {
@@ -46,8 +47,8 @@ namespace Simplex.Core.Scene
         {
             if (cameraType == CameraTypes.Perspective)
             {
-                float ratio = ApplicationBase.Instance.MainWindow.Width / ApplicationBase.Instance.MainWindow.Height;
-                Matrix4.CreatePerspectiveFieldOfView(fov, ratio, nearClip, farClip, out projectionMatrix);
+                float ratio = (float)ApplicationBase.Instance.MainWindow.Width / (float)ApplicationBase.Instance.MainWindow.Height;
+                Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(fov), ratio, nearClip, farClip, out projectionMatrix);
             }
             else
             {
@@ -57,7 +58,9 @@ namespace Simplex.Core.Scene
 
         private void createViewMatrix()
         {
-            viewMatrix = Matrix4.CreateTranslation(-Translation);
+            Vector3 target = (Translation+Forward);
+            viewMatrix = Matrix4.LookAt(Translation,target,up);
+            //_rotation = viewMatrix.ExtractRotation();
         }
 
         #endregion Private Methods
@@ -96,15 +99,20 @@ namespace Simplex.Core.Scene
 
         public Matrix4 getViewMatrix()
         {
-            createViewMatrix();
+            //createViewMatrix();
             return viewMatrix;
         }
 
         /// <summary>
         /// lets the camera rotate to look at a specific position
         /// </summary>
-        /// <param name="position"></param>
-        public void LookAt(Vector3 position) { }
+        /// <param name="target"></param>
+        public override void LookAt(in Vector3 target) {
+           base.LookAt(target);
+           // viewMatrix = Matrix4.LookAt(Translation,target,up);
+           // _rotation = viewMatrix.ExtractRotation();
+            //Console.WriteLine($"looking at target {target}");
+        }
 
         #endregion Public Methods
 

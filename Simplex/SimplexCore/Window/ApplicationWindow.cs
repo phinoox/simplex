@@ -26,6 +26,7 @@ namespace Simplex.Core.Window
         private HashSet<Key> keysDown = new HashSet<Key>();
         private Scene3D scene = new Scene3D();
         private IGraphicsContext sceneContext;
+        private IGraphicsContext guiContext;
         private NvgContext vg;
 
         #endregion Private Fields
@@ -43,7 +44,13 @@ namespace Simplex.Core.Window
         {
             sceneContext = new GraphicsContext(GraphicsMode.Default, this.WindowInfo, 4, 5, GraphicsContextFlags.ForwardCompatible);
             sceneContext.MakeCurrent(this.WindowInfo);
+             
             sceneContext.LoadAll();
+            GL.Enable(EnableCap.DepthTest);
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactor.SrcAlpha,BlendingFactor.OneMinusSrcAlpha);
+            guiContext = new GraphicsContext(GraphicsMode.Default, this.WindowInfo, 4, 5, GraphicsContextFlags.ForwardCompatible);
+            guiContext.MakeCurrent(this.WindowInfo);
             vg = GlNanoVg.CreateGl(NvgCreateFlags.AntiAlias |
                  NvgCreateFlags.StencilStrokes |
                  NvgCreateFlags.Debug);
@@ -83,12 +90,12 @@ namespace Simplex.Core.Window
 
         private void ApplicationWindow_KeyDown(object sender, OpenTK.Input.KeyboardKeyEventArgs e)
         {
-            keysDown.Remove(e.Key);
+            keysDown.Add(e.Key);
         }
 
         private void ApplicationWindow_KeyUp(object sender, OpenTK.Input.KeyboardKeyEventArgs e)
         {
-            keysDown.Add(e.Key);
+            keysDown.Remove(e.Key);
         }
 
         #endregion Private Methods
@@ -183,10 +190,13 @@ namespace Simplex.Core.Window
         /// <param name="delta"></param>
         public void RenderGui(float delta)
         {
-            //guiContext.MakeCurrent(this.WindowInfo);
+            guiContext.MakeCurrent(this.WindowInfo);
+             GL.Viewport(0, 0, Width, Height);
             NanoVg.BeginFrame(vg, Width, Height, 1);
             guiRender.Render();
             NanoVg.EndFrame(vg);
+            if (!sceneContext.IsCurrent)
+                sceneContext.MakeCurrent(this.WindowInfo);
         }
 
         /// <summary>

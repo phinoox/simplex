@@ -43,9 +43,10 @@ namespace Simplex.Core.Loaders
             Texture2D tex;
             using (var bitmap = new Bitmap(path))
             {
-                bitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                //bitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
                 BitmapTexture.CreateCompatible(bitmap, out tex);
                 tex.LoadBitmap(bitmap);
+                tex.GenerateMipMaps();
             }
             textures[path] = tex;
             return tex;

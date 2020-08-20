@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL4;
+﻿using OpenTK;
+using OpenTK.Graphics.OpenGL4;
 using Simplex.Core.Scene;
 using System.Collections.Generic;
 
@@ -18,11 +19,14 @@ namespace Simplex.Core.Rendering
         /// <param name="delta">the time since the last frame in milliseconds</param>
         public void Render(Camera cam, float delta, List<MeshNode> meshes)
         {
-            GL.ClearColor(.9f, .9f, 1.0f, 1.0f);
+            GL.ClearColor(Color.MidnightBlue);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
+            Matrix4 view = cam.getViewMatrix();
+            Matrix4 projection = cam.getProjectionMatrix();
+            //vp.M44=1;
             foreach (MeshNode mesh in meshes)
             {
-                mesh.Render(cam.getProjectionMatrix() * cam.getViewMatrix());
+                mesh.Render(view,projection);
             }
         }
 

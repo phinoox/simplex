@@ -128,7 +128,8 @@ namespace Simplex.Core
 
             int frame = 0;
             int fps = 0;
-
+            int couldSleep=0;
+            int sps=0;
             while (!shouldClose && mainWindow.Exists)
             {
                 DateTime tmp = DateTime.Now;
@@ -138,16 +139,21 @@ namespace Simplex.Core
                     fps = frame;
                     lastFps = tmp;
                     frame = 0;
+                    sps=couldSleep;
+                    couldSleep=0;
                 }
                 float delta = (float)tmp.Subtract(lastframe).TotalMilliseconds;
                 lastframe = tmp;
                 int canSleep = (int)(frameTime - delta);
-                if (frameTime != 0 && canSleep > 0)
+                if (frameTime != 0 && canSleep > 0){
+                    couldSleep+=canSleep;
                     Thread.Sleep(canSleep);
-                onTick(delta);
+                }
+                Simplex.Core.Rendering.GlobalUniforms.time=(uint)(DateTime.Now - startTime).TotalMilliseconds;
                 mainWindow.RenderScene(delta);
+                onTick(frameTime>delta? frameTime: delta);
                 mainWindow.GuiRender.DrawText($"FPS:{fps}", 15, 15);
-                //mainWindow.GuiRender.DrawText($"Slept:{canSleep}", 60, 15);
+                mainWindow.GuiRender.DrawText($"Slept:{sps}", 60, 15);
                 mainWindow.RenderGui(delta);
                 mainWindow.SwapBuffers();
                 EventHandler handler = TickHandler;

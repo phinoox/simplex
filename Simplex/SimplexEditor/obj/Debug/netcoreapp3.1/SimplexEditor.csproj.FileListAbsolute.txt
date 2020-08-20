@@ -45,8 +45,6 @@ C:/Users/oemich/Documents/development/private/simplex/Simplex/SimplexEditor/obj/
 /home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexEditor/bin/Debug/netcoreapp3.1/Portable.Xaml.dll
 /home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexEditor/bin/Debug/netcoreapp3.1/System.Drawing.Common.dll
 /home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexEditor/bin/Debug/netcoreapp3.1/runtimes/win/lib/netcoreapp2.0/Microsoft.Win32.SystemEvents.dll
-/home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexEditor/bin/Debug/netcoreapp3.1/runtimes/osx.10.10-x64/native/System.Security.Cryptography.Native.Apple.dylib
-/home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexEditor/bin/Debug/netcoreapp3.1/runtimes/osx.10.10-x64/native/System.Security.Cryptography.Native.OpenSsl.dylib
 /home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexEditor/bin/Debug/netcoreapp3.1/runtimes/unix/lib/netcoreapp2.0/System.Drawing.Common.dll
 /home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexEditor/bin/Debug/netcoreapp3.1/runtimes/win/lib/netcoreapp2.0/System.Drawing.Common.dll
 /home/mindcrash/Dokumente/Development/simplex/Simplex/SimplexEditor/bin/Debug/netcoreapp3.1/SimplexCore.dll

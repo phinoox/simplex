@@ -14,6 +14,9 @@ namespace Simplex.Core.Scene
         private SceneNode rootNode = new SceneNode();
         private Renderer sceneRenderer = new Renderer();
 
+        public SceneNode RootNode { get => rootNode; set => rootNode = value; }
+        public Camera CurrentCamera { get => currentCamera; set => currentCamera = value; }
+
         #endregion Private Fields
 
         #region Public Methods
