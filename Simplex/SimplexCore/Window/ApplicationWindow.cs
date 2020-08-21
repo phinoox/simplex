@@ -58,9 +58,9 @@ namespace Simplex.Core.Window
             vg = GlNanoVg.CreateGl(NvgCreateFlags.AntiAlias |
                  NvgCreateFlags.StencilStrokes |
                  NvgCreateFlags.Debug);
-            if(!File.Exists("Fonts/OpenSans-Regular.ttf"))
+            if(!File.Exists("Data/Fonts/OpenSans-Regular.ttf"))
                Console.WriteLine("could not finde default font file");
-            int defaultfontLoaded=NanoVg.CreateFont(vg, "sans", "Fonts/OpenSans-Regular.ttf");
+            int defaultfontLoaded=NanoVg.CreateFont(vg, "sans", "Data/Fonts/OpenSans-Regular.ttf");
             if(defaultfontLoaded != 0)
                 Console.WriteLine("could not load default font");
             this.Visible = true;
