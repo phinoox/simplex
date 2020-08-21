@@ -55,7 +55,7 @@ namespace Simplex.Core.Scene
         public Vector3 Scale { get => _scale; set => _scale = value; }
         public Vector3 Translation { get => _translation; set { _translation = value; onTranslate(); } }
 
-        public Vector3 Forward{ get {return (_rotation * Vector3.UnitZ).Normalized() * -1 ;}}
+        public Vector3 Forward{ get {return (_rotation * Vector3.UnitZ).Normalized();}}
 
         public Vector3 Right { get { return (_rotation * Vector3.UnitX).Normalized();}}
 
@@ -233,8 +233,10 @@ namespace Simplex.Core.Scene
 
         public void RotateY(float angle)
         {
+            foreach(SceneNode child in _childNodes)
+                 child.RotateY(angle);
             Quaternion rot = Quaternion.FromAxisAngle(Up,angle);
-            Rotation = (_rotation * rot).Normalized();
+            Rotation = ( _rotation * rot).Normalized();
         }
 
         public void RotateZ(float angle)

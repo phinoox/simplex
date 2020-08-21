@@ -12,7 +12,7 @@ namespace Simplex.Core.Scene
 
         private Camera currentCamera = new Camera();
         private SceneNode rootNode = new SceneNode();
-        private Renderer sceneRenderer = new Renderer();
+        
 
         public SceneNode RootNode { get => rootNode; set => rootNode = value; }
         public Camera CurrentCamera { get => currentCamera; set => currentCamera = value; }
@@ -21,16 +21,7 @@ namespace Simplex.Core.Scene
 
         #region Public Methods
 
-        /// <summary>
-        /// renders the scene
-        /// </summary>
-        /// <param name="delta">milliseconds</param>
-        public void Render(float delta)
-        {
-            List<MeshNode> nodes = rootNode.FindChildByType<MeshNode>();
-            sceneRenderer.Render(currentCamera, delta, nodes);
-        }
-
+        
         #endregion Public Methods
     }
 }

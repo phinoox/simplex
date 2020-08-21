@@ -52,6 +52,21 @@ namespace Simplex.Core.Loaders
             return tex;
         }
 
+        public Texture2D LoadTexture2D(Stream stream,string name){
+           if(textures.ContainsKey(name))
+             return textures[name];
+            Texture2D tex;
+            using (var bitmap = new Bitmap(stream))
+            {
+                //bitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                BitmapTexture.CreateCompatible(bitmap, out tex);
+                tex.LoadBitmap(bitmap);
+                tex.GenerateMipMaps();
+            }
+            textures[name] = tex;
+            return tex;
+        }
+
         #endregion Public Methods
     }
 }

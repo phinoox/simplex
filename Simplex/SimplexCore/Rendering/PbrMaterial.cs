@@ -103,24 +103,39 @@ namespace Simplex.Core.Rendering
                 return;
             _shaderProgram = SXProgramFactory.Create<PbrShaderProgram>();
             _shaderProgram.Use();
+
+            uint flag =0;
             if (_albedo != null)
             {
-                _shaderProgram.HasAlbedo.Set(true);
+                flag |= (uint)ShaderFlag.ALBEDO;
                 _shaderProgram.Albedo.BindTexture(TextureUnit.Texture0, _albedo);
             }
-            else
-            {
-                _shaderProgram.HasAlbedo.Set(false);
-            }
+          
             if (_normalMap != null)
             {
+                flag |= (uint)ShaderFlag.NORMAL;
                 _shaderProgram.NormalTex.BindTexture(TextureUnit.Texture1, _normalMap);
                 _shaderProgram.NormalFactor.Set(_normalFactor);
             }
-            else
-            {
-                _shaderProgram.NormalFactor.Set(0);
+            
+            if(_metalTexture!=null){
+                flag |= (uint)ShaderFlag.METAL;
+                _shaderProgram.MetalTex.BindTexture(TextureUnit.Texture2,_metalTexture);
+                _shaderProgram.Metalicness.Set(_metalicness);
             }
+
+            if(_roughnessTexture!=null){
+                 flag |= (uint)ShaderFlag.ROUGHNESS;
+                _shaderProgram.RoughnessTex.BindTexture(TextureUnit.Texture3,_roughnessTexture);
+                _shaderProgram.Roughness.Set(_roughness);
+            }
+            if(_emissiveMap!=null){
+                  flag |= (uint)ShaderFlag.EMISSIVE;
+                _shaderProgram.EmissiveMap.BindTexture(TextureUnit.Texture4,_emissiveMap);
+                _shaderProgram.EmissiveFactor.Set(_emissiveFactor);
+            }
+
+             _shaderProgram.Flags.Set(flag);
             initialized = true;
         }
         public void Update()
@@ -135,6 +150,12 @@ namespace Simplex.Core.Rendering
                 _albedo.Bind(TextureUnit.Texture0);
             if (_normalMap != null)
                _normalMap.Bind(TextureUnit.Texture1);
+            if(_metalTexture!=null)
+               _metalTexture.Bind(TextureUnit.Texture2);
+            if(_roughnessTexture!=null)
+              _roughnessTexture.Bind(TextureUnit.Texture3);
+            if(_emissiveMap!=null)
+              _emissiveMap.Bind(TextureUnit.Texture4);
 
         }
 

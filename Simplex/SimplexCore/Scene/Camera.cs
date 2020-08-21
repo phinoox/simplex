@@ -58,7 +58,7 @@ namespace Simplex.Core.Scene
 
         private void createViewMatrix()
         {
-            Vector3 target = (Translation+Forward);
+            Vector3 target = (Translation+Forward );
             viewMatrix = Matrix4.LookAt(Translation,target,up);
             //_rotation = viewMatrix.ExtractRotation();
         }

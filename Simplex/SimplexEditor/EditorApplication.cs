@@ -17,7 +17,7 @@ namespace Simplex.Editor
         private Control ctrl;
         private string guiPath;
         private string scenePath;
-
+        private SceneNode gltfMesh;
         #endregion Private Fields
 
         #region Private Methods
@@ -32,11 +32,12 @@ namespace Simplex.Editor
             switch (ext)
             {
                 case ".gltf":
+                case ".glb":
                     {
                         MeshLoader mloader = new MeshLoader();
-                        SceneNode node = mloader.LoadMesh(e.FileName);
-                        this.MainWindow.Scene.RootNode.ClearChildren();
-                        this.MainWindow.Scene.RootNode.AddChild(node);
+                        gltfMesh = mloader.LoadMesh(e.FileName);
+                        //this.MainWindow.Scene.RootNode.ClearChildren();
+                        this.MainWindow.Scene.RootNode.AddChild(gltfMesh);
                         //this.MainWindow.Scene.CurrentCamera.LookAt(node.Translation);
                         break;
                     }
@@ -84,10 +85,15 @@ namespace Simplex.Editor
         protected override void onInit(string[] args)
         {
             base.onInit(args);
-            MainWindow.Scene.CurrentCamera.Translation = new OpenTK.Vector3( 8, 3, 0);
-            MainWindow.Scene.CurrentCamera.LookAt(new OpenTK.Vector3(0));
+            //MainWindow.Scene.CurrentCamera.Translation = new OpenTK.Vector3( 8, 3, 0);
+            //MainWindow.Scene.CurrentCamera.LookAt(new OpenTK.Vector3(0));
             string sponza = "Data\\sponza\\Sponza.gltf";
-
+            LightNode directional = new LightNode();
+            directional.Name="Sun";
+            directional.LightType = LightTypes.DIRECTIONAL;
+            directional.Translation = new Vector3(5,7,3);
+            directional.LookAt(Vector3.Zero);
+            MainWindow.Scene.RootNode.AddChild(directional);
             //ctrl = new Control();
             MainWindow.FileDrop += MainWindow_FileDrop;
             MainWindow.KeyDown += MainWindow_KeyDown;
@@ -107,9 +113,9 @@ namespace Simplex.Editor
             if (MainWindow.isKeyDown(Key.S))
                 cam.Translation = cam.Translation - cam.Forward * speedRatio;
             if (MainWindow.isKeyDown(Key.A))
-                cam.Translation = cam.Translation - cam.Right * speedRatio;
+                cam.Translation = cam.Translation - new Vector3(cam.Right.X,0,cam.Right.Z) * speedRatio;
             if (MainWindow.isKeyDown(Key.D))
-                cam.Translation = cam.Translation + cam.Right * speedRatio;
+                cam.Translation = cam.Translation + new Vector3(cam.Right.X,0,cam.Right.Z) * speedRatio;
             if (MainWindow.isKeyDown(Key.Q))
                 cam.Translation = cam.Translation - Vector3.UnitY * speedRatio;
             if (MainWindow.isKeyDown(Key.E))
@@ -117,7 +123,10 @@ namespace Simplex.Editor
 
             //cam.RotateY(1.1f*delta);
             time+=delta *0.01f;
-
+           // LightNode directional = MainWindow.Scene.RootNode.FindChild("Sun") as LightNode;
+            if(gltfMesh!=null){
+                gltfMesh.RotateY(MathHelper.DegreesToRadians(0.25f));
+            }
             //GlobalUniforms.LightDir = (Quaternion.FromAxisAngle(Vector3.UnitY,MathHelper.DegreesToRadians(delta*0.05f)) * GlobalUniforms.LightDir).Normalized();
             //MainWindow.GuiRender.DrawText($"Cam Position:{cam.Translation}",5f,30f);
             //float angle = time % 360;

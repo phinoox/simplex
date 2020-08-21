@@ -18,9 +18,11 @@ namespace Simplex.Core.Rendering
 
         private Buffer<Vector3> _normals;
 
-        PrimitiveType drawMode = PrimitiveType.Triangles;
+        PrimitiveType _drawMode = PrimitiveType.Triangles;
         private VertexArray _vao;
         private List<MeshData> meshDatas = new List<MeshData>();
+
+        private BoundingBox _bounds = new BoundingBox();
 
         ~MeshPrimitive()
         {
@@ -34,11 +36,34 @@ namespace Simplex.Core.Rendering
         {
             _vbo = new Buffer<Vector3>();
             List<Vector3> vertices = new List<Vector3>();
+            Vector3 minBounds = new Vector3();
+            Vector3 maxBounds = new Vector3();
+            bool first = true;
             foreach (object obj in data.Data)
             {
                 try
                 {
                     Vector3 vec3 = (Vector3)obj;
+                    if (first)
+                    {
+                        minBounds = vec3;
+                        maxBounds = vec3;
+                        first = false;
+                    }
+                    if (vec3.X < minBounds.X)
+                        minBounds.X = vec3.X;
+                    else if (vec3.X > maxBounds.X)
+                        maxBounds.X = vec3.X;
+
+                    if (vec3.Y < minBounds.Y)
+                        minBounds.Y = vec3.Y;
+                    else if (vec3.Y > maxBounds.Y)
+                        maxBounds.Y = vec3.Y;
+
+                    if (vec3.Z < minBounds.Z)
+                        minBounds.Z = vec3.Z;
+                    else if (vec3.Z > maxBounds.Z)
+                        maxBounds.Z = vec3.Z;
                     vertices.Add(vec3);
                 }
                 catch (Exception e)
@@ -46,7 +71,9 @@ namespace Simplex.Core.Rendering
                     throw (e);
                 }
             }
-
+            _bounds.Min=minBounds;
+            _bounds.Max=maxBounds;
+            
             _vbo.Init(BufferTarget.ArrayBuffer, vertices.ToArray());
         }
         private void CreateNormalBuffer(MeshData data)
@@ -110,7 +137,7 @@ namespace Simplex.Core.Rendering
 
         public List<MeshData> MeshDatas { get => meshDatas; }
         public PbrMaterial Material { get => _material; set => _material = value; }
-        public PrimitiveType DrawMode { get => drawMode; set => drawMode = value; }
+        public PrimitiveType DrawMode { get => _drawMode; set => _drawMode = value; }
 
         public void Init()
         {
@@ -119,7 +146,7 @@ namespace Simplex.Core.Rendering
             _vao = new VertexArray();
             _vao.Bind();
             _material.Init();
-            
+
             foreach (MeshData meshData in meshDatas)
             {
                 //if(meshData.Initialized)
@@ -128,11 +155,12 @@ namespace Simplex.Core.Rendering
                     case "POSITION": CreateVBO(meshData); break;
                     case "INDICES": createIndexBuffer(meshData); break;
                     case "TEXCOORD_0": CreateTexCoordBuffer(meshData); break;
-                    case "NORMAL": CreateNormalBuffer(meshData);break;
+                    case "NORMAL": CreateNormalBuffer(meshData); break;
                 }
             }
 
             InitVao();
+            _bounds.Init();
             initialized = true;
         }
 
@@ -146,8 +174,8 @@ namespace Simplex.Core.Rendering
                 _vao.BindAttribute(_material.ShaderProgram.InTexCoord, _tex);
             if (_indexBuffer != null)
                 _vao.BindElementBuffer(_indexBuffer);
-            if(_normals!=null)
-               _vao.BindAttribute(_material.ShaderProgram.InNormal,_normals);
+            if (_normals != null)
+                _vao.BindAttribute(_material.ShaderProgram.InNormal, _normals);
         }
         public void Render(in Matrix4 mvp)
         {
@@ -160,11 +188,11 @@ namespace Simplex.Core.Rendering
             _material.ShaderProgram.Ambient.Set(GlobalUniforms.AmbientColor);
             _vao.Bind();
             if (_indexBuffer == null)
-                _vao.DrawArrays(drawMode, 0, _vbo.ElementCount);
+                _vao.DrawArrays(_drawMode, 0, _vbo.ElementCount);
             else
             {
                 _vao.BindElementBuffer(_indexBuffer);
-                _vao.DrawElements(drawMode, _indexBuffer.ElementCount);
+                _vao.DrawElements(_drawMode, _indexBuffer.ElementCount);
             }
 
         }

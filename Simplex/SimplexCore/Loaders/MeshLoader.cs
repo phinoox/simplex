@@ -42,7 +42,7 @@ namespace Simplex.Core.Loaders
             if (!File.Exists(path))
                 return rootNode;
             GLTF.Gltf gltf = Interface.LoadModel(path);
-
+             
             Dictionary<int, ObjectTK.Textures.Texture2D> textures = new Dictionary<int, ObjectTK.Textures.Texture2D>();
 
             int textureCount = 0;
@@ -52,8 +52,15 @@ namespace Simplex.Core.Loaders
                 foreach (GLTF.Texture tex in gltf.Textures)
                 {
                     int? source = tex.Source;
-                    if (!source.HasValue)
-                        continue;
+                    if (!source.HasValue){
+                       continue;
+                    }
+                    if(gltf.Images[source.Value].Uri==null){
+                        Stream imageStream = Interface.OpenImageFile(gltf,textureCount,path);
+                        textures[textureCount] = TextureLoader.Instance.LoadTexture2D(imageStream,path+$"_{textureCount}");
+                        textureCount++;
+                        continue;   
+                    }
                     string fileName = dirName + gltf.Images[source.Value].Uri;
                     textures[textureCount] = TextureLoader.Instance.LoadTexture2D(fileName);
                     textureCount++;
@@ -91,7 +98,11 @@ namespace Simplex.Core.Loaders
             foreach (GLTF.Buffer buffer in gltf.Buffers)
             {
                 const string dataDesc = "data:application/octet-stream;base64,";
-                if (buffer.Uri.StartsWith(dataDesc))
+                if(buffer.Uri==null){
+                    Byte[] bytes = Interface.LoadBinaryBuffer(path);
+                    buffers.Add(bytes);
+                }
+                else if (buffer.Uri.StartsWith(dataDesc))
                 {
                     string bufferData = buffer.Uri.Substring(dataDesc.Length);
                     Byte[] bytes = Convert.FromBase64String(bufferData);

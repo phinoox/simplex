@@ -4,6 +4,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Input;
 using Simplex.Core.Gui;
+using Simplex.Core.Rendering;
 using Simplex.Core.Scene;
 using Simplex.Core.Util;
 using System;
@@ -24,7 +25,9 @@ namespace Simplex.Core.Window
         private bool canUpdate = false;
         private GuiRenderer guiRender = new GuiRenderer();
         private HashSet<Key> keysDown = new HashSet<Key>();
-        private Scene3D scene = new Scene3D();
+        private Scene3D _scene = new Scene3D();
+
+        private SXRenderer _renderer = new SXRenderer();
         private IGraphicsContext sceneContext;
         private IGraphicsContext guiContext;
         private NvgContext vg;
@@ -49,6 +52,7 @@ namespace Simplex.Core.Window
             GL.Enable(EnableCap.DepthTest);
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha,BlendingFactor.OneMinusSrcAlpha);
+            _renderer.Init(width,height);
             guiContext = new GraphicsContext(GraphicsMode.Default, this.WindowInfo, 4, 5, GraphicsContextFlags.ForwardCompatible);
             guiContext.MakeCurrent(this.WindowInfo);
             vg = GlNanoVg.CreateGl(NvgCreateFlags.AntiAlias |
@@ -77,7 +81,7 @@ namespace Simplex.Core.Window
         /// <summary>
         /// the main scene
         /// </summary>
-        public Scene3D Scene { get => scene; set => scene = value; }
+        public Scene3D Scene { get => _scene; set => _scene = value; }
 
         /// <summary>
         /// the created nanovg context that can be used for drawing
@@ -168,6 +172,7 @@ namespace Simplex.Core.Window
         protected override void OnResize(EventArgs e)
         {
             GL.Viewport(0, 0, Width, Height);
+            _renderer.ResizeFrameBuffer(Width,Height);
         }
 
         #endregion Protected Methods
@@ -208,7 +213,7 @@ namespace Simplex.Core.Window
             if (!sceneContext.IsCurrent)
                 sceneContext.MakeCurrent(this.WindowInfo);
 
-            this.scene.Render(delta);
+            this._renderer.Render(_scene);
         }
         /// <summary>
         /// swaps the buffers of the opengl context

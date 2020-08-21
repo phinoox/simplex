@@ -795,17 +795,16 @@
             Basic ShaderProgram for pbr based rendering 
             </summary>
         </member>
-        <member name="T:Simplex.Core.Rendering.Renderer">
+        <member name="T:Simplex.Core.Rendering.SXRenderer">
             <summary>
             main class for rendering a 3D scene...I guess
             </summary>
         </member>
-        <member name="M:Simplex.Core.Rendering.Renderer.Render(Simplex.Core.Scene.Camera,System.Single,System.Collections.Generic.List{Simplex.Core.Scene.MeshNode})">
+        <member name="M:Simplex.Core.Rendering.SXRenderer.Render(Simplex.Core.Scene.Scene3D)">
             <summary>
             renders the scene
             </summary>
-            <param name="cam">the camera to be used</param>
-            <param name="delta">the time since the last frame in milliseconds</param>
+            <param name="scene">the scene to be rendered</param>
         </member>
         <member name="T:Simplex.Core.Rendering.SXProgramFactory">
             <summary>
@@ -888,12 +887,6 @@
             <summary>
             main class for a 3d scene
             </summary>
-        </member>
-        <member name="M:Simplex.Core.Scene.Scene3D.Render(System.Single)">
-            <summary>
-            renders the scene
-            </summary>
-            <param name="delta">milliseconds</param>
         </member>
         <member name="T:Simplex.Core.Scene.SceneNode">
             <summary>
