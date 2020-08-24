@@ -3,24 +3,28 @@ using Simplex.BVT;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Simplex.Core.Rendering;
+using Simplex.Core.Util;
 
 namespace Simplex.Core.Scene
 {
     /// <summary>
     /// Base class for a node in the 3D Scene
     /// </summary>
-    public class SceneNode
+    public class SceneNode : IDisposable
     {
 
         #region Private Fields
 
-        private BVTRoot behavior = new BVTRoot();
+        private bool _disposed = false;
+        private BVTRoot _behavior = new BVTRoot();
         private List<SceneNode> _childNodes = new List<SceneNode>();
         private string _name;
-        private SceneNode parent;
+        private SceneNode _parent;
         protected Quaternion _rotation = Quaternion.Identity;
         protected Vector3 _scale = new Vector3(1);
         protected Vector3 _translation = Vector3.Zero;
+        protected BoundingBox _bounds = new BoundingBox();
         private Guid uid;
 
         #endregion Private Fields
@@ -44,7 +48,8 @@ namespace Simplex.Core.Scene
         /// </summary>
         ~SceneNode()
         {
-            onDestroy();
+            if (!_disposed)
+                Dispose();
         }
 
         #endregion Private Destructors
@@ -55,12 +60,13 @@ namespace Simplex.Core.Scene
         public Vector3 Scale { get => _scale; set => _scale = value; }
         public Vector3 Translation { get => _translation; set { _translation = value; onTranslate(); } }
 
-        public Vector3 Forward{ get {return (_rotation * Vector3.UnitZ).Normalized();}}
+        public Vector3 Forward { get { return (_rotation * (Vector3.UnitZ*-1)).Normalized(); } }
 
-        public Vector3 Right { get { return (_rotation * Vector3.UnitX).Normalized();}}
+        public Vector3 Right { get { return (_rotation * Vector3.UnitX).Normalized(); } }
 
-        public Vector3 Up { get { return (_rotation * Vector3.UnitY).Normalized();}}
+        public Vector3 Up { get { return (_rotation * Vector3.UnitY).Normalized(); } }
         public string Name { get => _name; set => _name = value; }
+        public BoundingBox Bounds { get => _bounds.Scaled(_scale); set => _bounds = value; }
 
         #endregion Public Properties
 
@@ -72,9 +78,9 @@ namespace Simplex.Core.Scene
         /// <param name="parent">the parent scene node</param>
         private void TreeEntered(SceneNode parent)
         {
-            if (this.parent != null)
-                onTreeMoved(this.parent, parent);
-            this.parent = parent;
+            if (this._parent != null)
+                onTreeMoved(this._parent, parent);
+            this._parent = parent;
             if (this.uid == null)
                 this.uid = Guid.NewGuid();
             onTreeEntered();
@@ -164,9 +170,17 @@ namespace Simplex.Core.Scene
         /// </summary>
         /// <param name="name">the name of the node</param>
         /// <returns>the node if found,else null</returns>
-        public SceneNode FindChild(string name)
+        public SceneNode FindChild(string name,bool recursive = true)
         {
-            return this._childNodes.Find(x => x._name == name);
+            SceneNode node = this._childNodes.Find(x => x._name == name);
+            if(node !=null)
+               return node;
+            foreach(SceneNode child in _childNodes){
+                node = child.FindChild(name);
+                if(node != null)
+                   return node;
+            }
+            return node;
         }
 
         public List<T> FindChildByType<T>(bool recursive = true)
@@ -212,7 +226,7 @@ namespace Simplex.Core.Scene
         /// <param name="newParent"></param>
         public void TreeMoved(SceneNode newParent)
         {
-            SceneNode oldParent = this.parent;
+            SceneNode oldParent = this._parent;
             oldParent._childNodes.Remove(this);
 
             onTreeMoved(oldParent, newParent);
@@ -222,43 +236,128 @@ namespace Simplex.Core.Scene
 
         public void ClearChildren()
         {
+            foreach (SceneNode child in _childNodes)
+            {
+                child.Dispose();
+            }
             _childNodes.Clear();
+        }
+
+        public virtual void CalculateBounds()
+        {
+
+
+            Vector3 minBounds = Bounds.Min;
+            Vector3 maxBounds = Bounds.Max;
+            bool first = true;
+            foreach (SceneNode child in _childNodes)
+            {
+                child.CalculateBounds();
+                Vector3 primMin = child.Bounds.Min;
+                Vector3 primMax = child.Bounds.Max;
+                if (first)
+                {
+                    minBounds = primMin;
+                    maxBounds = primMax;
+                    first = false;
+                }
+                if (primMin.X < minBounds.X)
+                    minBounds.X = primMin.X;
+                if (primMax.X > maxBounds.X)
+                    maxBounds.X = primMax.X;
+
+                if (primMin.Y < minBounds.Y)
+                    minBounds.Y = primMin.Y;
+                if (primMax.Y > maxBounds.Y)
+                    maxBounds.Y = primMax.Y;
+
+                if (primMin.Z < minBounds.Z)
+                    minBounds.Z = primMin.Z;
+                if (primMax.Z > maxBounds.Z)
+                    maxBounds.Z = primMax.Z;
+            }
+
+            Bounds.Min=minBounds;
+            Bounds.Max=maxBounds;
         }
 
         public void RotateX(float angle)
         {
+            foreach (SceneNode child in _childNodes)
+                child.RotateX(angle);
             Quaternion rot = Quaternion.FromAxisAngle(Right, angle);
             Rotation = (_rotation * rot).Normalized();
         }
 
+
+
         public void RotateY(float angle)
         {
-            foreach(SceneNode child in _childNodes)
-                 child.RotateY(angle);
-            Quaternion rot = Quaternion.FromAxisAngle(Up,angle);
-            Rotation = ( _rotation * rot).Normalized();
+            foreach (SceneNode child in _childNodes)
+                child.RotateY(angle);
+            Quaternion rot = Quaternion.FromAxisAngle(Up, angle);
+            Rotation = (_rotation * rot).Normalized();
         }
 
         public void RotateZ(float angle)
         {
+            foreach (SceneNode child in _childNodes)
+                child.RotateZ(angle);
             Quaternion rot = Quaternion.FromAxisAngle(Forward, angle);
             Rotation = (_rotation * rot).Normalized();
         }
 
+        public void TranslateY(float distance)
+        {
+            foreach (SceneNode child in _childNodes)
+                child.TranslateY(distance);
+            Translation+=new Vector3(0,distance,0);
+        }
+
+        public void TranslateX(float distance)
+        {
+            foreach (SceneNode child in _childNodes)
+                child.TranslateX(distance);
+            Translation+=new Vector3(distance,0,0);
+        }
+
+        public void TranslateZ(float distance)
+        {
+            foreach (SceneNode child in _childNodes)
+                child.TranslateZ(distance);
+            Translation+=new Vector3(0,0,distance);
+        }
+
         public virtual void LookAt(in Vector3 target)
         {
-            
+            Rotation = MathFuncs.Lookat(Translation,target);
+            return;
+
+
+
+            if((target-_translation).LengthFast<0.1f)
+              return;
             Vector3 direction = (target - _translation).Normalized();
-            Vector3 forward = Vector3.UnitZ;
+            Vector3 forward = Vector3.UnitZ * -1;
             //compute rotation axis
-            Vector3 rotAxis = Vector3.Cross(direction,forward);
-
+            Vector3 rotAxis = Vector3.Cross(forward,direction);
+            if(rotAxis.Length==0)
+                rotAxis=Vector3.UnitY;
+            //making sure roataaxis is positive up
+           // if(rotAxis.Y <0)
+           //    rotAxis*=-1;
             //find the angle around rotation axis
-            float dot = Vector3.Dot(direction,forward);
-            float angle = (float)Math.Acos(dot);
+            float dot = Vector3.Dot(direction, forward);
+            float angle = MathF.Acos(dot);
+            if(angle<0.1f)
+                return;
 
-            //convert axis angle to quaternion
-            Rotation = Quaternion.FromAxisAngle(rotAxis,angle);
+            // https://stackoverflow.com/questions/12435671/quaternion-lookat-function
+            float s = MathF.Sin(angle*0.5f);
+            Vector3 u = rotAxis.Normalized();
+            //convert axis angle to quaternion std::cosf(angle / 2), u.x() * s, u.y() * s, u.z() * s
+            Rotation = new Quaternion(u.X * s,u.Y *s,u.Z * s,MathF.Cos(angle*.5f)); //Quaternion.FromAxisAngle(rotAxis, angle);
+            
         }
 
         public virtual void HorizontalLookAt(in Vector3 target)
@@ -266,5 +365,15 @@ namespace Simplex.Core.Scene
 
         }
 
+        public void Dispose()
+        {
+            foreach (SceneNode child in _childNodes)
+            {
+                child.Dispose();
+            }
+            onDestroy();
+            GC.Collect();
+            _disposed = true;
+        }
     }
 }

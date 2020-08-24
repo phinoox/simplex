@@ -136,6 +136,8 @@ namespace Simplex.Core.Rendering
             }
 
              _shaderProgram.Flags.Set(flag);
+             if(_normalFactor==0)
+                _normalFactor=1;
             initialized = true;
         }
         public void Update()
@@ -148,8 +150,10 @@ namespace Simplex.Core.Rendering
             _shaderProgram.Use();
             if (_albedo != null)
                 _albedo.Bind(TextureUnit.Texture0);
-            if (_normalMap != null)
+            if (_normalMap != null){
                _normalMap.Bind(TextureUnit.Texture1);
+               _shaderProgram.NormalFactor.Set(_normalFactor);
+            }
             if(_metalTexture!=null)
                _metalTexture.Bind(TextureUnit.Texture2);
             if(_roughnessTexture!=null)

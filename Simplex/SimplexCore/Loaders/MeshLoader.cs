@@ -347,7 +347,7 @@ namespace Simplex.Core.Loaders
 
             //mesh.Scale = new Vector3(gltf.Nodes[0].Scale[0],gltf.Nodes[0].Scale[1],gltf.Nodes[0].Scale[2]);
             //mesh.Init();
-
+            rootNode.CalculateBounds();
             return rootNode;
         }
 

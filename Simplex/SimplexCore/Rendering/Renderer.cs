@@ -62,7 +62,7 @@ namespace Simplex.Core.Rendering
                  DrawBuffersEnum.ColorAttachment0,
                   DrawBuffersEnum.ColorAttachment1,
                    DrawBuffersEnum.ColorAttachment2,
-                   DrawBuffersEnum.ColorAttachment3 
+                   DrawBuffersEnum.ColorAttachment3
                    };
             GL.DrawBuffers(attachments.Length, attachments);
 
@@ -105,19 +105,20 @@ namespace Simplex.Core.Rendering
         {
             List<MeshNode> meshes = scene.RootNode.FindChildByType<MeshNode>();
             Camera cam = scene.CurrentCamera;
+            GlobalUniforms.View = cam.getViewMatrix();
+            GlobalUniforms.Projection = cam.getProjectionMatrix();
             _frameBuffer.Bind(FramebufferTarget.Framebuffer);
             _colorBuffer.Bind();
             _normalBuffer.Bind();
             GL.Viewport(0, 0, _width, _height);
-            GL.ClearColor(Color.Black);
+            GL.ClearColor(Color.LightSkyBlue);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.Enable(EnableCap.DepthTest);
-            Matrix4 view = cam.getViewMatrix();
-            Matrix4 projection = cam.getProjectionMatrix();
+
             //vp.M44=1;
             foreach (MeshNode mesh in meshes)
             {
-                mesh.Render(view, projection);
+                mesh.Render(cam);
             }
             Framebuffer.Unbind(FramebufferTarget.Framebuffer);
             //_colorBuffer.GenerateMipMaps();
@@ -127,25 +128,32 @@ namespace Simplex.Core.Rendering
 
         private void RenderLightPass(Scene3D scene)
         {
+            Camera cam = scene.CurrentCamera;
+            Matrix4 view = cam.getViewMatrix();
+            Matrix4 projection = cam.getProjectionMatrix();
             _lightFrameBuffer.Bind(FramebufferTarget.Framebuffer);
             List<LightNode> lights = scene.RootNode.FindChildByType<LightNode>();
-            foreach(LightNode light in lights){
-                if(light.LightType==LightTypes.DIRECTIONAL)
-                  GlobalUniforms.LightDir = light.Forward;
+            foreach (LightNode light in lights)
+            {
+                if (light.LightType == LightTypes.DIRECTIONAL)
+                {
+                    //GlobalUniforms.LightDir = light.Forward;//(Matrix4.Identity *view * projection * new Vector4(light.Forward, 0)).Xyz;
+                }
             }
-             Framebuffer.Unbind(FramebufferTarget.Framebuffer);
+            Framebuffer.Unbind(FramebufferTarget.Framebuffer);
         }
 
         private void RenderShadowPass(Scene3D scene)
         {
             _shadowFrameBuffer.Bind(FramebufferTarget.Framebuffer);
             List<LightNode> lights = scene.RootNode.FindChildByType<LightNode>();
-            foreach(LightNode light in lights){
-                if(!light.CastsShadow)
+            foreach (LightNode light in lights)
+            {
+                if (!light.CastsShadow)
                     continue;
-               
+
             }
-             Framebuffer.Unbind(FramebufferTarget.Framebuffer);
+            Framebuffer.Unbind(FramebufferTarget.Framebuffer);
         }
 
         private void RenderCompositeQuad(Scene3D scene)

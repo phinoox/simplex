@@ -60,6 +60,7 @@ namespace Simplex.Core.Scene
         {
             Vector3 target = (Translation+Forward );
             viewMatrix = Matrix4.LookAt(Translation,target,up);
+           // viewMatrix = new Matrix4(new Vector4(Right),new Vector4(Up),new Vector4(Forward),new Vector4(-Translation,1));
             //_rotation = viewMatrix.ExtractRotation();
         }
 

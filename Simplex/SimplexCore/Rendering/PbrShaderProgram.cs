@@ -19,13 +19,20 @@ namespace Simplex.Core.Rendering
 
         [VertexAttrib(3, VertexAttribPointerType.Float)]
         public VertexAttrib InTexCoord { get; protected set; }
+
         [VertexAttrib(3, VertexAttribPointerType.Float)]
         public VertexAttrib InNormal { get; protected set; }
+
+        [VertexAttrib(4, VertexAttribPointerType.Float)]
+        public VertexAttrib InTangent { get; protected set; }
 
         [VertexAttrib(4, VertexAttribPointerType.UnsignedByte, true)]
         public VertexAttrib InColor { get; protected set; }
 
-        public Uniform<Matrix4> ModelViewProjectionMatrix { get; protected set; }
+       
+        public Uniform<Matrix4> Projection { get; protected set; }
+        public Uniform<Matrix4> View { get; protected set; }
+        public Uniform<Matrix4> Model { get; protected set; }
 
         public Uniform<Vector3> LightDir { get; set; }
         public Uniform<Color> LightColor { get; set; }

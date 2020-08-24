@@ -955,7 +955,7 @@
             <param name="guid">guid of the childnode</param>
             <returns>the childnode,null if non found</returns>
         </member>
-        <member name="M:Simplex.Core.Scene.SceneNode.FindChild(System.String)">
+        <member name="M:Simplex.Core.Scene.SceneNode.FindChild(System.String,System.Boolean)">
             <summary>
             tries to find a child by its name
             </summary>
