@@ -14,5 +14,10 @@
   <ItemGroup>
     <ProjectReference Include="..\SimplexCore\SimplexCore.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Content\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>  
+  </ItemGroup>
 
 </Project>
