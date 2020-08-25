@@ -45,7 +45,7 @@ namespace Simplex.Core.Window
         /// <param name="title">the window title</param>
         public ApplicationWindow(int width, int height, string title) : base(width, height, title, GameWindowFlags.Default, GraphicsMode.Default, DisplayDevice.Default)
         {
-            sceneContext = new GraphicsContext(GraphicsMode.Default, this.WindowInfo, 4, 5, GraphicsContextFlags.ForwardCompatible);
+            sceneContext = new GraphicsContext(GraphicsMode.Default, this.WindowInfo, 4, 5, GraphicsContextFlags.Default);
             sceneContext.MakeCurrent(this.WindowInfo);
              
             sceneContext.LoadAll();
