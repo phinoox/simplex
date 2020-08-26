@@ -10,7 +10,7 @@ in vec4 InTangent;
 smooth out vec4 Color;
 smooth out vec2 TexCoord;
 
-smooth out vec4 Position;
+out vec4 Position;
 out mat3 TBN;
 out mat4 model;
 out vec4 FragPos;
@@ -44,7 +44,7 @@ void main()
 smooth in vec4 Color;
 smooth in vec2 TexCoord;
 in vec3 Normal;
-smooth in vec4 Position;
+in vec4 Position;
 in vec4 FragPos;
 
 //in mat3 TBN;
@@ -81,14 +81,10 @@ const uint FLAG_METALL = 1u << 2;
 const uint FLAG_ROUGHNESS = 1u << 3;
 const uint FLAG_EMISSIVE = 1u << 4;
 
-float near = 0.1; 
-float far  = 1000.0; 
-  
-float LinearizeDepth(float depth) 
-{
-    float z = depth * 2.0 - 1.0; // back to NDC 
-    return (2.0 * near * far) / (far + near - z * (far - near));	
-}
+
+float znear = 0.1; 
+float zfar  = 1000.0;  
+
 
 void main()
 {
@@ -103,7 +99,7 @@ void main()
     vec3 lightDir = normalize((model * vec4(LightDir,1)).xyz);
     float diff = max(dot(norm, -LightDir), 0.0);
     vec4 directional = vec4(LightColor.rgb * diff,1);
-	float depth = LinearizeDepth(gl_FragCoord.z) / far; // divide by far for demonstration
+	
 	if((Flags & FLAG_ALBEDO)== FLAG_ALBEDO)
      color = texture(Albedo, TexCoord);
     else
@@ -112,9 +108,10 @@ void main()
      if((Flags & FLAG_EMISSIVE)==FLAG_EMISSIVE){
        emissive = texture(EmissiveMap,TexCoord);
      }
+     float z=(gl_FragCoord.z-znear)/(zfar-znear);
      color = color * (directional+Ambient);
      OColor = color;
      ONormal = vec4(norm,1);
-     OPosition = FragPos;
+     OPosition = vec4(FragPos.xyz,0.1f);
      OEmissive = emissive;
 }

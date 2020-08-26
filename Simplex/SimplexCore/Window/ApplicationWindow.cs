@@ -45,13 +45,15 @@ namespace Simplex.Core.Window
         /// <param name="title">the window title</param>
         public ApplicationWindow(int width, int height, string title) : base(width, height, title, GameWindowFlags.Default, GraphicsMode.Default, DisplayDevice.Default)
         {
-            sceneContext = new GraphicsContext(GraphicsMode.Default, this.WindowInfo, 4, 5, GraphicsContextFlags.Default);
+            sceneContext = new GraphicsContext(GraphicsMode.Default, this.WindowInfo, 4, 5, GraphicsContextFlags.ForwardCompatible);
             sceneContext.MakeCurrent(this.WindowInfo);
              
             sceneContext.LoadAll();
             GL.Enable(EnableCap.DepthTest);
             GL.Enable(EnableCap.Blend);
-            GL.BlendFunc(BlendingFactor.SrcAlpha,BlendingFactor.OneMinusSrcAlpha);
+            //GL.BlendFuncSeparate(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha,BlendingFactorSrc.One,BlendingFactorDest.OneMinusSrcAlpha);  
+  
+            GL.BlendFunc(BlendingFactor.One,BlendingFactor.OneMinusSrcAlpha);
             _renderer.Init(width,height);
             guiContext = new GraphicsContext(GraphicsMode.Default, this.WindowInfo, 4, 5, GraphicsContextFlags.ForwardCompatible);
             guiContext.MakeCurrent(this.WindowInfo);
@@ -87,6 +89,7 @@ namespace Simplex.Core.Window
         /// the created nanovg context that can be used for drawing
         /// </summary>
         public NvgContext Vg { get => vg; set => vg = value; }
+        public SXRenderer Renderer { get => _renderer; set => _renderer = value; }
 
         #endregion Public Properties
 

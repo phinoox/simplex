@@ -16,6 +16,7 @@ namespace Simplex.Core.Rendering
 
         [VertexAttrib(2, VertexAttribPointerType.Float)]
         public VertexAttrib InTexCoord { get; protected set; }
+        public Uniform<bool> Debug { get; set ;}
 
         public Uniform<Matrix4> ModelViewProjectionMatrix { get; protected set; }
         public TextureUniform Diffuse { get; set; }
@@ -24,6 +25,8 @@ namespace Simplex.Core.Rendering
         public TextureUniform Emissive { get; set; }
         public TextureUniform LightMap { get; set; }
         public TextureUniform ShadowMap { get; set; }
+
+        //public TextureUniform Depth { get; set; }
 
     }
 }

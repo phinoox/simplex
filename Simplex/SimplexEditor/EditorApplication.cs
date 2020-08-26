@@ -55,7 +55,12 @@ namespace Simplex.Editor
 
         private void MainWindow_KeyDown(object sender, KeyboardKeyEventArgs key)
         {
-
+            if(key.Key==Key.F2){
+                if(this.MainWindow.Renderer.Mode==RenderMode.SHADED)
+                   this.MainWindow.Renderer.Mode=RenderMode.DEBUG;
+                else
+                    this.MainWindow.Renderer.Mode=RenderMode.SHADED;
+            }
         }
 
         private void MainWindow_MouseMove(object sender, MouseMoveEventArgs e)

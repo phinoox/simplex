@@ -8,12 +8,22 @@ using System.Collections.Generic;
 
 namespace Simplex.Core.Rendering
 {
+    public enum RenderMode
+    {
+        SHADED,
+        UNLIT,
+        DEBUG,
+        WIREFRAME
+    }
+
+
+
     /// <summary>
     /// main class for rendering a 3D scene...I guess
     /// </summary>
     public class SXRenderer
     {
-
+        private RenderMode mode = RenderMode.SHADED;
         Framebuffer _frameBuffer;
         Framebuffer _lightFrameBuffer;
         Framebuffer _shadowFrameBuffer;
@@ -30,6 +40,10 @@ namespace Simplex.Core.Rendering
         Texture2D _lightBuffer;
         Texture2D _shadowBuffer;
         Renderbuffer _depthBuffer;
+        int _depthTexture;
+        int _depthTextureLocation;
+
+        public RenderMode Mode { get => mode; set => mode = value; }
 
 
         #region Public Methods
@@ -42,10 +56,25 @@ namespace Simplex.Core.Rendering
 
             _frameBuffer = new Framebuffer();
             _frameBuffer.Bind(FramebufferTarget.Framebuffer);
-            _depthBuffer = new Renderbuffer();
-            _depthBuffer.Init(RenderbufferStorage.DepthComponent, width, height);
-            _frameBuffer.Attach(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment, _depthBuffer);
+            //_depthBuffer = new Renderbuffer();
+            //_depthBuffer.Init(RenderbufferStorage.DepthComponent, width, height);
+            //_frameBuffer.Attach(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment, _depthBuffer);
+            
+            //depthbuffer manual
 
+            _depthTexture = GL.GenTexture();
+            GL.BindTexture(TextureTarget.Texture2D, _depthTexture);
+            //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
+            //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
+            //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Clamp);
+            //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Clamp);
+            //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureCompareFunc, (int)All.Lequal);
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.DepthComponent, width, height, 0, OpenTK.Graphics.OpenGL.PixelFormat.DepthComponent, PixelType.Float, System.IntPtr.Zero);
+            GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment, TextureTarget.Texture2D, _depthTexture, 0);
+
+            GL.BindTexture(TextureTarget.Texture2D, 0);
+            
+           
             _colorBuffer = new Texture2D(SizedInternalFormat.Rgba8, width, height);
             _normalBuffer = new Texture2D(SizedInternalFormat.Rgba8, width, height);
             _positionBuffer = new Texture2D(SizedInternalFormat.Rgba8, width, height);
@@ -62,7 +91,8 @@ namespace Simplex.Core.Rendering
                  DrawBuffersEnum.ColorAttachment0,
                   DrawBuffersEnum.ColorAttachment1,
                    DrawBuffersEnum.ColorAttachment2,
-                   DrawBuffersEnum.ColorAttachment3
+                   DrawBuffersEnum.ColorAttachment3,
+                    DrawBuffersEnum.ColorAttachment4
                    };
             GL.DrawBuffers(attachments.Length, attachments);
 
@@ -73,8 +103,9 @@ namespace Simplex.Core.Rendering
             _compositionProgram.Diffuse.BindTexture(TextureUnit.Texture0, _colorBuffer);
             _compositionProgram.Normal.BindTexture(TextureUnit.Texture1, _normalBuffer);
             _compositionProgram.Position.BindTexture(TextureUnit.Texture2, _positionBuffer);
-            _compositionProgram.Position.BindTexture(TextureUnit.Texture3, _emissiveBuffer);
-
+            _compositionProgram.Emissive.BindTexture(TextureUnit.Texture3, _emissiveBuffer);
+             _depthTextureLocation = GL.GetUniformLocation(_compositionProgram.Handle,"Depth");
+           
             if (_screenQuad == null)
             {
                 _screenQuad = new TexturedQuad();
@@ -165,16 +196,26 @@ namespace Simplex.Core.Rendering
             GL.Viewport(0, 0, _width, _height);
             GL.ClearColor(Color.MidnightBlue);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            //GL.Disable(EnableCap.DepthTest);
+            //GL.Disable(EnableCap.Blend);
             _colorBuffer.Bind(TextureUnit.Texture0);
             _normalBuffer.Bind(TextureUnit.Texture1);
             _positionBuffer.Bind(TextureUnit.Texture2);
             _emissiveBuffer.Bind(TextureUnit.Texture3);
+            GL.ActiveTexture(TextureUnit.Texture4);
+            GL.BindTexture(TextureTarget.Texture2D,_depthTexture);
+           GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
+           GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
+           //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Clamp);
+           //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Clamp);
+           //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureCompareFunc, (int)All.Lequal);
             _compositionProgram.Use();
             _compositionProgram.ModelViewProjectionMatrix.Set(Matrix4.Identity);// * view * projection);
-
+             GL.Uniform1(_depthTextureLocation,4);
+            //_compositionProgram.Depth.Set(dt_loc);
+            _compositionProgram.Debug.Set(mode == RenderMode.DEBUG ? true : false);
             _quadVao.Bind();
             _quadVao.DrawArrays(PrimitiveType.TriangleStrip, 0, _screenQuad.VertexBuffer.ElementCount);
+             GL.ActiveTexture(TextureUnit.Texture0);
         }
 
         /// <summary>
@@ -198,7 +239,8 @@ namespace Simplex.Core.Rendering
             _shadowFrameBuffer.Dispose();
             _colorBuffer.Dispose();
             _normalBuffer.Dispose();
-            _depthBuffer.Dispose();
+            //_depthBuffer.Dispose();
+            GL.DeleteTexture(_depthTexture);
             _emissiveBuffer.Dispose();
             _positionBuffer.Dispose();
             _lightBuffer.Dispose();
