@@ -32,7 +32,7 @@ uniform bool RenderTexCoords;
 uniform vec2 ViewPortSize;
 
 float znear = 0.1; 
-float zfar  = 1000.0; 
+float zfar  = 2000.0; 
 
 float LinearizeDepth(float depth) 
 {

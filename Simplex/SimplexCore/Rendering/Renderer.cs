@@ -59,7 +59,7 @@ namespace Simplex.Core.Rendering
             //_depthBuffer = new Renderbuffer();
             //_depthBuffer.Init(RenderbufferStorage.DepthComponent, width, height);
             //_frameBuffer.Attach(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment, _depthBuffer);
-            
+
             //depthbuffer manual
 
             _depthTexture = GL.GenTexture();
@@ -69,16 +69,16 @@ namespace Simplex.Core.Rendering
             //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Clamp);
             //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Clamp);
             //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureCompareFunc, (int)All.Lequal);
-            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.DepthComponent, width, height, 0, OpenTK.Graphics.OpenGL.PixelFormat.DepthComponent, PixelType.Float, System.IntPtr.Zero);
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Depth24Stencil8, width, height, 0, OpenTK.Graphics.OpenGL.PixelFormat.DepthComponent, PixelType.Float, System.IntPtr.Zero);
             GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment, TextureTarget.Texture2D, _depthTexture, 0);
 
             GL.BindTexture(TextureTarget.Texture2D, 0);
-            
-           
+
+
             _colorBuffer = new Texture2D(SizedInternalFormat.Rgba8, width, height);
-            _normalBuffer = new Texture2D(SizedInternalFormat.Rgba8, width, height);
-            _positionBuffer = new Texture2D(SizedInternalFormat.Rgba8, width, height);
-            _emissiveBuffer = new Texture2D(SizedInternalFormat.Rgba8, width, height);
+            _normalBuffer = new Texture2D(SizedInternalFormat.Rgba32f, width, height);
+            _positionBuffer = new Texture2D(SizedInternalFormat.Rgba32f, width, height);
+            _emissiveBuffer = new Texture2D(SizedInternalFormat.Rgba32f, width, height);
 
 
 
@@ -104,8 +104,8 @@ namespace Simplex.Core.Rendering
             _compositionProgram.Normal.BindTexture(TextureUnit.Texture1, _normalBuffer);
             _compositionProgram.Position.BindTexture(TextureUnit.Texture2, _positionBuffer);
             _compositionProgram.Emissive.BindTexture(TextureUnit.Texture3, _emissiveBuffer);
-             _depthTextureLocation = GL.GetUniformLocation(_compositionProgram.Handle,"Depth");
-           
+            _depthTextureLocation = GL.GetUniformLocation(_compositionProgram.Handle, "Depth");
+
             if (_screenQuad == null)
             {
                 _screenQuad = new TexturedQuad();
@@ -202,20 +202,22 @@ namespace Simplex.Core.Rendering
             _positionBuffer.Bind(TextureUnit.Texture2);
             _emissiveBuffer.Bind(TextureUnit.Texture3);
             GL.ActiveTexture(TextureUnit.Texture4);
-            GL.BindTexture(TextureTarget.Texture2D,_depthTexture);
-           GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
-           GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
-           //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Clamp);
-           //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Clamp);
-           //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureCompareFunc, (int)All.Lequal);
+            GL.BindTexture(TextureTarget.Texture2D, _depthTexture);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+            //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureCompareMode, (int)TextureCompareMode.None);
+            //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.DepthTextureMode, (int)PixelFormat.Luminance);
+            //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Clamp);
+            //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Clamp);
+            //GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureCompareFunc, (int)All.Lequal);
             _compositionProgram.Use();
             _compositionProgram.ModelViewProjectionMatrix.Set(Matrix4.Identity);// * view * projection);
-             GL.Uniform1(_depthTextureLocation,4);
+            GL.Uniform1(_depthTextureLocation, 4);
             //_compositionProgram.Depth.Set(dt_loc);
             _compositionProgram.Debug.Set(mode == RenderMode.DEBUG ? true : false);
             _quadVao.Bind();
             _quadVao.DrawArrays(PrimitiveType.TriangleStrip, 0, _screenQuad.VertexBuffer.ElementCount);
-             GL.ActiveTexture(TextureUnit.Texture0);
+            GL.ActiveTexture(TextureUnit.Texture0);
         }
 
         /// <summary>

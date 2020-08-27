@@ -9,11 +9,9 @@ namespace Simplex.Core.Rendering
 {
     [VertexShaderSource("PbrComposite.Vertex")]
     [FragmentShaderSource("PbrComposite.Fragment")]
-    public class CompositionProgram : Program
+    public class CompositionProgram : ProgramBase
     {
-        [VertexAttrib(3, VertexAttribPointerType.Float)]
-        public VertexAttrib InPosition { get; protected set; }
-
+       
         [VertexAttrib(2, VertexAttribPointerType.Float)]
         public VertexAttrib InTexCoord { get; protected set; }
         public Uniform<bool> Debug { get; set ;}

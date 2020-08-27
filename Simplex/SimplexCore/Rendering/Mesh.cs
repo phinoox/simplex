@@ -12,7 +12,7 @@ namespace Simplex.Core.Rendering
     {
         private bool initialized = false;
         private bool disposed = false;
-        private PbrMaterial _material;
+        private MaterialBase _material;
         private Buffer<Vector3> _vbo;
         private Buffer<Vector2> _tex;
         private Buffer<uint> _indexBuffer;
@@ -27,7 +27,7 @@ namespace Simplex.Core.Rendering
 
 
         public List<MeshData> MeshDatas { get => meshDatas; }
-        public PbrMaterial Material { get => _material; set => _material = value; }
+        public MaterialBase Material { get => _material; set => _material = value; }
         public PrimitiveType DrawMode { get => _drawMode; set => _drawMode = value; }
         public BoundingBox Bounds { get => _bounds; set => _bounds = value; }
 
@@ -210,11 +210,13 @@ namespace Simplex.Core.Rendering
             _material.ShaderProgram.View.Set(GlobalUniforms.View);
             _material.ShaderProgram.Projection.Set(GlobalUniforms.Projection);
             _material.ShaderProgram.Model.Set(model);
-            _material.ShaderProgram.FragColor.Set(new OpenTK.Color(255, 0, 0, 1));
-            _material.ShaderProgram.LightColor.Set(GlobalUniforms.LightColor);
-            _material.ShaderProgram.LightDir.Set(GlobalUniforms.LightDir);
-            _material.ShaderProgram.Ambient.Set(GlobalUniforms.AmbientColor);
-            
+            PbrShaderProgram pbrShader = _material.ShaderProgram as PbrShaderProgram;
+            if(pbrShader!=null){
+            pbrShader.FragColor.Set(new OpenTK.Color(255, 0, 0, 1));
+            pbrShader.LightColor.Set(GlobalUniforms.LightColor);
+            pbrShader.LightDir.Set(GlobalUniforms.LightDir);
+            pbrShader.Ambient.Set(GlobalUniforms.AmbientColor);
+            }
             _vao.Bind();
             if (_indexBuffer == null)
                 _vao.DrawArrays(_drawMode, 0, _vbo.ElementCount);

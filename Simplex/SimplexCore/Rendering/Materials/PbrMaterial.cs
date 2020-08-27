@@ -9,7 +9,7 @@ namespace Simplex.Core.Rendering
     /// basic class for pbr material
     /// tries to be compatible with gltf materials
     /// </summary>
-    public class PbrMaterial : IDisposable
+    public class PbrMaterial : MaterialBase
     {
         #region Private Fields
         private bool initialized = false;
@@ -23,7 +23,7 @@ namespace Simplex.Core.Rendering
         private ObjectTK.Textures.Texture _normalMap;
         private float _roughness;
         private ObjectTK.Textures.Texture _roughnessTexture;
-        private PbrShaderProgram _shaderProgram;
+       // private PbrShaderProgram _shaderProgram;
         private ObjectTK.Textures.Texture _ssaoMap;
 
         #endregion Private Fields
@@ -83,59 +83,56 @@ namespace Simplex.Core.Rendering
         /// <summary>
         /// the shader programm that should be used
         /// </summary>
-        public PbrShaderProgram ShaderProgram { get => _shaderProgram; set => _shaderProgram = value; }
+       // public PbrShaderProgram ShaderProgram { get => _shaderProgram; set => _shaderProgram = value; }
         /// <summary>
         /// the ssao texture
         /// </summary>
         public Texture SsaoMap { get => _ssaoMap; set => _ssaoMap = value; }
 
-        public void Dispose()
-        {
-            if (ShaderProgram != null)
-                ShaderProgram.Dispose();
-        }
 
         #endregion Public Properties
 
-        public void Init()
+        public override void Init()
         {
             if (initialized)
                 return;
             _shaderProgram = SXProgramFactory.Create<PbrShaderProgram>();
             _shaderProgram.Use();
+            PbrShaderProgram pbrShader = _shaderProgram as PbrShaderProgram;
+
 
             uint flag =0;
             if (_albedo != null)
             {
                 flag |= (uint)ShaderFlag.ALBEDO;
-                _shaderProgram.Albedo.BindTexture(TextureUnit.Texture0, _albedo);
+                pbrShader.Albedo.BindTexture(TextureUnit.Texture0, _albedo);
             }
           
             if (_normalMap != null)
             {
                 flag |= (uint)ShaderFlag.NORMAL;
-                _shaderProgram.NormalTex.BindTexture(TextureUnit.Texture1, _normalMap);
-                _shaderProgram.NormalFactor.Set(_normalFactor);
+                pbrShader.NormalTex.BindTexture(TextureUnit.Texture1, _normalMap);
+                pbrShader.NormalFactor.Set(_normalFactor);
             }
             
             if(_metalTexture!=null){
                 flag |= (uint)ShaderFlag.METAL;
-                _shaderProgram.MetalTex.BindTexture(TextureUnit.Texture2,_metalTexture);
-                _shaderProgram.Metalicness.Set(_metalicness);
+                pbrShader.MetalTex.BindTexture(TextureUnit.Texture2,_metalTexture);
+                pbrShader.Metalicness.Set(_metalicness);
             }
 
             if(_roughnessTexture!=null){
                  flag |= (uint)ShaderFlag.ROUGHNESS;
-                _shaderProgram.RoughnessTex.BindTexture(TextureUnit.Texture3,_roughnessTexture);
-                _shaderProgram.Roughness.Set(_roughness);
+                pbrShader.RoughnessTex.BindTexture(TextureUnit.Texture3,_roughnessTexture);
+                pbrShader.Roughness.Set(_roughness);
             }
             if(_emissiveMap!=null){
                   flag |= (uint)ShaderFlag.EMISSIVE;
-                _shaderProgram.EmissiveMap.BindTexture(TextureUnit.Texture4,_emissiveMap);
-                _shaderProgram.EmissiveFactor.Set(_emissiveFactor);
+                pbrShader.EmissiveMap.BindTexture(TextureUnit.Texture4,_emissiveMap);
+                pbrShader.EmissiveFactor.Set(_emissiveFactor);
             }
 
-             _shaderProgram.Flags.Set(flag);
+             pbrShader.Flags.Set(flag);
              if(_normalFactor==0)
                 _normalFactor=1;
             initialized = true;
@@ -145,14 +142,15 @@ namespace Simplex.Core.Rendering
 
         }
 
-        public void Use()
+        public override void Use()
         {
             _shaderProgram.Use();
+             PbrShaderProgram pbrShader = _shaderProgram as PbrShaderProgram;
             if (_albedo != null)
                 _albedo.Bind(TextureUnit.Texture0);
             if (_normalMap != null){
                _normalMap.Bind(TextureUnit.Texture1);
-               _shaderProgram.NormalFactor.Set(_normalFactor);
+               pbrShader.NormalFactor.Set(_normalFactor);
             }
             if(_metalTexture!=null)
                _metalTexture.Bind(TextureUnit.Texture2);
