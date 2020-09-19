@@ -719,11 +719,6 @@
             ToDo: implement
             </summary>
         </member>
-        <member name="T:Simplex.Core.Rendering.Mesh">
-            <summary>
-            base class for mesh information
-            </summary>
-        </member>
         <member name="T:Simplex.Core.Rendering.PbrMaterial">
             <summary>
             basic class for pbr material
@@ -780,14 +775,14 @@
             the roughness texture
             </summary>
         </member>
-        <member name="P:Simplex.Core.Rendering.PbrMaterial.ShaderProgram">
-            <summary>
-            the shader programm that should be used
-            </summary>
-        </member>
         <member name="P:Simplex.Core.Rendering.PbrMaterial.SsaoMap">
             <summary>
             the ssao texture
+            </summary>
+        </member>
+        <member name="T:Simplex.Core.Rendering.Mesh">
+            <summary>
+            base class for mesh information
             </summary>
         </member>
         <member name="T:Simplex.Core.Rendering.PbrShaderProgram">
