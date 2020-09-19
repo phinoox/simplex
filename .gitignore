@@ -31,6 +31,6 @@
 *.out
 *.app
 *.lock
-**/bin
-**/obj
+**/bin/*
+**/obj/*
 
