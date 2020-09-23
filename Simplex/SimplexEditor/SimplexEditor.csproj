@@ -7,12 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ObjectTK.NetStandard" Version="1.0.0" />
-    <PackageReference Include="OpenTK.NetStandard" Version="1.0.5.12" />
+    <PackageReference Include="OpenTK.NetStandard" Version="1.0.5.22" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SimplexCore\SimplexCore.csproj" />
+    <ProjectReference Include="..\Simplex\Simplex.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Content\**\*.*">

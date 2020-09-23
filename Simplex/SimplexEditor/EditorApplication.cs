@@ -1,11 +1,11 @@
-﻿using Simplex.Core;
-using Simplex.Core.Gui;
-using Simplex.Core.Loaders;
-using Simplex.Core.Rendering;
-using Simplex.Core.Scene;
+﻿using Simplex;
+using Simplex.Gui;
+using Simplex.Loaders;
+using Simplex.Rendering;
+using Simplex.Scene;
 using System.IO;
 using OpenTK.Input;
-using OpenTK;
+using System.Numerics;
 using System;
 
 namespace Simplex.Editor
@@ -73,8 +73,8 @@ namespace Simplex.Editor
                     Camera cam = MainWindow.Scene.CurrentCamera;
                     float deltaX = e.XDelta * sensitivity;
                     float deltaY = e.YDelta * sensitivity;
-                    cam.RotateX(MathHelper.DegreesToRadians(deltaY));
-                    cam.RotateY(MathHelper.DegreesToRadians(deltaX));
+                    cam.RotateX(OpenTK.MathHelper.DegreesToRadians(deltaY));
+                    cam.RotateY(OpenTK.MathHelper.DegreesToRadians(deltaX));
                     //Quaternion rotY = Quaternion.FromAxisAngle(cam.Up, MathHelper.DegreesToRadians(deltaX * 2f)).Normalized();
                     //Quaternion rotX = Quaternion.FromAxisAngle(cam.Right, MathHelper.DegreesToRadians(deltaY * 2f)).Normalized();
                     //Quaternion finalRot = (rotY * rotX).Normalized();
@@ -173,6 +173,12 @@ namespace Simplex.Editor
             //cam.Rotation = rotDelta;//(cam.Rotation * rotDelta).Normalized();
             //cam.LookAt(target);
             //ctrl.Draw();
+            Matrix4x4 org = Matrix4x4.Identity;
+            OpenTK.Matrix4 conv = new OpenTK.Matrix4(org.M11,org.M12,org.M13,org.M14,
+                                                    org.M21,org.M22,org.M23,org.M24,
+                                                    org.M31,org.M32,org.M33,org.M34,
+                                                    org.M41,org.M42,org.M43,org.M44);
+
         }
 
         #endregion Protected Methods

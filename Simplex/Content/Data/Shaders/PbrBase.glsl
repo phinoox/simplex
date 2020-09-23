@@ -98,7 +98,7 @@ void main()
     vec4 color;
     vec3 lightDir = normalize((model * vec4(LightDir,1)).xyz);
     float diff = max(dot(norm, -LightDir), 0.0);
-    vec4 directional = vec4(LightColor.rgb * diff,1);
+    vec4 directional = (vec4(LightColor.rgb * diff,1));
 	
 	if((Flags & FLAG_ALBEDO)== FLAG_ALBEDO)
      color = texture(Albedo, TexCoord);
