@@ -1,5 +1,4 @@
 ﻿using Simplex;
-using Simplex.Gui;
 using Simplex.Loaders;
 using Simplex.Rendering;
 using Simplex.Scene;
@@ -14,7 +13,6 @@ namespace Simplex.Editor
     {
         #region Private Fields
         private float time;
-        private Control ctrl;
         private string guiPath;
         private string scenePath;
         private SceneNode gltfMesh;
@@ -120,8 +118,8 @@ namespace Simplex.Editor
             float speedRatio = camSpeedModifier * (delta* 0.001f);
             Camera cam = MainWindow.Scene.CurrentCamera;
 
-            MainWindow.GuiRender.DrawText($"Cam Position:{cam.Translation}",5f,30f);
-            MainWindow.GuiRender.DrawText($"Cam Forward:{cam.Forward},Right:{cam.Right},Up:{cam.Up}",5f,40f);
+            //MainWindow.GuiRender.DrawText($"Cam Position:{cam.Translation}",5f,30f);
+            //MainWindow.GuiRender.DrawText($"Cam Forward:{cam.Forward},Right:{cam.Right},Up:{cam.Up}",5f,40f);
 
             if (MainWindow.isKeyDown(Key.W))
                 cam.Translation = cam.Translation + cam.Forward * speedRatio;

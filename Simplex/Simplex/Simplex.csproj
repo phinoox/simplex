@@ -18,16 +18,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="NanoVGDotNet">
-      <HintPath>..\dependencies\NanoVGDotNet.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
     <Reference Include="ObjectTK.NetStandard">
       <HintPath>..\dependencies\ObjectTK.NetStandard.dll</HintPath>
       <Private>true</Private>
     </Reference>
     <Reference Include="ObjectTK.NetStandard.Tools">
       <HintPath>..\dependencies\ObjectTK.NetStandard.Tools.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="Gwen.Clipboard">
+      <HintPath>..\dependencies\CrossPlatform.Clipboard.dll</HintPath>
       <Private>true</Private>
     </Reference>
    </ItemGroup>

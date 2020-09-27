@@ -99,24 +99,7 @@ namespace Simplex.Util
             return new SimplexColor() { r = (int)sc.R, g = (int)sc.G, b = (int)sc.B, a = (int)sc.A };
         }
 
-        /// <summary>
-        /// implicit cast to simplexcolor
-        /// </summary>
-        /// <param name="sc"></param>
-        public static implicit operator SimplexColor(NanoVGDotNet.NanoVG.NvgColor sc)
-        {
-            return new SimplexColor() { r = (int)sc.R, g = (int)sc.G, b = (int)sc.B, a = (int)sc.A };
-        }
-
-        /// <summary>
-        /// imlpicit cast to nvgcolor
-        /// </summary>
-        /// <param name="sc"></param>
-        public static implicit operator NanoVGDotNet.NanoVG.NvgColor(SimplexColor sc)
-        {
-            return new NanoVGDotNet.NanoVG.NvgColor() { R = sc.r, G = sc.g, B = sc.b, A = sc.a };
-        }
-
+        
         #endregion Public Methods
     }
 

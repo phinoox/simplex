@@ -1,9 +1,8 @@
-﻿using NanoVGDotNet.NanoVG;
-using OpenTK;
+﻿using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Input;
-using Simplex.Gui;
+using Simplex.Gui.Renderer;
 using Simplex.Rendering;
 using Simplex.Scene;
 using Simplex.Util;
@@ -11,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Simplex.Window
+namespace Simplex.Windowing
 {
     /// <summary>
     /// implementation from opentks native window
@@ -23,14 +22,14 @@ namespace Simplex.Window
         #region Private Fields
 
         private bool canUpdate = false;
-        private GuiRenderer guiRender = new GuiRenderer();
+        private GuiRenderer _guiRender = new GuiRenderer();
         private HashSet<Key> keysDown = new HashSet<Key>();
         private Scene3D _scene = new Scene3D();
 
         private SXRenderer _renderer = new SXRenderer();
-        private IGraphicsContext sceneContext;
-        private IGraphicsContext guiContext;
-        private NvgContext vg;
+        private IGraphicsContext _sceneContext;
+        private IGraphicsContext _guiContext;
+        
 
         #endregion Private Fields
 
@@ -45,28 +44,29 @@ namespace Simplex.Window
         /// <param name="title">the window title</param>
         public ApplicationWindow(int width, int height, string title) : base(width, height, title, GameWindowFlags.Default, GraphicsMode.Default, DisplayDevice.Default)
         {
-            sceneContext = new GraphicsContext(GraphicsMode.Default, this.WindowInfo, 4, 5, GraphicsContextFlags.Default);
-            sceneContext.MakeCurrent(this.WindowInfo);
+            _sceneContext = new GraphicsContext(GraphicsMode.Default, this.WindowInfo, 4, 5, GraphicsContextFlags.Default);
+            _sceneContext.MakeCurrent(this.WindowInfo);
              
-            sceneContext.LoadAll();
+            _sceneContext.LoadAll();
             GL.Enable(EnableCap.DepthTest);
             GL.Enable(EnableCap.Blend);
             //GL.BlendFuncSeparate(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha,BlendingFactorSrc.One,BlendingFactorDest.OneMinusSrcAlpha);  
   
             GL.BlendFunc(BlendingFactor.One,BlendingFactor.OneMinusSrcAlpha);
             _renderer.Init(width,height);
-            guiContext = new GraphicsContext(GraphicsMode.Default, this.WindowInfo, 4, 5, GraphicsContextFlags.ForwardCompatible);
-            guiContext.MakeCurrent(this.WindowInfo);
-            vg = GlNanoVg.CreateGl(NvgCreateFlags.AntiAlias |
-                 NvgCreateFlags.StencilStrokes |
-                 NvgCreateFlags.Debug);
+            _guiContext = new GraphicsContext(GraphicsMode.Default, this.WindowInfo, 4, 5, GraphicsContextFlags.ForwardCompatible);
+            _guiContext.MakeCurrent(this.WindowInfo);
+            //vg = GlNanoVg.CreateGl(NvgCreateFlags.AntiAlias |
+            //     NvgCreateFlags.StencilStrokes |
+            //     NvgCreateFlags.Debug);
+            _guiRender.Init(width,height);
             if(!File.Exists("Data/Fonts/OpenSans-Regular.ttf"))
                Console.WriteLine("could not finde default font file");
-            int defaultfontLoaded=NanoVg.CreateFont(vg, "sans", "Data/Fonts/OpenSans-Regular.ttf");
-            if(defaultfontLoaded != 0)
-                Console.WriteLine("could not load default font");
+            //int defaultfontLoaded=NanoVg.CreateFont(vg, "sans", "Data/Fonts/OpenSans-Regular.ttf");
+            //if(defaultfontLoaded != 0)
+            //    Console.WriteLine("could not load default font");
             this.Visible = true;
-            Logger.Default.Info(sceneContext);
+            Logger.Default.Info(_sceneContext);
             this.KeyDown += ApplicationWindow_KeyDown;
             this.KeyUp += ApplicationWindow_KeyUp;
         }
@@ -78,7 +78,7 @@ namespace Simplex.Window
         /// <summary>
         /// the main gui renderer
         /// </summary>
-        public GuiRenderer GuiRender { get => guiRender; set => guiRender = value; }
+        public GuiRenderer GuiRender { get => _guiRender; set => _guiRender = value; }
 
         /// <summary>
         /// the main scene
@@ -88,7 +88,6 @@ namespace Simplex.Window
         /// <summary>
         /// the created nanovg context that can be used for drawing
         /// </summary>
-        public NvgContext Vg { get => vg; set => vg = value; }
         public SXRenderer Renderer { get => _renderer; set => _renderer = value; }
 
         #endregion Public Properties
@@ -116,7 +115,7 @@ namespace Simplex.Window
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
-            GuiRender.MouseDown(e.X, e.Y);
+            GuiRender.Mouse_ButtonDown(e);
         }
 
         /// <summary>
@@ -126,7 +125,7 @@ namespace Simplex.Window
         protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
-            guiRender.MouseEntered();
+            _guiRender.MouseEntered();
         }
 
         /// <summary>
@@ -136,7 +135,7 @@ namespace Simplex.Window
         protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
-            guiRender.MouseLeave();
+            _guiRender.MouseLeave();
         }
 
         /// <summary>
@@ -146,7 +145,7 @@ namespace Simplex.Window
         protected override void OnMouseMove(MouseMoveEventArgs e)
         {
             base.OnMouseMove(e);
-            guiRender.MouseMove(e.X, e.Y);
+            _guiRender.Mouse_Move(e);
         }
 
         /// <summary>
@@ -156,7 +155,7 @@ namespace Simplex.Window
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
             base.OnMouseUp(e);
-            GuiRender.MouseUp(e.X, e.Y);
+            GuiRender.Mouse_ButtonUp(e);
         }
 
         /// <summary>
@@ -176,6 +175,7 @@ namespace Simplex.Window
         {
             GL.Viewport(0, 0, Width, Height);
             _renderer.ResizeFrameBuffer(Width,Height);
+            _guiRender.Resize(Width,Height);
         }
 
         #endregion Protected Methods
@@ -198,13 +198,11 @@ namespace Simplex.Window
         /// <param name="delta"></param>
         public void RenderGui(float delta)
         {
-            guiContext.MakeCurrent(this.WindowInfo);
+            _guiContext.MakeCurrent(this.WindowInfo);
              GL.Viewport(0, 0, Width, Height);
-            NanoVg.BeginFrame(vg, Width, Height, 1);
-            guiRender.Render();
-            NanoVg.EndFrame(vg);
-            if (!sceneContext.IsCurrent)
-                sceneContext.MakeCurrent(this.WindowInfo);
+            _guiRender.Render();
+            if (!_sceneContext.IsCurrent)
+                _sceneContext.MakeCurrent(this.WindowInfo);
         }
 
         /// <summary>
@@ -213,8 +211,8 @@ namespace Simplex.Window
         /// <param name="delta"></param>
         public void RenderScene(float delta)
         {
-            if (!sceneContext.IsCurrent)
-                sceneContext.MakeCurrent(this.WindowInfo);
+            if (!_sceneContext.IsCurrent)
+                _sceneContext.MakeCurrent(this.WindowInfo);
 
             this._renderer.Render(_scene);
         }
@@ -223,7 +221,7 @@ namespace Simplex.Window
         /// </summary>
         public void SwapBuffers()
         {
-            sceneContext.SwapBuffers();
+            _sceneContext.SwapBuffers();
         }
 
         #endregion Public Methods

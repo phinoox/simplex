@@ -1,247 +1,215 @@
-﻿using NanoVGDotNet.NanoVG;
-using System.Numerics;
-using Simplex.Util;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Mime;
+using System.Text;
+using System.Threading;
+using Simplex.Gui.Control;
+using Simplex.Gui.Renderer;
+using Simplex.Gui.Input;
+using Simplex.Platform;
+using OpenTK;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL4;
+using OpenTK.Input;
+using Simplex.Gui.Skin;
+using Simplex.Gui;
 
-namespace Simplex.Gui
+namespace Simplex.Gui.Renderer
 {
     /// <summary>
-    /// Main class nested in the ApplicationWIndow that handles gui renderering
-    /// also handles basic gui logic like hovering,focus etc
+    /// Demonstrates the GameWindow class.
     /// </summary>
-    public class GuiRenderer
+    public class GuiRenderer : IDisposable
     {
-        #region Private Fields
 
-        private static GuiRenderer defaultRenderer;
-        private Control currentHovered = null;
-        private Control draggedControl = null;
-        private Queue<Func<bool>> drawCommands = new Queue<Func<bool>>();
-        private Control focusedControl = null;
-        private Vector2 lastMousePos;
-        private Vector2 mouseDelta = Vector2.Zero;
-        private Control mouseDownControl = null;
-        private bool mouseInWindow = false;
-        private List<GuiWindow> windows = new List<GuiWindow>();
+        private OpenTKBase m_Renderer;
+        private SkinBase m_Skin;
+        private Canvas m_Canvas;
+        private InputSystem m_Input;
+		private List<string> defaultFonts = new List<string>();
+		private int _currentFont=0;
+        const int FpsFrames = 50;
+        private readonly List<long> m_Ftime;
+        private readonly Stopwatch m_Stopwatch;
+        private long m_LastTime;
+        private float m_TotalTime = 0f;
 
-        #endregion Private Fields
+        private bool m_AltDown = false;
 
-        #region Public Constructors
-
-        /// <summary>
-        /// default constructor
-        /// </summary>
         public GuiRenderer()
+        //: base(1024, 768)
         {
-            if (defaultRenderer == null)
-                defaultRenderer = this;
+            m_Ftime = new List<long>(FpsFrames);
+            m_Stopwatch = new Stopwatch();
         }
 
-        #endregion Public Constructors
-
-        #region Public Properties
-
-        /// <summary>
-        /// returns the default guirenderer instance - so the first created
-        /// </summary>
-        public static GuiRenderer DefaultRenderer { get => defaultRenderer; set => defaultRenderer = value; }
-
-        /// <summary>
-        /// the list of guiwindows
-        /// </summary>
-        public List<GuiWindow> Windows { get => windows; }
-
-        #endregion Public Properties
-
-        #region Public Methods
-
-        /// <summary>
-        /// draws some text the next render call
-        /// </summary>
-        /// <param name="text">the text to display</param>
-        /// <param name="x">the absolte x position of the text</param>
-        /// <param name="y">the absolute y position of the text</param>
-        public void DrawText(string text, float x, float y)
+        public void Keyboard_KeyPress(KeyPressEventArgs e)
         {
-            drawCommands.Enqueue(() =>
-           {
-               NvgContext vg = ApplicationBase.Instance.MainWindow.Vg;
-               NanoVg.FillColor(vg, new SimplexColor(0, 0, 0, 1));
-               NanoVg.Text(vg, x, y, text);
-               return true;
-           }
-                );
+            if(e.KeyChar=='f'){
+				_currentFont = (_currentFont+1)%defaultFonts.Count;
+				//m_Skin.DefaultFont= new Font(m_Renderer, defaultFonts[_currentFont],12);
+				m_Skin.SetDefaultFont(defaultFonts[_currentFont],12);
+				m_Canvas.Redraw();
+			}
+			else if (e.KeyChar=='c'){
+				m_Skin.Colors.ModalBackground = new Simplex.Gui.Color(200,200,200,275);
+			}
         }
 
-        /// <summary>
-        /// tells the guirenderer about a mousedown event
-        /// </summary>
-        /// <param name="x">the absolute x position of the mouse</param>
-        /// <param name="y">the absolute y position of the mouse</param>
-        /// <returns>true if a control handled the event</returns>
-        public bool MouseDown(int x, int y)
+        public void Dispose()
         {
-            if (!mouseInWindow)
-                return false;
-            if (currentHovered != null)
+            if (m_Canvas != null)
             {
-                mouseDownControl = currentHovered;
-                return currentHovered.MouseDown();
+                m_Canvas.Dispose();
+                m_Canvas = null;
             }
-            return false;
+            if (m_Skin != null)
+            {
+                m_Skin.Dispose();
+                m_Skin = null;
+            }
+            if (m_Renderer != null)
+            {
+                m_Renderer.Dispose();
+                m_Renderer = null;
+            }
+            
         }
 
         /// <summary>
-        /// gets called when the mouse entered the window
+        /// Occurs when a key is pressed.
         /// </summary>
-        public void MouseEntered()
+        /// <param name="sender">The KeyboardDevice which generated this event.</param>
+        /// <param name="e">The key that was pressed.</param>
+        public void Keyboard_KeyDown(KeyboardKeyEventArgs e)
         {
-            mouseInWindow = true;
+            if (e.Key == global::OpenTK.Input.Key.AltLeft){
+                m_AltDown = true;
+			}
+           
+            m_Input.ProcessKeyDown(e);
         }
 
-        /// <summary>
-        /// gets called when the mouse left the window
-        /// </summary>
-        public void MouseLeave()
+        public void Keyboard_KeyUp(KeyboardKeyEventArgs e)
         {
-            mouseInWindow = false;
-            currentHovered = null;
+            m_AltDown = false;
+            m_Input.ProcessKeyUp(e);
         }
 
-        /// <summary>
-        /// tells the guirenderer about a mousemove event
-        /// </summary>
-        /// <param name="x">the absolute x position of the mouse</param>
-        /// <param name="y">the absolute y position of the mouse</param>
-        /// <returns>true if a control handled the event</returns>
-        public void MouseMove(int x, int y)
+        public void Mouse_ButtonDown( MouseButtonEventArgs args)
         {
-            if (!mouseInWindow)
-                return;
-            Vector2 mousePos = new Vector2(x, y);
-            if (lastMousePos != null)
-            {
-                mouseDelta = lastMousePos - mousePos;
-            }
+            m_Input.ProcessMouseMessage(args);
+        }
 
-            lastMousePos = mousePos;
-            if (draggedControl != null)
-            {
-                draggedControl.Drag(x, y, (int)mouseDelta.X, (int)mouseDelta.Y);
-            }
-            else if (mouseDownControl != null && mouseDownControl.CanDrag)
-            {
-                draggedControl = mouseDownControl;
-                draggedControl.DragStart();
-            }
+        public void Mouse_ButtonUp(MouseButtonEventArgs args)
+        {
+            m_Input.ProcessMouseMessage(args);
+        }
 
-            bool found = false;
-            foreach (GuiWindow gwin in windows)
+        public void Mouse_Move( MouseMoveEventArgs args)
+        {
+            m_Input.ProcessMouseMessage(args);
+        }
+
+        public void Mouse_Wheel(MouseWheelEventArgs args)
+        {
+            m_Input.ProcessMouseMessage(args);
+        }
+
+        private void GetInstalledFontCollection()
+        {
+            
+            System.Drawing.Text.InstalledFontCollection ifc = new System.Drawing.Text.InstalledFontCollection();
+            System.Drawing.FontFamily[] ff = ifc.Families;
+
+            foreach (System.Drawing.FontFamily family in ff)
             {
-                if (gwin.ContainsPoint(x, y))
+				string[] nameParts = family.Name.Split(' ');
+				if(nameParts.Length>2)
+					continue;
+                if (family.IsStyleAvailable(System.Drawing.FontStyle.Regular))
                 {
-                    found = true;
-                    Control tmp = gwin;
-                    gwin.MouseMove(x, y);
-                    Control underMouse = gwin.FindChildAtPosition(x, y);
-                    if (underMouse != null)
-                    {
-                        tmp = underMouse;
-                    }
-
-                    if (currentHovered == null)
-                    {
-                        currentHovered = tmp;
-                        tmp.MouseEntered();
-                    }
-                    else if (currentHovered != tmp)
-                    {
-                        currentHovered.MouseLeft();
-                        currentHovered = tmp;
-                        tmp.MouseEntered();
-                    }
+                    System.Drawing.Font f = new System.Drawing.Font(family.Name, 12);
+                    defaultFonts.Add(f.Name);
+                    f.Dispose();
                 }
             }
-            if (!found && currentHovered != null)
-            {
-                currentHovered.MouseLeft();
-                currentHovered = null;
-            }
+			
+            
         }
 
         /// <summary>
-        /// tells the guirenderer about a mouseup event
+        /// Setup OpenGL and load resources here.
         /// </summary>
-        /// <param name="x">the absolute x position of the mouse</param>
-        /// <param name="y">the absolute y position of the mouse</param>
-        /// <returns>true if a control handled the event</returns>
-        public bool MouseUp(int x, int y)
+        /// <param name="e">Not used.</param>
+        public void Init(int width,int height)
         {
-            if (draggedControl != null)
-            {
-                draggedControl.DragEnd();
-                draggedControl = null;
-            }
-            if (!mouseInWindow)
-                return false;
-            if (currentHovered != null)
-            {
-                if (draggedControl != null)
-                {
-                    if (currentHovered.CanDrop(draggedControl))
-                        currentHovered.Drop(draggedControl);
-                    draggedControl.DragEnd();
-                    draggedControl = null;
-                }
-                else if (mouseDownControl != null)
-                {
-                    if (mouseDownControl == currentHovered)
-                    {
-                        mouseDownControl.MouseClick();
-                        if (mouseDownControl.CanFocus)
-                        {
-                            if (focusedControl != null)
-                                focusedControl.UnFocus();
-                            focusedControl = mouseDownControl;
-                            focusedControl.Focus();
-                        }
-                    }
-                    mouseDownControl = null;
-                }
+            PlatformBase.Init(new NetCore());
+            m_Renderer = new Simplex.Gui.Renderer.OpenTKGL40();
+            m_Renderer.Resize(width,height);
+            m_Skin = new Simplex.Gui.Skin.TexturedBase(m_Renderer, "Data\\Gui\\DefaultSkin2.png");
+			GetInstalledFontCollection();
+            m_Skin.DefaultFont = new Font(m_Renderer, "MonoSpace",12);
+            m_Canvas = new Canvas(m_Skin);
+            m_Input = new InputSystem();
+            m_Input.Initialize(m_Canvas);
+            TextBox textBox = new TextBox(m_Canvas);
+            textBox.Text="hage";
+            textBox.ShouldDrawBackground=false;
+            textBox.Margin = new Margin(5,5,0,0);
+            textBox.TextColor = Color.Black;
+            m_Canvas.SetSize(width, height);
+            m_Canvas.ShouldDrawBackground = true;
+            m_Canvas.BackgroundColor = new Color(200,200,200,150);// m_Skin.Colors.ModalBackground;
 
-                return currentHovered.MouseUp();
-            }
-            else if (mouseDownControl != null)
-            {
-                mouseDownControl = null;
-                if (draggedControl != null)
-                {
-                    draggedControl.DragEnd();
-                    draggedControl = null;
-                }
-            }
+            if (Configuration.RunningOnMacOS)
+                m_Canvas.Scale = 1.5f;
 
-            return false;
+            m_Stopwatch.Restart();
+            m_LastTime = 0;
+        }
+
+        internal void MouseEntered()
+        {
+            
+        }
+
+        internal void MouseLeave()
+        {
         }
 
         /// <summary>
-        /// renders the gui
+        /// Respond to resize events here.
         /// </summary>
+        /// <param name="e">Contains information on the new GameWindow size.</param>
+        /// <remarks>There is no need to call the base implementation.</remarks>
+        public void Resize(int width,int height)
+        {
+            m_Renderer.Resize(width, height);
+
+            m_Canvas.SetSize(width, height);
+        }
+
+        
+        /// <summary>
+        /// Add your game rendering code here.
+        /// </summary>
+        /// <param name="e">Contains timing information.</param>
+        /// <remarks>There is no need to call the base implementation.</remarks>
         public void Render()
         {
-            NvgContext vg = ApplicationBase.Instance.MainWindow.Vg;
-            foreach (GuiWindow win in windows)
-            {
-                win.Render(vg);
-            }
-            while (drawCommands.Count > 0)
-            {
-                Func<bool> drawFunc = drawCommands.Dequeue();
-                drawFunc();
-            }
+           // GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
+            m_Stopwatch.Start();
+            m_Canvas.RenderCanvas();
+            m_Stopwatch.Stop();
+            int tts = (int)(1000 / 30 - m_Stopwatch.ElapsedMilliseconds); //30 - требуемое кол-во fps
+            if (tts > 0)
+                Thread.Sleep(tts);
+            m_Stopwatch.Restart();
+            
         }
 
-        #endregion Public Methods
+        
     }
 }

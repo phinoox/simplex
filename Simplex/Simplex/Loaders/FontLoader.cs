@@ -1,5 +1,4 @@
-﻿using NanoVGDotNet.NanoVG;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Simplex.Loaders
 {
@@ -21,10 +20,6 @@ namespace Simplex.Loaders
         /// </summary>
         public void LoadDefaults()
         {
-            NanoVGDotNet.NanoVG.NvgContext vg = ApplicationBase.Instance.MainWindow.Vg;
-            //ResourceManager resm = new ResourceManager("default resources", Assembly.GetCallingAssembly());
-            //object fontObject =resm.GetObject("OpenSans_Regular");
-            int fontId = NanoVg.CreateFont(vg, "sans", "Data/Fonts/OpenSans-Regular.ttf");
         }
 
         #endregion Public Methods

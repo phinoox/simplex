@@ -1,5 +1,5 @@
 ﻿using Simplex.Configs;
-using Simplex.Window;
+using Simplex.Windowing;
 using System;
 using System.IO;
 using System.Threading;
@@ -152,8 +152,8 @@ namespace Simplex
                 Simplex.Rendering.GlobalUniforms.time=(uint)(DateTime.Now - startTime).TotalMilliseconds;
                 mainWindow.RenderScene(delta);
                 onTick(frameTime>delta? frameTime: delta);
-                mainWindow.GuiRender.DrawText($"FPS:{fps}", 15, 15);
-                mainWindow.GuiRender.DrawText($"Slept:{sps}", 60, 15);
+                //mainWindow.GuiRender.DrawText($"FPS:{fps}", 15, 15);
+                //mainWindow.GuiRender.DrawText($"Slept:{sps}", 60, 15);
                 mainWindow.RenderGui(delta);
                 mainWindow.SwapBuffers();
                 EventHandler handler = TickHandler;
