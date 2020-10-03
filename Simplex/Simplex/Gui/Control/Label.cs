@@ -63,7 +63,7 @@ namespace Simplex.Gui.Control
 		public Padding TextPadding { get { return m_TextPadding; } set { m_TextPadding = value; Invalidate(); } }
 
 		[Xml.XmlEvent]
-		public override event ControlBase.GwenEventHandler<ClickedEventArgs> Clicked {
+		public override event ControlBase.GuiEventHandler<ClickedEventArgs> Clicked {
 			add {
 				base.Clicked += value;
 				MouseInputEnabled = ClickEventAssigned;
@@ -75,7 +75,7 @@ namespace Simplex.Gui.Control
 		}
 
 		[Xml.XmlEvent]
-		public override event ControlBase.GwenEventHandler<ClickedEventArgs> DoubleClicked {
+		public override event ControlBase.GuiEventHandler<ClickedEventArgs> DoubleClicked {
 			add {
 				base.DoubleClicked += value;
 				MouseInputEnabled = ClickEventAssigned;
@@ -87,7 +87,7 @@ namespace Simplex.Gui.Control
 		}
 
 		[Xml.XmlEvent]
-		public override event ControlBase.GwenEventHandler<ClickedEventArgs> RightClicked {
+		public override event ControlBase.GuiEventHandler<ClickedEventArgs> RightClicked {
 			add {
 				base.RightClicked += value;
 				MouseInputEnabled = ClickEventAssigned;
@@ -99,7 +99,7 @@ namespace Simplex.Gui.Control
 		}
 
 		[Xml.XmlEvent]
-		public override event ControlBase.GwenEventHandler<ClickedEventArgs> DoubleRightClicked {
+		public override event ControlBase.GuiEventHandler<ClickedEventArgs> DoubleRightClicked {
 			add {
 				base.DoubleRightClicked += value;
 				MouseInputEnabled = ClickEventAssigned;

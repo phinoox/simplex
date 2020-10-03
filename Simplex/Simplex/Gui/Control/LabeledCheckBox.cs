@@ -15,19 +15,19 @@ namespace Simplex.Gui.Control
 		/// Invoked when the control has been checked.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> Checked;
+		public event GuiEventHandler<EventArgs> Checked;
 
 		/// <summary>
 		/// Invoked when the control has been unchecked.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> UnChecked;
+		public event GuiEventHandler<EventArgs> UnChecked;
 
 		/// <summary>
 		/// Invoked when the control's check has been changed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> CheckChanged;
+		public event GuiEventHandler<EventArgs> CheckChanged;
 
 		/// <summary>
 		/// Indicates whether the control is checked.

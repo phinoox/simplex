@@ -11,7 +11,7 @@ namespace Simplex.Gui.Control.Internal
 		/// Invoked when the selected item has changed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<ItemSelectedEventArgs> ItemSelected;
+		public event GuiEventHandler<ItemSelectedEventArgs> ItemSelected;
 
 		/// <summary>
 		/// Index of the selected radio button.

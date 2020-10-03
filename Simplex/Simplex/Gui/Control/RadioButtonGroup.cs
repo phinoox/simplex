@@ -36,7 +36,7 @@ namespace Simplex.Gui.Control
 		/// Invoked when the selected option has changed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<ItemSelectedEventArgs> SelectionChanged;
+		public event GuiEventHandler<ItemSelectedEventArgs> SelectionChanged;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RadioButtonGroup"/> class.

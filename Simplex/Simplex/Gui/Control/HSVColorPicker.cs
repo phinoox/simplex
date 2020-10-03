@@ -24,7 +24,7 @@ namespace Simplex.Gui.Control
 		/// Invoked when the selected color has changed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> ColorChanged;
+		public event GuiEventHandler<EventArgs> ColorChanged;
 
 		/// <summary>
 		/// The "before" color.

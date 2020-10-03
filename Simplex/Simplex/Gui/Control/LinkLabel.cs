@@ -30,7 +30,7 @@ namespace Simplex.Gui.Control
 		public Font HoverFont { get; set; }
 
 		[Xml.XmlEvent]
-		public event ControlBase.GwenEventHandler<LinkClickedEventArgs> LinkClicked;
+		public event ControlBase.GuiEventHandler<LinkClickedEventArgs> LinkClicked;
 
 		public LinkLabel(ControlBase parent)
 			: base(parent)

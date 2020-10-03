@@ -22,7 +22,7 @@ namespace Simplex.Gui.Control
 		/// <summary>
 		/// Invoked when the row has been selected.
 		/// </summary>
-		public event GwenEventHandler<ItemSelectedEventArgs> Selected;
+		public event GuiEventHandler<ItemSelectedEventArgs> Selected;
 
 		/// <summary>
 		/// Column count.

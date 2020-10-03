@@ -62,7 +62,7 @@ namespace Simplex.Gui.Control.Internal
 		/// Invoked when the value has been changed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> ValueChanged;
+		public event GuiEventHandler<EventArgs> ValueChanged;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Slider"/> class.

@@ -126,43 +126,43 @@ namespace Simplex.Gui.Control
 		/// Invoked when the node label has been pressed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> LabelPressed;
+		public event GuiEventHandler<EventArgs> LabelPressed;
 
 		/// <summary>
 		/// Invoked when the node's selected state has changed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> SelectionChanged;
+		public event GuiEventHandler<EventArgs> SelectionChanged;
 
 		/// <summary>
 		/// Invoked when the node has been selected.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> Selected;
+		public event GuiEventHandler<EventArgs> Selected;
 
 		/// <summary>
 		/// Invoked when the node has been double clicked and contains no child nodes.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> NodeDoubleClicked;
+		public event GuiEventHandler<EventArgs> NodeDoubleClicked;
 
 		/// <summary>
 		/// Invoked when the node has been unselected.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> Unselected;
+		public event GuiEventHandler<EventArgs> Unselected;
 
 		/// <summary>
 		/// Invoked when the node has been expanded.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> Expanded;
+		public event GuiEventHandler<EventArgs> Expanded;
 
 		/// <summary>
 		/// Invoked when the node has been collapsed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> Collapsed;
+		public event GuiEventHandler<EventArgs> Collapsed;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TreeNode"/> class.
@@ -493,7 +493,7 @@ namespace Simplex.Gui.Control
 		}
 
 		[Xml.XmlEvent]
-		public override event GwenEventHandler<ClickedEventArgs> Clicked
+		public override event GuiEventHandler<ClickedEventArgs> Clicked
 		{ 
 			add
 			{
@@ -506,7 +506,7 @@ namespace Simplex.Gui.Control
 		}
 
 		[Xml.XmlEvent]
-		public override event GwenEventHandler<ClickedEventArgs> DoubleClicked 
+		public override event GuiEventHandler<ClickedEventArgs> DoubleClicked 
 		{ 
 			add
 			{
@@ -522,7 +522,7 @@ namespace Simplex.Gui.Control
 		}
 
 		[Xml.XmlEvent]
-		public override event GwenEventHandler<ClickedEventArgs> RightClicked {
+		public override event GuiEventHandler<ClickedEventArgs> RightClicked {
 			add
 			{
 				m_Title.RightClicked += delegate(ControlBase sender, ClickedEventArgs args) { value(this, args); };
@@ -534,7 +534,7 @@ namespace Simplex.Gui.Control
 		}
 
 		[Xml.XmlEvent]
-		public override event GwenEventHandler<ClickedEventArgs> DoubleRightClicked {
+		public override event GuiEventHandler<ClickedEventArgs> DoubleRightClicked {
 			add
 			{
 				if (value != null)

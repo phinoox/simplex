@@ -55,7 +55,7 @@ namespace Simplex.Gui.Control
 		/// Invoked when the text has changed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> TextChanged;
+		public event GuiEventHandler<EventArgs> TextChanged;
 
 		/// <summary>
 		/// Get a point representing where the cursor physically appears on the screen.

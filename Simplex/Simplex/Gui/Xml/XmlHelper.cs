@@ -38,22 +38,22 @@ namespace Simplex.Gui.Xml
 		{
 			{ typeof(EventArgs), (attribute, value) =>
 				{
-					return new Control.ControlBase.GwenEventHandler<EventArgs>(new XmlEventHandler<EventArgs>(value, attribute).OnEvent);
+					return new Control.ControlBase.GuiEventHandler<EventArgs>(new XmlEventHandler<EventArgs>(value, attribute).OnEvent);
 				}
 			},
 			{ typeof(Control.ClickedEventArgs), (attribute, value) =>
 				{
-					return new Control.ControlBase.GwenEventHandler<Control.ClickedEventArgs>(new XmlEventHandler<Control.ClickedEventArgs>(value, attribute).OnEvent);
+					return new Control.ControlBase.GuiEventHandler<Control.ClickedEventArgs>(new XmlEventHandler<Control.ClickedEventArgs>(value, attribute).OnEvent);
 				}
 			},
 			{ typeof(Control.ItemSelectedEventArgs), (attribute, value) =>
 				{
-					return new Control.ControlBase.GwenEventHandler<Control.ItemSelectedEventArgs>(new XmlEventHandler<Control.ItemSelectedEventArgs>(value, attribute).OnEvent);
+					return new Control.ControlBase.GuiEventHandler<Control.ItemSelectedEventArgs>(new XmlEventHandler<Control.ItemSelectedEventArgs>(value, attribute).OnEvent);
 				}
 			},
 			{ typeof(Control.LinkClickedEventArgs), (attribute, value) =>
 				{
-					return new Control.ControlBase.GwenEventHandler<Control.LinkClickedEventArgs>(new XmlEventHandler<Control.LinkClickedEventArgs>(value, attribute).OnEvent);
+					return new Control.ControlBase.GuiEventHandler<Control.LinkClickedEventArgs>(new XmlEventHandler<Control.LinkClickedEventArgs>(value, attribute).OnEvent);
 				}
 			},
 		};

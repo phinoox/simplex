@@ -25,19 +25,19 @@ namespace Simplex.Gui.Control
         /// Invoked when one of the panels has been zoomed (maximized).
         /// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> PanelZoomed;
+		public event GuiEventHandler<EventArgs> PanelZoomed;
 
 		/// <summary>
 		/// Invoked when one of the panels has been unzoomed (restored).
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> PanelUnZoomed;
+		public event GuiEventHandler<EventArgs> PanelUnZoomed;
 
 		/// <summary>
 		/// Invoked when the zoomed panel has been changed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> ZoomChanged;
+		public event GuiEventHandler<EventArgs> ZoomChanged;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CrossSplitter"/> class.

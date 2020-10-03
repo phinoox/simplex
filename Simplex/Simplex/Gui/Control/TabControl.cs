@@ -19,13 +19,13 @@ namespace Simplex.Gui.Control
 		/// Invoked when a tab has been added.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> TabAdded;
+		public event GuiEventHandler<EventArgs> TabAdded;
 
 		/// <summary>
 		/// Invoked when a tab has been removed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> TabRemoved;
+		public event GuiEventHandler<EventArgs> TabRemoved;
 
 		/// <summary>
 		/// Determines if tabs can be reordered by dragging.

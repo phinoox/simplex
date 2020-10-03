@@ -22,7 +22,7 @@ namespace Simplex.Gui.Control
 		/// Invoked when the radiobutton has been checked.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> Checked
+		public event GuiEventHandler<EventArgs> Checked
 		{
 			add
 			{

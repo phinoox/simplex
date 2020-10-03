@@ -22,7 +22,7 @@ namespace Simplex.Gui.Control.Internal
 		protected Dragger m_DragBar;
 
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> Closed;
+		public event GuiEventHandler<EventArgs> Closed;
 
 		/// <summary>
 		/// Is window draggable.

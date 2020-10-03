@@ -159,6 +159,7 @@ namespace Simplex.Gui.Renderer
             textBox.ShouldDrawBackground=false;
             textBox.Margin = new Margin(5,5,0,0);
             textBox.TextColor = Color.Black;
+            textBox.DrawDebugOutlines=true;
             m_Canvas.SetSize(width, height);
             m_Canvas.ShouldDrawBackground = true;
             m_Canvas.BackgroundColor = new Color(200,200,200,150);// m_Skin.Colors.ModalBackground;
@@ -187,7 +188,6 @@ namespace Simplex.Gui.Renderer
         public void Resize(int width,int height)
         {
             m_Renderer.Resize(width, height);
-
             m_Canvas.SetSize(width, height);
         }
 

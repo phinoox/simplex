@@ -24,12 +24,12 @@ namespace Simplex.Gui.Control
         /// <summary>
         /// Invoked when an entry has been selected.
         /// </summary>
-		public event GwenEventHandler<ItemSelectedEventArgs> Selected;
+		public event GuiEventHandler<ItemSelectedEventArgs> Selected;
 
         /// <summary>
         /// Invoked when the category collapsed state has been changed (header button has been pressed).
         /// </summary>
-		public event GwenEventHandler<EventArgs> Collapsed;
+		public event GuiEventHandler<EventArgs> Collapsed;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CollapsibleCategory"/> class.

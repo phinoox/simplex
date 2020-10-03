@@ -16,7 +16,7 @@ namespace Simplex.Gui.Control
         /// <summary>
         /// Invoked when the property value has changed.
         /// </summary>
-        public event GwenEventHandler<EventArgs> ValueChanged;
+        public event GuiEventHandler<EventArgs> ValueChanged;
 
         /// <summary>
         /// Indicates whether the property value is being edited.

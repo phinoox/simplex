@@ -89,25 +89,25 @@ namespace Simplex.Gui.Control
 		/// Invoked when the item is selected.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<ItemSelectedEventArgs> Selected;
+		public event GuiEventHandler<ItemSelectedEventArgs> Selected;
 
 		/// <summary>
 		/// Invoked when the item is checked.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> Checked;
+		public event GuiEventHandler<EventArgs> Checked;
 
 		/// <summary>
 		/// Invoked when the item is unchecked.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> UnChecked;
+		public event GuiEventHandler<EventArgs> UnChecked;
 
 		/// <summary>
 		/// Invoked when the item's check value is changed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> CheckChanged;
+		public event GuiEventHandler<EventArgs> CheckChanged;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MenuItem"/> class.
@@ -226,7 +226,7 @@ namespace Simplex.Gui.Control
 			m_Menu.CloseAll();
 		}
 
-		public MenuItem SetAction(GwenEventHandler<EventArgs> handler)
+		public MenuItem SetAction(GuiEventHandler<EventArgs> handler)
 		{
 			if (m_Accelerator != null)
 			{

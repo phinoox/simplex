@@ -864,7 +864,7 @@
             Base control class.
             </summary>
         </member>
-        <member name="T:Simplex.Gui.Control.ControlBase.GwenEventHandler`1">
+        <member name="T:Simplex.Gui.Control.ControlBase.GuiEventHandler`1">
             <summary>
             Delegate used for all control event handlers.
             </summary>
@@ -1661,7 +1661,7 @@
             <param name="accelerator">Accelerator text.</param>
             <returns>True if handled.</returns>
         </member>
-        <member name="M:Simplex.Gui.Control.ControlBase.AddAccelerator(System.String,Simplex.Gui.Control.ControlBase.GwenEventHandler{System.EventArgs})">
+        <member name="M:Simplex.Gui.Control.ControlBase.AddAccelerator(System.String,Simplex.Gui.Control.ControlBase.GuiEventHandler{System.EventArgs})">
             <summary>
             Adds keyboard accelerator.
             </summary>

@@ -22,7 +22,7 @@ namespace Simplex.Gui.Control
 		public Document Document { get { return m_Document; } set { m_Document = value; m_NeedsRebuild = true; Invalidate(); } }
 
 		[Xml.XmlEvent]
-		public event ControlBase.GwenEventHandler<LinkClickedEventArgs> LinkClicked;
+		public event ControlBase.GuiEventHandler<LinkClickedEventArgs> LinkClicked;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RichLabel"/> class.

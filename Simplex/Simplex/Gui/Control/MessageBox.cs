@@ -40,7 +40,7 @@ namespace Simplex.Gui.Control
         /// <summary>
         /// Invoked when the message box has been dismissed.
         /// </summary>
-        public GwenEventHandler<MessageBoxResultEventArgs> Dismissed;
+        public GuiEventHandler<MessageBoxResultEventArgs> Dismissed;
 
 		/// <summary>
 		/// Show message box.

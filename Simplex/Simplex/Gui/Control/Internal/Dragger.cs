@@ -23,7 +23,7 @@ namespace Simplex.Gui.Control.Internal
         /// <summary>
         /// Event invoked when the control position has been changed.
         /// </summary>
-		public event GwenEventHandler<EventArgs> Dragged;
+		public event GuiEventHandler<EventArgs> Dragged;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Dragger"/> class.

@@ -64,7 +64,7 @@ namespace Simplex.Gui.Control
 		/// Invoked when the node's selected state has changed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> SelectionChanged
+		public event GuiEventHandler<EventArgs> SelectionChanged
 		{
 			add
 			{
@@ -80,7 +80,7 @@ namespace Simplex.Gui.Control
 		/// Invoked when the node has been selected.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> Selected
+		public event GuiEventHandler<EventArgs> Selected
 		{
 			add
 			{
@@ -96,7 +96,7 @@ namespace Simplex.Gui.Control
 		/// Invoked when the node has been unselected.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> Unselected
+		public event GuiEventHandler<EventArgs> Unselected
 		{
 			add
 			{
@@ -112,7 +112,7 @@ namespace Simplex.Gui.Control
 		/// Invoked when the node has been double clicked and contains no child nodes.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> NodeDoubleClicked
+		public event GuiEventHandler<EventArgs> NodeDoubleClicked
 		{
 			add
 			{
@@ -128,7 +128,7 @@ namespace Simplex.Gui.Control
 		/// Invoked when the node has been expanded.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> Expanded
+		public event GuiEventHandler<EventArgs> Expanded
 		{
 			add
 			{
@@ -144,7 +144,7 @@ namespace Simplex.Gui.Control
 		/// Invoked when the node has been collapsed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> Collapsed
+		public event GuiEventHandler<EventArgs> Collapsed
 		{
 			add
 			{

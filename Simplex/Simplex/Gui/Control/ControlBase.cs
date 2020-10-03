@@ -18,7 +18,7 @@ namespace Simplex.Gui.Control
 		/// </summary>
 		/// <param name="sender">Event source.</param>
 		/// <param name="arguments" >Additional arguments. May be empty (EventArgs.Empty).</param>
-		public delegate void GwenEventHandler<in T>(ControlBase sender, T arguments) where T : System.EventArgs;
+		public delegate void GuiEventHandler<in T>(ControlBase sender, T arguments) where T : System.EventArgs;
 
 		private bool m_Disposed;
 
@@ -73,43 +73,43 @@ namespace Simplex.Gui.Control
 		/// Invoked when mouse pointer enters the control.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> HoverEnter;
+		public event GuiEventHandler<EventArgs> HoverEnter;
 
 		/// <summary>
 		/// Invoked when mouse pointer leaves the control.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> HoverLeave;
+		public event GuiEventHandler<EventArgs> HoverLeave;
 
 		/// <summary>
 		/// Invoked when control's bounds have been changed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> BoundsChanged;
+		public event GuiEventHandler<EventArgs> BoundsChanged;
 
 		/// <summary>
 		/// Invoked when the control has been left-clicked.
 		/// </summary>
 		[Xml.XmlEvent]
-		public virtual event GwenEventHandler<ClickedEventArgs> Clicked;
+		public virtual event GuiEventHandler<ClickedEventArgs> Clicked;
 
 		/// <summary>
 		/// Invoked when the control has been double-left-clicked.
 		/// </summary>
 		[Xml.XmlEvent]
-		public virtual event GwenEventHandler<ClickedEventArgs> DoubleClicked;
+		public virtual event GuiEventHandler<ClickedEventArgs> DoubleClicked;
 
 		/// <summary>
 		/// Invoked when the control has been right-clicked.
 		/// </summary>
 		[Xml.XmlEvent]
-		public virtual event GwenEventHandler<ClickedEventArgs> RightClicked;
+		public virtual event GuiEventHandler<ClickedEventArgs> RightClicked;
 
 		/// <summary>
 		/// Invoked when the control has been double-right-clicked.
 		/// </summary>
 		[Xml.XmlEvent]
-		public virtual event GwenEventHandler<ClickedEventArgs> DoubleRightClicked;
+		public virtual event GuiEventHandler<ClickedEventArgs> DoubleRightClicked;
 
 		/// <summary>
 		/// Returns true if any on click events are set.
@@ -125,7 +125,7 @@ namespace Simplex.Gui.Control
 		/// <summary>
 		/// Accelerator map.
 		/// </summary>
-		private readonly Dictionary<string, GwenEventHandler<EventArgs>> m_Accelerators;
+		private readonly Dictionary<string, GuiEventHandler<EventArgs>> m_Accelerators;
 
 		/// <summary>
 		/// Logical list of children.
@@ -609,7 +609,7 @@ namespace Simplex.Gui.Control
 		public ControlBase(ControlBase parent = null)
 		{
 			m_Children = new List<ControlBase>();
-			m_Accelerators = new Dictionary<string, GwenEventHandler<EventArgs>>();
+			m_Accelerators = new Dictionary<string, GuiEventHandler<EventArgs>>();
 
 			m_Bounds = new Rectangle(Point.Zero, Size.Infinity);
 			m_Padding = Padding.Zero;
@@ -2047,7 +2047,7 @@ namespace Simplex.Gui.Control
 		/// </summary>
 		/// <param name="accelerator">Accelerator text.</param>
 		/// <param name="handler">Handler.</param>
-		public void AddAccelerator(string accelerator, GwenEventHandler<EventArgs> handler)
+		public void AddAccelerator(string accelerator, GuiEventHandler<EventArgs> handler)
 		{
 			accelerator = accelerator.Trim().ToUpperInvariant();
 			m_Accelerators[accelerator] = handler;

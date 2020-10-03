@@ -13,31 +13,31 @@ namespace Simplex.Gui.Control.Internal
 		/// Invoked when the button is pressed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> Pressed;
+		public event GuiEventHandler<EventArgs> Pressed;
 
 		/// <summary>
 		/// Invoked when the button is released.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> Released;
+		public event GuiEventHandler<EventArgs> Released;
 
 		/// <summary>
 		/// Invoked when the button's toggle state has changed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> Toggled;
+		public event GuiEventHandler<EventArgs> Toggled;
 
 		/// <summary>
 		/// Invoked when the button's toggle state has changed to On.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> ToggledOn;
+		public event GuiEventHandler<EventArgs> ToggledOn;
 
 		/// <summary>
 		/// Invoked when the button's toggle state has changed to Off.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> ToggledOff;
+		public event GuiEventHandler<EventArgs> ToggledOff;
 
 		/// <summary>
 		/// Indicates whether the button is depressed.

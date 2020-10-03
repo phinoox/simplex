@@ -18,7 +18,7 @@ namespace Simplex.Gui.Control.Property
         /// <summary>
         /// Invoked when the property value has been changed.
         /// </summary>
-		public event GwenEventHandler<EventArgs> ValueChanged;
+		public event GuiEventHandler<EventArgs> ValueChanged;
 
         /// <summary>
         /// Property value (todo: always string, which is ugly. do something about it).

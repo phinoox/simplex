@@ -16,7 +16,7 @@ namespace Simplex.Gui.Control
 		/// Invoked when the text has changed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> TextChanged
+		public event GuiEventHandler<EventArgs> TextChanged
 		{
 			add
 			{
@@ -32,7 +32,7 @@ namespace Simplex.Gui.Control
 		/// Invoked when the submit key has been pressed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> SubmitPressed
+		public event GuiEventHandler<EventArgs> SubmitPressed
 		{
 			add
 			{

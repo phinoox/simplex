@@ -968,14 +968,6 @@
           "Simplex.dll": {}
         }
       },
-      "NanoVGDotNet/1.0.6.0": {
-        "runtime": {
-          "NanoVGDotNet.dll": {
-            "assemblyVersion": "1.0.6.0",
-            "fileVersion": "1.0.6.0"
-          }
-        }
-      },
       "ObjectTK.NetStandard.Tools/1.0.0.0": {
         "runtime": {
           "ObjectTK.NetStandard.Tools.dll": {

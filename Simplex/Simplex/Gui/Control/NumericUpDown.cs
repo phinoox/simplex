@@ -66,7 +66,7 @@ namespace Simplex.Gui.Control
 		/// Invoked when the value has been changed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> ValueChanged;
+		public event GuiEventHandler<EventArgs> ValueChanged;
 
         /// <summary>
         /// Handler for Up Arrow keyboard event.

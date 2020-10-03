@@ -115,19 +115,19 @@ namespace Simplex.Gui.Control
 		/// Invoked when a row has been selected.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<ItemSelectedEventArgs> RowSelected;
+		public event GuiEventHandler<ItemSelectedEventArgs> RowSelected;
 
 		/// <summary>
 		/// Invoked whan a row has beed unselected.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<ItemSelectedEventArgs> RowUnselected;
+		public event GuiEventHandler<ItemSelectedEventArgs> RowUnselected;
 
 		/// <summary>
 		/// Invoked whan a row has beed double clicked.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<ItemSelectedEventArgs> RowDoubleClicked;
+		public event GuiEventHandler<ItemSelectedEventArgs> RowDoubleClicked;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ListBox"/> class.

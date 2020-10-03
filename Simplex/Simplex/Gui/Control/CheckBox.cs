@@ -50,19 +50,19 @@ namespace Simplex.Gui.Control
 		/// Invoked when the checkbox has been checked.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> Checked;
+		public event GuiEventHandler<EventArgs> Checked;
 
 		/// <summary>
 		/// Invoked when the checkbox has been unchecked.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> UnChecked;
+		public event GuiEventHandler<EventArgs> UnChecked;
 
 		/// <summary>
 		/// Invoked when the checkbox state has been changed.
 		/// </summary>
 		[Xml.XmlEvent]
-		public event GwenEventHandler<EventArgs> CheckChanged;
+		public event GuiEventHandler<EventArgs> CheckChanged;
 
         /// <summary>
         /// Determines whether unchecking is allowed.

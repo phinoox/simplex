@@ -20,7 +20,7 @@ namespace Simplex.Gui.Control.Internal
         /// <summary>
         /// Invoked when the bar is moved.
         /// </summary>
-		public event GwenEventHandler<EventArgs> BarMoved;
+		public event GuiEventHandler<EventArgs> BarMoved;
 
         /// <summary>
         /// Bar size (in pixels).

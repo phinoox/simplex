@@ -73,7 +73,7 @@ namespace Simplex.Gui.Control
 		/// <summary>
 		/// Invoked when the control has been resized.
 		/// </summary>
-		public event GwenEventHandler<EventArgs> Resized;
+		public event GuiEventHandler<EventArgs> Resized;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ResizableControl"/> class.

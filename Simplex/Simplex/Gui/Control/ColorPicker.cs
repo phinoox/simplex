@@ -40,7 +40,7 @@ namespace Simplex.Gui.Control
         /// <summary>
         /// Invoked when the selected color has been changed.
         /// </summary>
-		public event GwenEventHandler<EventArgs> ColorChanged;
+		public event GuiEventHandler<EventArgs> ColorChanged;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ColorPicker"/> class.
