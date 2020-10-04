@@ -983,6 +983,14 @@
             "fileVersion": "1.0.0.0"
           }
         }
+      },
+      "CrossPlatform.Clipboard/1.0.0.0": {
+        "runtime": {
+          "CrossPlatform.Clipboard.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -1669,17 +1677,17 @@
       "serviceable": false,
       "sha512": ""
     },
-    "NanoVGDotNet/1.0.6.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
     "ObjectTK.NetStandard.Tools/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
     "ObjectTK.NetStandard/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "CrossPlatform.Clipboard/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

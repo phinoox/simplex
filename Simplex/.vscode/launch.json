@@ -6,13 +6,25 @@
     "configurations": [
         
         {
-            "name": ".NET Core Launch (console)",
+            "name": ".NET Core Launch (editor)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/SimplexEditor/bin/Debug/netcoreapp3.1/SimplexEditor.dll",
             "args": [],
             "cwd": "${workspaceFolder}/SimplexEditor/bin/Debug/netcoreapp3.1/",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "justMyCode": false
+        },
+        {
+            "name": ".NET Core Launch (sxmlcreator)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/SXMLCreator/bin/Debug/netcoreapp3.1/SXMLCreator.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/SXMLCreator/bin/Debug/netcoreapp3.1/",
             "stopAtEntry": false,
             "console": "internalConsole",
             "justMyCode": false

@@ -11,6 +11,7 @@ namespace Simplex.Gui.Control
 	/// <summary>
 	/// Base control class.
 	/// </summary>
+	[Serializable]
 	public abstract class ControlBase : IDisposable
 	{
 		/// <summary>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="Simplex.Gui">
+<xs:element name="ControlBase" nillable="true" type="ControlBase" />
+<xs:complexType name="ControlBase">
+<xs:element name="Children" type="xs:List`1"/>
+<xs:element name="Parent" type="xs:ControlBase"/>
+<xs:element name="Dock" type="xs:Dock"/>
+<xs:element name="Skin" type="xs:SkinBase"/>
+<xs:element name="ToolTip" type="xs:ControlBase"/>
+<xs:element name="ToolTipText" type="xs:String"/>
+<xs:element name="MeasuredSize" type="xs:"/>
+<xs:element name="Scale" type="xs:xs:decimal"/>
+<xs:element name="BaseUnit" type="xs:xs:integer"/>
+<xs:element name="Padding" type="xs:"/>
+<xs:element name="Margin" type="xs:"/>
+<xs:element name="VerticalAlignment" type="xs:VerticalAlignment"/>
+<xs:element name="HorizontalAlignment" type="xs:HorizontalAlignment"/>
+<xs:element name="IsOnTop" type="xs:xs:boolean"/>
+<xs:element name="Component" type="xs:Component"/>
+<xs:element name="UserData" type="xs:Object"/>
+<xs:element name="IsHovered" type="xs:xs:boolean"/>
+<xs:element name="HasFocus" type="xs:xs:boolean"/>
+<xs:element name="IsDisabled" type="xs:xs:boolean"/>
+<xs:element name="IsHidden" type="xs:xs:boolean"/>
+<xs:element name="IsCollapsed" type="xs:xs:boolean"/>
+<xs:element name="RestrictToParent" type="xs:xs:boolean"/>
+<xs:element name="MouseInputEnabled" type="xs:xs:boolean"/>
+<xs:element name="KeyboardInputEnabled" type="xs:xs:boolean"/>
+<xs:element name="KeyboardNeeded" type="xs:xs:boolean"/>
+<xs:element name="Cursor" type="xs:Cursor"/>
+<xs:element name="IsTabable" type="xs:xs:boolean"/>
+<xs:element name="ShouldDrawBackground" type="xs:xs:boolean"/>
+<xs:element name="ShouldCacheToTexture" type="xs:xs:boolean"/>
+<xs:element name="Name" type="xs:String"/>
+<xs:element name="Bounds" type="xs:"/>
+<xs:element name="RenderBounds" type="xs:"/>
+<xs:element name="InnerBounds" type="xs:"/>
+<xs:element name="MinimumSize" type="xs:"/>
+<xs:element name="MaximumSize" type="xs:"/>
+<xs:element name="IsVisible" type="xs:xs:boolean"/>
+<xs:element name="ActualLeft" type="xs:xs:integer"/>
+<xs:element name="ActualTop" type="xs:xs:integer"/>
+<xs:element name="ActualWidth" type="xs:xs:integer"/>
+<xs:element name="ActualHeight" type="xs:xs:integer"/>
+<xs:element name="ActualPosition" type="xs:"/>
+<xs:element name="ActualSize" type="xs:"/>
+<xs:element name="ActualRight" type="xs:xs:integer"/>
+<xs:element name="ActualBottom" type="xs:xs:integer"/>
+<xs:element name="Left" type="xs:xs:integer"/>
+<xs:element name="Top" type="xs:xs:integer"/>
+<xs:element name="Width" type="xs:xs:integer"/>
+<xs:element name="Height" type="xs:xs:integer"/>
+<xs:element name="Position" type="xs:"/>
+<xs:element name="Size" type="xs:"/>
+<xs:element name="DesiredBounds" type="xs:"/>
+<xs:element name="AnchorBounds" type="xs:"/>
+<xs:element name="Anchor" type="xs:"/>
+<xs:element name="DrawDebugOutlines" type="xs:xs:boolean"/>
+<xs:element name="PaddingOutlineColor" type="xs:"/>
+<xs:element name="MarginOutlineColor" type="xs:"/>
+<xs:element name="BoundsOutlineColor" type="xs:"/>
+</xs:complexType>
+
+<xs:element name="<>c" nillable="true" type="<>c" />
+<xs:complexType name="<>c">
+</xs:complexType>
+
+<xs:element name="<>c" nillable="true" type="<>c" />
+<xs:complexType name="<>c">
+</xs:complexType>
+
+<xs:element name="<>c" nillable="true" type="<>c" />
+<xs:complexType name="<>c">
+</xs:complexType>
+
+<xs:element name="<>c" nillable="true" type="<>c" />
+<xs:complexType name="<>c">
+</xs:complexType>
+
+<xs:element name="<>c" nillable="true" type="<>c" />
+<xs:complexType name="<>c">
+</xs:complexType>
+
+<xs:element name="<>c" nillable="true" type="<>c" />
+<xs:complexType name="<>c">
+</xs:complexType>
+
+<xs:element name="<>c" nillable="true" type="<>c" />
+<xs:complexType name="<>c">
+</xs:complexType>
+
+<xs:element name="<>c" nillable="true" type="<>c" />
+<xs:complexType name="<>c">
+</xs:complexType>
+
+</xs:schema>

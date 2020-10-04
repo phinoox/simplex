@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Simplex.Rendering
 {
-    public class MeshData : ISimplexUnique
+    public class MeshData //: ISimplexUnique
     {
         private Guid uid = Guid.NewGuid();
         private Type dataType;
