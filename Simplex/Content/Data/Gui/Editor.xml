@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="SimplexGuiXMLSchema" targetNamespace="Simplex.Gui" elementFormDefault="qualified" xmlns="file://SimplexGui.xsd">
- <UserControl 
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
- xsi:noNamespaceSchemaLocation="file://SimplexGui.xsd">
- </UserControl>
+<root 
+ xmlns:xsi="Simplex.Gui" 
+ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/phinoox/simplex/feature/gwengui/Simplex/Content/Data/Gui/Simplex.Gui.xsd">
+ <
+ </root>
+ 
