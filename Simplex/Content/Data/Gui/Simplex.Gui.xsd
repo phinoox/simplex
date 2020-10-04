@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:xs="Simplex.Gui">
+<xs:schema id="SimplexGuiXmlSchema" targetNamespace="https://github.com/phinoox" elementFormDefault="qualified" xmlns="https://github.com/phinoox" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:noNamespaceSchemaLocation="https://www.w3.org/2001/XMLSchema.xsd"/>
 <xs:element name="Alignment" nillable="true" type="Alignment" />
 <xs:simpleType name="Alignment">
 <xs:restriction base="xs:string">

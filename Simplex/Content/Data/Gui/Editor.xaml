@@ -1,7 +1,6 @@
 <ControlBase 
- xmlns:xsi="Simplex.Gui" 
- xsi:schemaLocation="https://raw.githubusercontent.com/phinoox/simplex/feature/gwengui/Simplex/Content/Data/Gui/Simplex.Gui.xsd">
- <Button Text="test"/>
+ xmlns="https://github.com/phinoox">
  <
+ 
  </ControlBase>
  

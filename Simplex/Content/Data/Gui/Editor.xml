@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root 
- xmlns:xsi="Simplex.Gui" 
- xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/phinoox/simplex/feature/gwengui/Simplex/Content/Data/Gui/Simplex.Gui.xsd">
+ xmlns="https://github.com/phinoox">
  <
  </root>
  
