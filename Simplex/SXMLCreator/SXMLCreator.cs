@@ -23,7 +23,7 @@ namespace SXMLCreator
             using (StreamWriter writer = new StreamWriter(xsdFile))
             {
                 writer.WriteLine(@"<?xml version=""1.0"" encoding=""utf-8""?>");
-                writer.WriteLine($"<xs:schema id=\"SimplexGuiXmlSchema\" targetNamespace=\"https://github.com/phinoox\" elementFormDefault=\"qualified\" xmlns=\"https://github.com/phinoox\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:noNamespaceSchemaLocation=\"https://www.w3.org/2001/XMLSchema.xsd\"/>");
+                writer.WriteLine($"<xs:schema id=\"SimplexGuiXmlSchema\" targetNamespace=\"https://github.com/phinoox\" elementFormDefault=\"qualified\" xmlns=\"https://github.com/phinoox\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:noNamespaceSchemaLocation=\"https://www.w3.org/2001/XMLSchema.xsd\">");
                 foreach (Type type in targetTypes)
                 {
                     if(type.Name.StartsWith("<"))//what are these?!?

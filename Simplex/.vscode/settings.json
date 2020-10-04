@@ -27,9 +27,9 @@
             "strict": true
         }, 
         {
-            "xmlns": "http://github.com/phinoox",
+            "xmlns": "https://github.com/phinoox",
             "xsdUri": "https://raw.githubusercontent.com/phinoox/simplex/feature/gwengui/Simplex/Content/Data/Gui/Simplex.Gui.xsd",
-            "strict": true
+            "strict": false
         }
     ]
 }
