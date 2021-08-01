@@ -1,8 +1,0 @@
-var searchData=
-[
-  ['implied_529',['implied',['../_simplex_core_2_resources_2_fonts_2_apache_01_license_8txt.html#a69ced181b1f23b5e9b7b46437f0f007b',1,'implied():&#160;Apache License.txt'],['../_simplex_editor_2bin_2_debug_2netcoreapp3_81_2_fonts_2_apache_01_license_8txt.html#a69ced181b1f23b5e9b7b46437f0f007b',1,'implied():&#160;Apache License.txt']]],
-  ['import_530',['import',['../_simplex_core_2_resources_2_fonts_2_apache_01_license_8txt.html#a7b048ab2f6ed167157c1be2096d6cfd0',1,'import():&#160;Apache License.txt'],['../_simplex_editor_2bin_2_debug_2netcoreapp3_81_2_fonts_2_apache_01_license_8txt.html#a7b048ab2f6ed167157c1be2096d6cfd0',1,'import():&#160;Apache License.txt']]],
-  ['including_531',['including',['../_simplex_core_2_resources_2_fonts_2_apache_01_license_8txt.html#aedd7527b8c358849126955d4145ca17c',1,'including():&#160;Apache License.txt'],['../_simplex_editor_2bin_2_debug_2netcoreapp3_81_2_fonts_2_apache_01_license_8txt.html#aedd7527b8c358849126955d4145ca17c',1,'including():&#160;Apache License.txt']]],
-  ['indirect_532',['indirect',['../_simplex_core_2_resources_2_fonts_2_apache_01_license_8txt.html#a23c7eafa2834379b852f6d8e56cad33b',1,'indirect():&#160;Apache License.txt'],['../_simplex_editor_2bin_2_debug_2netcoreapp3_81_2_fonts_2_apache_01_license_8txt.html#a23c7eafa2834379b852f6d8e56cad33b',1,'indirect():&#160;Apache License.txt']]],
-  ['infringement_533',['INFRINGEMENT',['../_simplex_core_2_resources_2_fonts_2_apache_01_license_8txt.html#a0fc96cc453846a8056f01e918a533768',1,'INFRINGEMENT():&#160;Apache License.txt'],['../_simplex_editor_2bin_2_debug_2netcoreapp3_81_2_fonts_2_apache_01_license_8txt.html#a0fc96cc453846a8056f01e918a533768',1,'INFRINGEMENT():&#160;Apache License.txt']]]
-];
