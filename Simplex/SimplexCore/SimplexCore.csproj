@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Simplex.Core</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>SimplexCore.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="glTF2Loader" Version="1.1.3-alpha" />
+    <PackageReference Include="NanoVG.NET-TK4" Version="1.0.8" />
+    <PackageReference Include="ObjectTK-Tk4" Version="1.0.3" />
+    <PackageReference Include="Portable.Xaml" Version="0.26.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="CommonRes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CommonRes.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="CommonRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CommonRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
