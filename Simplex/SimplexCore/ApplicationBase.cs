@@ -1,4 +1,5 @@
-﻿using Simplex.Core.Configs;
+﻿using log4net.Config;
+using Simplex.Core.Configs;
 using Simplex.Core.Window;
 using System;
 using System.IO;
@@ -69,6 +70,8 @@ namespace Simplex.Core
         private void LoadConfigs()
         {
             appConfig = new ApplicationConfig();
+            if (ObjectTK.Logging.LogFactory.IsAvailable)
+                XmlConfigurator.Configure();
         }
 
         private void MainWindow_Closed()
