@@ -26,7 +26,7 @@ namespace Simplex.Core.Rendering
     public static class SXProgramFactory
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(SXProgramFactory));
-
+        private static Dictionary<Type, Program> _shaders = new Dictionary<Type, Program>();
         /// <summary>
         /// The base path used when looking for shader files.<br/>
         /// Default is: Data/Shaders/
@@ -53,11 +53,26 @@ namespace Simplex.Core.Rendering
         public static T Create<T>()
             where T : Program
         {
+            Type shaderType = typeof(T);
+            if (_shaders.ContainsKey(shaderType))
+                return (T)_shaders[shaderType];
+
             // retrieve shader types and filenames from attributes
-            var shaders = ShaderSourceAttribute.GetShaderSources(typeof(T));
-            if (shaders.Count == 0) throw new Exception("ShaderSourceAttribute(s) missing!");
             // create program instance
+            var shaders = ShaderSourceAttribute.GetShaderSources(shaderType);
+            if (shaders.Count == 0) throw new Exception("ShaderSourceAttribute(s) missing!");
             var program = (T)Activator.CreateInstance(typeof(T));
+            bool compiled = CompileShaderSource(program, shaders);
+            if (!compiled)
+                return null;
+            _shaders[shaderType] = program;
+            return program;
+        }
+
+        private static bool CompileShaderSource(Program program,List<ShaderSourceAttribute> shaders)
+        {
+          
+
             try
             {
                 // compile and attach all shaders
@@ -69,7 +84,7 @@ namespace Simplex.Core.Rendering
                         Logger.DebugFormat("Compiling {0}: {1}", attribute.Type, attribute.EffectKey);
                         // load the source from effect(s)
                         var included = new List<Effect.Section>();
-                        var source = GetShaderSource(attribute.EffectKey, included,attribute.Type);
+                        var source = GetShaderSource(attribute.EffectKey, included, attribute.Type);
                         // assign source filenames for proper information log output
                         shader.SourceFiles = included.Select(_ => _.Effect.Path).ToList();
                         // compile shader source
@@ -80,13 +95,34 @@ namespace Simplex.Core.Rendering
                 }
                 // link and return the program
                 program.Link();
+                
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 program.Dispose();
-                throw(e);
+                throw (e);
+                return false;
             }
-            return program;
+            return true;
+        }
+
+        public static void ReloadShaders()
+        {
+            foreach(var progInfo in _shaders)
+            {
+                var shaders = ShaderSourceAttribute.GetShaderSources(progInfo.Key);
+                var variables = progInfo.Value.Variables;
+                
+                progInfo.Value.Recreate();
+               /* foreach(var shvar in variables.Where(x => x.GetType().IsAssignableFrom(typeof(I))
+                {
+                    var prop = progInfo.Value.GetType().GetProperty(shvar.Name);
+                    prop.SetValue(progInfo.Value, shvar);
+                }*/
+                if (shaders.Count == 0) throw new Exception("ShaderSourceAttribute(s) missing!");
+                CompileShaderSource(progInfo.Value,shaders);
+                progInfo.Value.RestoreUniforms();
+            }
         }
 
         /// <summary>

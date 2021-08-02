@@ -88,6 +88,10 @@ namespace Simplex.Editor
             {
                 MainWindow.Scene.CurrentCamera.LookAt(Vector3.Zero);
             }
+            else if (MainWindow.isKeyDown(Keys.F8))
+            {
+                this.MainWindow.Renderer.NeedShaderReload = true;
+            }
         }
 
         private void MainWindow_MouseMove(MouseMoveEventArgs e)

@@ -11,11 +11,26 @@ using Simplex.Core.Rendering.Programs;
 
 namespace Simplex.Core.Rendering
 {
+    /// <summary>
+    /// Mode in which the scene object should be rendered
+    /// </summary>
     public enum RenderMode
     {
+        /// <summary>
+        /// fully shaded
+        /// </summary>
         SHADED,
+        /// <summary>
+        /// no lighting
+        /// </summary>
         UNLIT,
+        /// <summary>
+        /// additional debug info
+        /// </summary>
         DEBUG,
+        /// <summary>
+        /// only wireframe
+        /// </summary>
         WIREFRAME
     }
 
@@ -30,7 +45,7 @@ namespace Simplex.Core.Rendering
         Framebuffer _frameBuffer;
         Framebuffer _lightFrameBuffer;
         Framebuffer _shadowFrameBuffer;
-
+        private bool _needShaderReload = false;
         int _width, _height;
         VertexArray _quadVao;
         TexturedQuad _screenQuad;
@@ -47,11 +62,21 @@ namespace Simplex.Core.Rendering
         int _depthTexture;
         int _depthTextureLocation;
 
+        /// <summary>
+        /// Mode in which the scene object should be rendered
+        /// </summary>
         public RenderMode Mode { get => mode; set => mode = value; }
+        public bool NeedShaderReload { get => _needShaderReload; set => _needShaderReload = value; }
 
 
         #region Public Methods
 
+        /// <summary>
+        /// initializes the renderer
+        /// should be called after opengl context has been created
+        /// </summary>
+        /// <param name="width">width of the visual area</param>
+        /// <param name="height">height of the visual area</param>
         public void Init(int width, int height)
         {
            
@@ -134,6 +159,51 @@ namespace Simplex.Core.Rendering
             _shadowBuffer = new Texture2D(SizedInternalFormat.Rgba8, width, height);
             _shadowFrameBuffer.Attach(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, _shadowBuffer);
             Framebuffer.Unbind(FramebufferTarget.Framebuffer);
+        }
+
+        /// <summary>
+        /// renders the scene
+        /// </summary>
+        /// <param name="scene">the scene to be rendered</param>
+        public void Render(Scene3D scene)
+        {
+            if (_needShaderReload)
+            {
+                SXProgramFactory.ReloadShaders();
+                _needShaderReload = false;
+                ResizeFrameBuffer(_width, _height);
+                return;
+            }
+            GL.ClearColor(Color4.MidnightBlue);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
+
+            RenderSky(scene);
+            RenderDirectionalLight(scene);
+            RenderScene(scene);
+
+            // RenderLightPass(scene);
+            RenderShadowPass(scene);
+            RenderCompositeQuad(scene);
+        }
+
+        private void InitPorgrams()
+        {
+            Framebuffer.Unbind(FramebufferTarget.Framebuffer);
+            GL.BindTexture(TextureTarget.Texture2D, 0);
+            _compositionProgram.Use();
+            _compositionProgram.Diffuse.BindTexture(TextureUnit.Texture0, _colorBuffer);
+            _compositionProgram.Normal.BindTexture(TextureUnit.Texture1, _normalBuffer);
+            _compositionProgram.Position.BindTexture(TextureUnit.Texture2, _positionBuffer);
+            _compositionProgram.Emissive.BindTexture(TextureUnit.Texture3, _emissiveBuffer);
+            _depthTextureLocation = GL.GetUniformLocation(_compositionProgram.Handle, "Depth");
+            _quadVao.Bind();
+            _quadVao.BindAttribute(_compositionProgram.InPosition, _screenQuad.VertexBuffer);
+            _quadVao.BindAttribute(_compositionProgram.InTexCoord, _screenQuad.TexCoordBuffer);
+        }
+
+        private void RenderSky(Scene3D scene)
+        {
+            //GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         }
 
         private void RenderScene(Scene3D scene)
@@ -307,23 +377,13 @@ namespace Simplex.Core.Rendering
             GL.BindTexture(TextureTarget.Texture2D, 0);
         }
 
+       
+
         /// <summary>
-        /// renders the scene
+        /// needs to be called whenever the viewport has been resized
         /// </summary>
-        /// <param name="scene">the scene to be rendered</param>
-        public void Render(Scene3D scene)
-        {
-            GL.ClearColor(Color4.MidnightBlue);
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit | ClearBufferMask.StencilBufferBit);
-
-            RenderDirectionalLight(scene);
-            RenderScene(scene);
-            
-            // RenderLightPass(scene);
-            RenderShadowPass(scene);
-            RenderCompositeQuad(scene);
-        }
-
+        /// <param name="width">new widht of the viewport</param>
+        /// <param name="height">new height of the viewport</param>
         public void ResizeFrameBuffer(int width, int height)
         {
             if (width == 0 || height == 0)
