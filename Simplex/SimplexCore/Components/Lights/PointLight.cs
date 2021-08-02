@@ -7,8 +7,6 @@ namespace Simplex.Core.Components
 {
     public class PointLight : LightBase
     {
-        public PointLight(SceneNode parent) : base(parent)
-        {
-        }
+      
     }
 }

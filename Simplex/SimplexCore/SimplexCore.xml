@@ -91,6 +91,27 @@
               Looks up a localized resource of type System.Byte[].
             </summary>
         </member>
+        <member name="T:Simplex.Core.Components.ComponentBase">
+            <summary>
+            base class for a component that can be attached to a scenenode
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Components.ComponentBase.Parent">
+            <summary>
+            the parent scenenode, by now needs to get set manually
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Components.ComponentBase.#ctor">
+            <summary>
+            calls the oncreate function
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Components.ComponentBase.OnCreate">
+            <summary>
+            initializaton stuff should happen here
+            gets called by constructor
+            </summary>
+        </member>
         <member name="T:Simplex.Core.Components.MeshComponent">
             <summary>
             base class for mesh information
@@ -616,6 +637,14 @@
             resizing the window and the decorations
             </summary>
         </member>
+        <member name="M:Simplex.Core.Gui.GuiWindow.ContainsPoint(System.Int32,System.Int32)">
+            <summary>
+            checks if the given x and y coords are within the control
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
         <member name="M:Simplex.Core.Gui.GuiWindow.Render(NanoVGDotNet.NanoVG.NvgContext)">
             <summary>
             renders the guiwindow
@@ -625,6 +654,11 @@
         <member name="T:Simplex.Core.Gui.ImageControl">
             <summary>
             Control Element for drawing an imange
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Gui.ImageControl.ImagePath">
+            <summary>
+            sets the path to the image
             </summary>
         </member>
         <member name="M:Simplex.Core.Gui.ImageControl.OnDraw(Simplex.Core.Gui.Control,NanoVGDotNet.NanoVG.NvgContext)">
@@ -731,6 +765,35 @@
             ToDo: implement
             </summary>
         </member>
+        <member name="T:Simplex.Core.Rendering.BoundingBox">
+            <summary>
+            a standard BB implementation
+            if ti should be able to get rendered in wireframe, don't forget to call the init render function
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Rendering.BoundingBox.Finalize">
+            <summary>
+            calls dispose if that did't already happen
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Rendering.BoundingBox.InitRenderer">
+            <summary>
+            initializes the wireframe visualzitation
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Rendering.BoundingBox.Scaled(OpenTK.Mathematics.Vector3)">
+            <summary>
+            returns a new boundig box scaled by the given factor
+            </summary>
+            <param name="scale"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Simplex.Core.Rendering.BoundingBox.Draw(OpenTK.Mathematics.Matrix4@)">
+            <summary>
+            draws the wireframe visualization
+            </summary>
+            <param name="model"></param>
+        </member>
         <member name="T:Simplex.Core.Rendering.PbrMaterial">
             <summary>
             basic class for pbr material
@@ -797,16 +860,61 @@
             Basic ShaderProgram for pbr based rendering 
             </summary>
         </member>
+        <member name="T:Simplex.Core.Rendering.RenderMode">
+            <summary>
+            Mode in which the scene object should be rendered
+            </summary>
+        </member>
+        <member name="F:Simplex.Core.Rendering.RenderMode.SHADED">
+            <summary>
+            fully shaded
+            </summary>
+        </member>
+        <member name="F:Simplex.Core.Rendering.RenderMode.UNLIT">
+            <summary>
+            no lighting
+            </summary>
+        </member>
+        <member name="F:Simplex.Core.Rendering.RenderMode.DEBUG">
+            <summary>
+            additional debug info
+            </summary>
+        </member>
+        <member name="F:Simplex.Core.Rendering.RenderMode.WIREFRAME">
+            <summary>
+            only wireframe
+            </summary>
+        </member>
         <member name="T:Simplex.Core.Rendering.SXRenderer">
             <summary>
             main class for rendering a 3D scene...I guess
             </summary>
+        </member>
+        <member name="P:Simplex.Core.Rendering.SXRenderer.Mode">
+            <summary>
+            Mode in which the scene object should be rendered
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Rendering.SXRenderer.Init(System.Int32,System.Int32)">
+            <summary>
+            initializes the renderer
+            should be called after opengl context has been created
+            </summary>
+            <param name="width">width of the visual area</param>
+            <param name="height">height of the visual area</param>
         </member>
         <member name="M:Simplex.Core.Rendering.SXRenderer.Render(Simplex.Core.Scene.Scene3D)">
             <summary>
             renders the scene
             </summary>
             <param name="scene">the scene to be rendered</param>
+        </member>
+        <member name="M:Simplex.Core.Rendering.SXRenderer.ResizeFrameBuffer(System.Int32,System.Int32)">
+            <summary>
+            needs to be called whenever the viewport has been resized
+            </summary>
+            <param name="width">new widht of the viewport</param>
+            <param name="height">new height of the viewport</param>
         </member>
         <member name="T:Simplex.Core.Rendering.Shape">
             <summary>
@@ -818,6 +926,42 @@
             there may be a colored, indexed shape with vertices, indices and colors
             there may be a colored shape with vertices and colors but no indices...
             </summary>
+        </member>
+        <member name="T:Simplex.Core.Rendering.TexturedCube">
+            <summary>
+            a basic textured cube mesh
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Rendering.TexturedCube.#ctor">
+            <summary>
+            default constructor that initializes the buffers
+            </summary>
+        </member>
+        <member name="T:Simplex.Core.Rendering.TexturedShape">
+            <summary>
+            Base class for creating textured shapes
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Rendering.TexturedShape.TexCoords">
+            <summary>
+            the texture coordinates the buffer gets filled with
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Rendering.TexturedShape.TexCoordBuffer">
+            <summary>
+            the texture coordinate buffer
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Rendering.TexturedShape.UpdateBuffers">
+            <summary>
+            Initialiazes/Updates the buffers. Should be called after creation
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Rendering.TexturedShape.Dispose(System.Boolean)">
+            <summary>
+            disposes the nested buffers
+            </summary>
+            <param name="manual"></param>
         </member>
         <member name="T:Simplex.Core.Rendering.SXProgramFactory">
             <summary>
@@ -895,6 +1039,47 @@
             lets the camera rotate to look at a specific position
             </summary>
             <param name="target"></param>
+        </member>
+        <member name="P:Simplex.Core.Scene.LightNode.LightType">
+            <summary>
+            the internal type of the light
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Scene.LightNode.CastsShadow">
+            <summary>
+            determines if the light casts shadows
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Scene.LightNode.ShadowMapSize">
+            <summary>
+            the size of the shadowmap, default is 1024
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Scene.LightNode.Attentuation">
+            <summary>
+            the attentuation for the light,defaults to 100
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Scene.LightNode.Power">
+            <summary>
+            the power of the light, defaults to 1
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Scene.LightNode.LightColor">
+            <summary>
+            the main color of the light, defaults to white
+            </summary>
+        </member>
+        <member name="P:Simplex.Core.Scene.LightNode.Light">
+            <summary>
+            the nested light component
+            </summary>
+        </member>
+        <member name="M:Simplex.Core.Scene.LightNode.Render(Simplex.Core.Scene.Camera)">
+            <summary>
+            renders the light for the given camera
+            </summary>
+            <param name="cam"></param>
         </member>
         <member name="T:Simplex.Core.Scene.Scene3D">
             <summary>

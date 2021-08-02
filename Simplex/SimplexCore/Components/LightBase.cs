@@ -9,8 +9,7 @@ namespace Simplex.Core.Components
     public abstract class LightBase : ComponentBase,IDisposable
     {
 
-        public LightBase(SceneNode parent) : base(parent) { }
-
+       
         public virtual void Dispose()
         {
            

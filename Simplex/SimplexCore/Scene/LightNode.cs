@@ -13,14 +13,17 @@ namespace Simplex.Core.Scene {
     
     public class LightNode : SceneNode{
         private LightTypes _lightType = LightTypes.POINT;
-        private bool _castsShadow;
+        private bool _castsShadow = true;
         private int _shadowMapSize=1024;
-        private int _attentuation;
+        private int _attentuation = 100;
         private LightBase _light;
-        private float _power;
+        private float _power = 1.0f;
 
         private Color4 _lightColor = Color4.White;
 
+        /// <summary>
+        /// the internal type of the light
+        /// </summary>
         public LightTypes LightType { get => _lightType; set => SetLightType(value); }
 
         private void SetLightType(LightTypes value)
@@ -35,20 +38,43 @@ namespace Simplex.Core.Scene {
             
             switch (value)
             {
-                case LightTypes.DIRECTIONAL: _light = new DirectionalLight(this);break;
-                case LightTypes.POINT: _light = new PointLight(this);break;
-                case LightTypes.SPOT: _light = new SpotLight(this);break;
+                case LightTypes.DIRECTIONAL: _light = new DirectionalLight();break;
+                case LightTypes.POINT: _light = new PointLight();break;
+                case LightTypes.SPOT: _light = new SpotLight();break;
 
             }
+            _light.Parent = this;
         }
 
+        /// <summary>
+        /// determines if the light casts shadows
+        /// </summary>
         public bool CastsShadow { get => _castsShadow; set => _castsShadow = value; }
+        /// <summary>
+        /// the size of the shadowmap, default is 1024
+        /// </summary>
         public int ShadowMapSize { get => _shadowMapSize; set => _shadowMapSize = value; }
+        /// <summary>
+        /// the attentuation for the light,defaults to 100
+        /// </summary>
         public int Attentuation { get => _attentuation; set => _attentuation = value; }
+        /// <summary>
+        /// the power of the light, defaults to 1
+        /// </summary>
         public float Power { get => _power; set => _power = value; }
+        /// <summary>
+        /// the main color of the light, defaults to white
+        /// </summary>
         public Color4 LightColor { get => _lightColor; set => _lightColor = value; }
+        /// <summary>
+        /// the nested light component
+        /// </summary>
         public LightBase Light { get => _light; }
 
+        /// <summary>
+        /// renders the light for the given camera
+        /// </summary>
+        /// <param name="cam"></param>
         public void Render(Camera cam)
         {
 
@@ -81,10 +107,7 @@ namespace Simplex.Core.Scene {
            
         }
 
-        public override void LookAt(in Vector3 target)
-        {
-            base.LookAt(target);
-        }
+
     }
 
 }

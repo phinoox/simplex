@@ -14,12 +14,24 @@ using OpenTK.Mathematics;
 
 namespace Simplex.Core.Rendering
 {
+    /// <summary>
+    /// Base class for creating textured shapes
+    /// </summary>
     public abstract class TexturedShape
         : Shape
     {
+        /// <summary>
+        /// the texture coordinates the buffer gets filled with
+        /// </summary>
         public Vector2[] TexCoords { get; protected set; }
+        /// <summary>
+        /// the texture coordinate buffer
+        /// </summary>
         public Buffer<Vector2> TexCoordBuffer { get; protected set; }
 
+        /// <summary>
+        /// Initialiazes/Updates the buffers. Should be called after creation
+        /// </summary>
         public override void UpdateBuffers()
         {
             base.UpdateBuffers();
@@ -27,6 +39,10 @@ namespace Simplex.Core.Rendering
             TexCoordBuffer.Init(BufferTarget.ArrayBuffer, TexCoords);
         }
 
+        /// <summary>
+        /// disposes the nested buffers
+        /// </summary>
+        /// <param name="manual"></param>
         protected override void Dispose(bool manual)
         {
             base.Dispose(manual);

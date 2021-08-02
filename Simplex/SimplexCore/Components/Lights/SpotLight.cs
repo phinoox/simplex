@@ -7,6 +7,6 @@ namespace Simplex.Core.Components
 {
     public class SpotLight : LightBase
     {
-        public SpotLight(SceneNode parent) : base(parent) { }
+       
     }
 }

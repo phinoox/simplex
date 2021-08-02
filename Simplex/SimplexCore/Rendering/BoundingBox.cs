@@ -10,33 +10,38 @@ using System;
 namespace Simplex.Core.Rendering
 {
 
-
+    /// <summary>
+    /// a standard BB implementation
+    /// if ti should be able to get rendered in wireframe, don't forget to call the init render function
+    /// </summary>
     public class BoundingBox : IDisposable
     {
         private static WireFrameProgram _shader;
         private bool disposed = false;
         private VertexArray _cubeVao;
         private WireFrameCube _cube;
-        private SceneNode _parent;
         private static int _count =0;
         private int id = 0;
         private Vector3 _min = new Vector3(-0.5f);
         private Vector3 _max = new Vector3(0.5f);
-        private Vector3 _offset = new Vector3();
-        private Vector3 _scale = new Vector3(1);
         
         public Vector3 Max { get => _max; set => _max = value; }
         public Vector3 Min { get => _min; set => _min = value; }
 
         public Vector3 Center { get { return _min + ((_max - _min) * 0.5f); } }
 
-
+        /// <summary>
+        /// calls dispose if that did't already happen
+        /// </summary>
         ~BoundingBox()
         {
             if (!disposed)
                 Dispose();
         }
 
+        /// <summary>
+        /// initializes the wireframe visualzitation
+        /// </summary>
         public void InitRenderer()
         {
            // _parent = parent;
@@ -58,6 +63,11 @@ namespace Simplex.Core.Rendering
 
         }
 
+        /// <summary>
+        /// returns a new boundig box scaled by the given factor
+        /// </summary>
+        /// <param name="scale"></param>
+        /// <returns></returns>
         public BoundingBox Scaled(Vector3 scale)
         {
             BoundingBox box = new BoundingBox();
@@ -66,6 +76,10 @@ namespace Simplex.Core.Rendering
             return box;
         }
 
+        /// <summary>
+        /// draws the wireframe visualization
+        /// </summary>
+        /// <param name="model"></param>
         public void Draw(in Matrix4 model)
         {
             Vector3 size = (Max - Min)*0.5f;

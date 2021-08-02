@@ -13,6 +13,11 @@ namespace Simplex.Core.Gui
         private int image;
         private string imagePath;
 
+        /// <summary>
+        /// sets the path to the image
+        /// </summary>
+        public string ImagePath { get => imagePath; set => imagePath = value; }
+
         #endregion Private Fields
 
         #region Protected Methods

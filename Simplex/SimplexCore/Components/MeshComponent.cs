@@ -304,8 +304,7 @@ namespace Simplex.Core.Components
         public BoundingBox Bounds { get => _bounds; set => _bounds = value; }
         public bool DrawBounds { get => _drawBounds; set => _drawBounds = value; }
 
-        public MeshComponent(SceneNode parent) : base(parent) { }
-
+      
         ~MeshComponent()
         {
             if (!_disposed)

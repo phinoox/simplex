@@ -244,7 +244,7 @@ namespace Simplex.Core.Loaders
             List<MeshComponent> meshes = new List<MeshComponent>();
             foreach (GLTF.Mesh gltfMesh in gltf.Meshes)
             {
-                MeshComponent mesh = new MeshComponent(null);
+                MeshComponent mesh = new MeshComponent();
                 foreach (GLTF.MeshPrimitive gltfPrimitive in gltfMesh.Primitives)
                 {
                     MeshPrimitive primitive = new MeshPrimitive();

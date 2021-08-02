@@ -14,15 +14,13 @@ namespace Simplex.Core.Components
     {
         int[] _depthTextures;
         int _shadowmapSize = 2048;
-        int cascades = 3;
         int[] cascadeDepths = new int[] { 10, 30, 100 };
         Framebuffer _frameBuffer;
 
         public int[] DepthTextures { get => _depthTextures; set => _depthTextures = value; }
         public int[] CascadeDepths { get => cascadeDepths; set => cascadeDepths = value; }
 
-        public DirectionalLight(SceneNode parent) : base(parent) { }
-
+        
         protected override void OnRender(Matrix4 mvp)
         {
             base.OnRender(mvp);

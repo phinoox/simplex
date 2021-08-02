@@ -114,6 +114,12 @@ namespace Simplex.Core.Gui
 
         #region Public Methods
 
+        /// <summary>
+        /// checks if the given x and y coords are within the control
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public override bool ContainsPoint(int x, int y)
         {
             if (titleLabel.ContainsPoint(x, y))

@@ -15,9 +15,15 @@ using System.Linq;
 
 namespace Simplex.Core.Rendering
 {
+    /// <summary>
+    /// a basic textured cube mesh
+    /// </summary>
     public class TexturedCube
         : TexturedShape
     {
+        /// <summary>
+        /// default constructor that initializes the buffers
+        /// </summary>
         public TexturedCube()
         {
             DefaultMode = PrimitiveType.Triangles;
