@@ -39,6 +39,7 @@ namespace Simplex.Core.Loaders
         /// <returns></returns>
         public SceneNode LoadMesh(string path)
         {
+
             SceneNode rootNode = new SceneNode();
             string dirName = Path.GetDirectoryName(path) + Path.DirectorySeparatorChar;
             if (!File.Exists(path))

@@ -157,7 +157,7 @@ namespace Simplex.Core.Rendering
             // check for multiple includes of the same section
             if (included.Contains(section))
             {
-                Logger.WarnFormat("Shader already included: {0}", effectKey);
+                Logger?.WarnFormat("Shader already included: {0}", effectKey);
                 return "";
             }
             included.Add(section);

@@ -68,17 +68,17 @@ vec4 CalcSkyColor(vec2 texCoord,vec3 eyeDir){
 }
 
 
-float CalcShadow(){
+float CalcShadow(sampler2D tex){
 	float base = 1;
 	float tox = base / 512;
 	float toy = base / 512;
 	int distance = 1;
 	float shadowFinal=0;
 	for(int i=-distance;i<=distance;i++){
-		shadowFinal += textureLod(Normal, TexCoord + vec2(tox * i       ,toy * i),0).w;
-		shadowFinal += textureLod(Normal, TexCoord + vec2(tox * (i * -1),toy * i),0).w;
-		shadowFinal += textureLod(Normal, TexCoord + vec2(0             ,toy * i),0).w;
-		shadowFinal += textureLod(Normal, TexCoord + vec2(tox * i       ,0      ),0).w;
+		shadowFinal += textureLod(tex, TexCoord + vec2(tox * i       ,toy * i),0).w;
+		shadowFinal += textureLod(tex, TexCoord + vec2(tox * (i * -1),toy * i),0).w;
+		shadowFinal += textureLod(tex, TexCoord + vec2(0             ,toy * i),0).w;
+		shadowFinal += textureLod(tex, TexCoord + vec2(tox * i       ,0      ),0).w;
 	}
 	float div = 4 * ((distance*2)+1);
 
@@ -124,7 +124,7 @@ void main()
 	  FragColor = CalcSkyColor(TexCoord,EyeDir);
 	  return;	
 	}
-	float shadow = 1 - CalcShadow();
+	float shadow = 1 - CalcShadow(Emissive);
 	vec4 lightColor = vec4(shadow,shadow,shadow,1) + Ambient;
 	vec3 diffuse = textureLod(Diffuse, TexCoord,0).rgb;
 	FragColor = vec4(diffuse,1) * lightColor;

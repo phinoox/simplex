@@ -228,7 +228,7 @@ namespace Simplex.Editor
             if(directional!=null)
                 directional.RotateY(delta*0.001f);*/
             //cam.RotateY(moveStep);
-            _directionalLight.Parent.Yaw(delta * 0.01f,false);
+            _directionalLight.Parent.Yaw(delta * 0.001f,false);
 
             if (gltfMesh != null && false)
             {

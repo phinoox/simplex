@@ -246,8 +246,9 @@ namespace Simplex.Core.Components
             ShadowMapSimpleProgramm.Instance.LightSpaceMatrix.Set(GlobalUniforms.LightSpaceMatrix);
             ShadowMapSimpleProgramm.Instance.View.Set(GlobalUniforms.View);
             ShadowMapSimpleProgramm.Instance.Projection.Set(GlobalUniforms.Projection);
+            GL.BindTexture(TextureTarget.Texture2D, GlobalUniforms.ShadowMap);
 
-            
+
             _vao.Bind();
             _vao.BindAttribute(ShadowMapSimpleProgramm.Instance.InPosition, _vbo);
             if (_indexBuffer == null)

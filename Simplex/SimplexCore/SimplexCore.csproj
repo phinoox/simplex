@@ -32,4 +32,8 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Rendering\PostProcesses\" />
+  </ItemGroup>
+
 </Project>

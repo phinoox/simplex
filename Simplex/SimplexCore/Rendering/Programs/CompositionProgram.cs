@@ -8,13 +8,14 @@ using OpenTK.Graphics.OpenGL4;
 
 namespace Simplex.Core.Rendering
 {
-    [VertexShaderSource("PbrComposite.Vertex")]
+    [VertexShaderSource("ScreenQuad_v.Vertex")]
     [FragmentShaderSource("PbrComposite.Fragment")]
     public class CompositionProgram : ProgramBase
     {
         public Uniform<bool> Debug { get; set ;}
         public Uniform<Vector2> ViewPortSize { get; protected set; }
         public Uniform<Color4> Ambient { get; set; }
+        public Uniform<Vector3> EyeDir { get; set; }
 
         public Uniform<Matrix4> ModelViewProjectionMatrix { get; protected set; }
         public TextureUniform Diffuse { get; set; }
